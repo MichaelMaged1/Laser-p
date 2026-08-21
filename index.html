@@ -6,9 +6,8 @@
   <meta name="theme-color" content="#f97316">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
   <title>حاسبة إنتاج قسم الليزر | لوحة تحكم المصنع</title>
-
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -25,33 +24,25 @@
       --text: #f8fafc;
       --text-muted: #94a3b8;
       --text-dim: #64748b;
-
       --laser: #f97316;
       --laser-glow: rgba(249, 115, 22, 0.25);
       --laser-gradient: linear-gradient(135deg, #fb923c, #ea580c);
-
       --denim: #38bdf8;
       --denim-dark: #0284c7;
       --denim-dim: rgba(56, 189, 248, 0.12);
-
       --success: #10b981;
       --success-dim: rgba(16, 185, 129, 0.12);
-
       --danger: #ef4444;
       --danger-dim: rgba(239, 68, 68, 0.12);
-
       --warning: #f59e0b;
       --warning-dim: rgba(245, 158, 11, 0.12);
-
       --radius-sm: 8px;
       --radius: 14px;
       --radius-lg: 20px;
-
       --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.25);
       --shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
       --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.5);
       --shadow-laser: 0 4px 20px rgba(249, 115, 22, 0.35);
-
       --font-main: 'Cairo', system-ui, -apple-system, sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
     }
@@ -67,37 +58,25 @@
       --text: #0f172a;
       --text-muted: #475569;
       --text-dim: #94a3b8;
-
       --laser: #ea580c;
       --laser-glow: rgba(234, 88, 12, 0.15);
       --laser-gradient: linear-gradient(135deg, #f97316, #ea580c);
-
       --denim: #0284c7;
       --denim-dark: #0369a1;
       --denim-dim: rgba(2, 132, 199, 0.08);
-
       --success: #059669;
       --success-dim: rgba(5, 150, 105, 0.1);
-
       --danger: #dc2626;
       --danger-dim: rgba(220, 38, 38, 0.1);
-
       --warning: #d97706;
       --warning-dim: rgba(217, 119, 6, 0.1);
-
       --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.04);
       --shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
       --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.08);
       --shadow-laser: 0 4px 16px rgba(234, 88, 12, 0.25);
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      -webkit-tap-highlight-color: transparent;
-    }
-
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
     body {
       font-family: var(--font-main);
       background-color: var(--bg);
@@ -110,1783 +89,285 @@
       transition: background-color 0.3s ease, color 0.3s ease;
     }
 
-    button,
-    input,
-    select {
-      font-family: inherit;
-    }
-
-    .app-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 16px;
-      padding: 4px 2px;
-    }
-
-    .brand-group {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .brand-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
-      background: var(--laser-gradient);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: var(--shadow-laser);
-      color: #fff;
-      flex-shrink: 0;
-    }
-
-    .brand-icon svg {
-      width: 22px;
-      height: 22px;
-    }
-
-    .brand-title {
-      font-size: 18px;
-      font-weight: 800;
-      color: var(--text);
-      line-height: 1.2;
-    }
-
-    .brand-subtitle {
-      font-size: 11.5px;
-      color: var(--laser);
-      font-weight: 600;
-      letter-spacing: 0.3px;
-    }
-
-    .header-actions {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .icon-btn {
-      width: 38px;
-      height: 38px;
-      border-radius: 8px;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      color: var(--text-muted);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .icon-btn:hover,
-    .icon-btn:active {
-      color: var(--text);
-      border-color: var(--laser);
-      background: var(--bg-card-hover);
-    }
-
-    .icon-btn svg {
-      width: 18px;
-      height: 18px;
-    }
-
-    .toast-msg {
-      position: fixed;
-      top: 14px;
-      left: 50%;
-      transform: translateX(-50%) translateY(-60px);
-      background: var(--bg-surface);
-      color: var(--text);
-      border: 1px solid var(--border);
-      padding: 8px 16px;
-      border-radius: 30px;
-      font-size: 12.5px;
-      font-weight: 600;
-      box-shadow: var(--shadow-lg);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      z-index: 1000;
-      opacity: 0;
-      transition:
-        transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
-        opacity 0.3s ease;
-      pointer-events: none;
-      white-space: nowrap;
-    }
-
-    .toast-msg.show {
-      transform: translateX(-50%) translateY(0);
-      opacity: 1;
-    }
-
-    .toast-msg.success {
-      border-color: var(--success);
-      color: var(--success);
-    }
-
-    .toast-msg.danger {
-      border-color: var(--danger);
-      color: var(--danger);
-    }
-
-    .card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 16px 14px;
-      margin-bottom: 14px;
-      box-shadow: var(--shadow);
-      position: relative;
-    }
-
-    .card-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 12px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .card-title {
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--text);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .card-title svg {
-      width: 17px;
-      height: 17px;
-      color: var(--laser);
-      flex-shrink: 0;
-    }
-
-    .form-group {
-      margin-bottom: 10px;
-    }
-
-    .form-group:last-child {
-      margin-bottom: 0;
-    }
-
-    label {
-      display: block;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--text-muted);
-      margin-bottom: 5px;
-    }
-
-    input,
-    select,
-    textarea {
-      width: 100%;
-      height: 44px;
-      background: var(--bg-input);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 0 12px;
-      font-size: 14px;
-      color: var(--text);
-      transition: all 0.2s ease;
-      outline: none;
-      -webkit-appearance: none;
-      appearance: none;
-    }
-
-    select {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2394a3b8'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: left 10px center;
-      background-size: 14px;
-      padding-left: 32px;
-    }
-
-    input:focus,
-    select:focus,
-    textarea:focus {
-      border-color: var(--border-focus);
-      box-shadow: 0 0 0 3px var(--laser-glow);
-    }
-
-    input[type="time"] {
-      font-family: var(--font-mono);
-      font-size: 14.5px;
-      font-weight: 600;
-      text-align: center;
-      letter-spacing: 0.5px;
-      padding: 0 6px;
-    }
-
-    input[type="number"] {
-      font-family: var(--font-mono);
-      font-size: 14.5px;
-      font-weight: 600;
-      direction: ltr;
-      text-align: center;
-    }
-
-    input::-webkit-outer-spin-button,
-    input::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
-
-    input[type="number"] {
-      -moz-appearance: textfield;
-    }
-
-    .grid-2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-    }
-
-    .time-grid-responsive {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-    }
-
-    .shift-select-box {
-      margin-bottom: 12px;
-    }
-
-    .shift-select-custom {
-      height: 46px;
-      background: var(--bg-surface);
-      border: 1.5px solid var(--border);
-      border-radius: 10px;
-      padding: 0 14px 0 38px;
-      font-size: 13.5px;
-      font-weight: 700;
-      color: var(--text);
-      cursor: pointer;
-      box-shadow: var(--shadow-sm);
-      transition: all 0.2s ease;
-    }
-
-    .shift-select-custom:focus {
-      border-color: var(--laser);
-      box-shadow: 0 0 0 3px var(--laser-glow);
-    }
-
-    .shift-summary-ribbon {
-      background: var(--bg-surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 8px 6px;
-      display: flex;
-      align-items: center;
-      justify-content: space-around;
-      gap: 4px;
-      margin-top: 10px;
-      font-size: 12px;
-    }
-
-    .ribbon-item {
-      text-align: center;
-      flex: 1;
-      min-width: 0;
-      padding: 0 2px;
-    }
-
-    .ribbon-item:not(:last-child) {
-      border-inline-end: 1px solid var(--border);
-    }
-
-    .ribbon-label {
-      color: var(--text-dim);
-      margin-bottom: 2px;
-      font-size: 10.5px;
-      white-space: nowrap;
-    }
-
-    .ribbon-value {
-      font-family: var(--font-mono);
-      font-weight: 700;
-      font-size: 12.5px;
-      color: var(--laser);
-      white-space: nowrap;
-    }
-
-    .ribbon-value.ok {
-      color: var(--success);
-    }
-
-    .ribbon-value.warning {
-      color: var(--warning);
-    }
-
-    .machine-tabs {
-      display: flex;
-      gap: 5px;
-      overflow-x: auto;
-      padding: 2px 2px 8px;
-      margin-bottom: 4px;
-      scrollbar-width: none;
-      -webkit-overflow-scrolling: touch;
-      scroll-snap-type: x mandatory;
-    }
-
-    .machine-tabs::-webkit-scrollbar {
-      display: none;
-    }
-
-    .tab-btn {
-      flex: 1;
-      min-width: 66px;
-      height: 38px;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      color: var(--text-muted);
-      font-size: 12.5px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 5px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      white-space: nowrap;
-      padding: 0 8px;
-      scroll-snap-align: start;
-    }
-
-    .tab-btn:hover {
-      border-color: var(--border-focus);
-      color: var(--text);
-    }
-
-    .tab-btn.active {
-      background: var(--laser-gradient);
-      border-color: transparent;
-      color: #ffffff;
-      box-shadow: var(--shadow-laser);
-    }
-
-    .tab-badge {
-      font-size: 10px;
-      background: rgba(255, 255, 255, 0.25);
-      color: #fff;
-      padding: 1px 5px;
-      border-radius: 8px;
-      font-family: var(--font-mono);
-    }
-
-    .tab-btn:not(.active) .tab-badge {
-      background: var(--bg-input);
-      color: var(--text-dim);
-    }
-
-    .machine-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 14px 12px;
-      margin-bottom: 12px;
-      box-shadow: var(--shadow);
-      position: relative;
-      overflow: hidden;
-      transition: transform 0.2s ease, border-color 0.2s ease;
-    }
-
-    .machine-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      inset-inline-start: 0;
-      width: 4px;
-      background: linear-gradient(180deg, var(--denim), var(--laser));
-    }
-
-    .machine-top-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 12px;
-    }
-
-    .machine-name-title {
-      font-size: 15px;
-      font-weight: 800;
-      color: var(--denim);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .machine-name-title .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--denim);
-      box-shadow: 0 0 8px var(--denim);
-      display: inline-block;
-    }
-
-    .machine-status-tag {
-      font-size: 11px;
-      font-weight: 600;
-      padding: 2px 7px;
-      border-radius: 6px;
-      background: var(--bg-input);
-      color: var(--text-dim);
-      border: 1px solid var(--border);
-    }
-
-    .stepper-box {
-      background: var(--bg-surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 8px 10px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      margin-bottom: 10px;
-    }
-
-    .stepper-label {
-      font-size: 12.5px;
-      font-weight: 600;
-      color: var(--text);
-    }
-
-    .stepper-controls {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .step-btn {
-      width: 32px;
-      height: 32px;
-      border-radius: 6px;
-      background: var(--bg-input);
-      border: 1px solid var(--border);
-      color: var(--text);
-      font-weight: 700;
-      font-size: 15px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.15s ease;
-    }
-
-    .step-btn:hover,
-    .step-btn:active {
-      background: var(--laser);
-      color: #fff;
-      border-color: var(--laser);
-    }
-
-    .stepper-controls input {
-      width: 52px;
-      height: 32px;
-      font-size: 14px;
-      font-weight: 700;
-      padding: 0;
-    }
-
-    .drawer-btn {
-      width: 100%;
-      height: 42px;
-      background: var(--bg-surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 0 12px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      color: var(--text);
-      font-size: 13px;
-      font-weight: 700;
-      cursor: pointer;
-      margin-bottom: 6px;
-      transition: all 0.2s ease;
-    }
-
-    .drawer-btn:hover {
-      background: var(--bg-card-hover);
-      border-color: var(--denim);
-    }
-
-    .drawer-btn .drawer-val {
-      font-family: var(--font-mono);
-      font-size: 12px;
-      color: var(--laser);
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .drawer-btn .chev {
-      font-size: 13px;
-      transition: transform 0.25s ease;
-      color: var(--text-dim);
-    }
-
-    .drawer-btn.open {
-      border-bottom-left-radius: 0;
-      border-bottom-right-radius: 0;
-      border-color: var(--border-focus);
-      background: var(--bg-card-hover);
-    }
-
-    .drawer-btn.open .chev {
-      transform: rotate(90deg);
-      color: var(--laser);
-    }
-
-    .drawer-content {
-      display: none;
-      background: var(--bg-surface);
-      border: 1px solid var(--border);
-      border-top: none;
-      border-radius: 0 0 8px 8px;
-      padding: 12px;
-      margin-bottom: 10px;
-      animation: fadeIn 0.2s ease-out;
-    }
-
-    .drawer-content.open {
-      display: block;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(-4px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .client-entry {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 10px;
-      margin-bottom: 8px;
-      box-shadow: var(--shadow-sm);
-      position: relative;
-    }
-
-    .client-entry:last-child {
-      margin-bottom: 10px;
-    }
-
-    .client-entry-row1 {
-      display: grid;
-      grid-template-columns: 1.4fr 1fr 1fr 1fr;
-      gap: 6px;
-      margin-bottom: 8px;
-    }
-
-    .client-entry-row2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr 38px;
-      gap: 6px;
-      align-items: center;
-    }
-
-    .del-client-btn {
-      width: 38px;
-      height: 40px;
-      background: var(--danger-dim);
-      color: var(--danger);
-      border: 1px solid transparent;
-      border-radius: 6px;
-      font-size: 18px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s;
-    }
-
-    .del-client-btn:hover {
-      background: var(--danger);
-      color: #fff;
-    }
-
-    .add-client-btn {
-      width: 100%;
-      height: 38px;
-      background: var(--denim-dim);
-      color: var(--denim);
-      border: 1px dashed var(--denim);
-      border-radius: 6px;
-      font-size: 12.5px;
-      font-weight: 700;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 5px;
-      transition: all 0.2s ease;
-    }
-
-    .add-client-btn:hover {
-      background: var(--denim);
-      color: #fff;
-    }
-
-    .stoppage-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      margin-bottom: 8px;
-    }
-
-    .bottom-action-bar {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: rgba(17, 24, 39, 0.92);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-top: 1px solid var(--border);
-      padding: 8px 12px calc(8px + env(safe-area-inset-bottom, 8px));
-      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.4);
-      z-index: 900;
-      display: flex;
-      gap: 8px;
-      max-width: 820px;
-      margin: 0 auto;
-    }
-
-    [data-theme="light"] .bottom-action-bar {
-      background: rgba(255, 255, 255, 0.92);
-    }
-
-    .btn-main-calc {
-      flex: 2;
-      height: 46px;
-      background: var(--laser-gradient);
-      color: #ffffff;
-      border: none;
-      border-radius: 10px;
-      font-size: 15px;
-      font-weight: 800;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      cursor: pointer;
-      box-shadow: var(--shadow-laser);
-      transition: all 0.2s ease;
-    }
-
-    .btn-main-calc:active {
-      transform: scale(0.98);
-    }
-
-    .btn-secondary {
-      flex: 1;
-      height: 46px;
-      background: var(--bg-card);
-      color: var(--denim);
-      border: 1px solid var(--denim);
-      border-radius: 10px;
-      font-size: 13px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 5px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .btn-secondary:hover {
-      background: var(--denim-dim);
-    }
-
-    .btn-secondary svg,
-    .btn-main-calc svg {
-      width: 17px;
-      height: 17px;
-    }
-
-    #resultsContainer {
-      display: none;
-      margin-top: 18px;
-      animation: slideUp 0.3s ease-out;
-    }
-
-    @keyframes slideUp {
-      from {
-        opacity: 0;
-        transform: translateY(16px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .kpi-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      margin-bottom: 12px;
-    }
-
-    .kpi-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 12px 8px;
-      text-align: center;
-      box-shadow: var(--shadow);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .kpi-card.hero {
-      background: linear-gradient(145deg, var(--bg-card), var(--bg-card-hover));
-      border-color: var(--laser);
-    }
-
-    .kpi-card.hero::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: var(--laser-gradient);
-    }
-
-    .kpi-icon {
-      font-size: 18px;
-      margin-bottom: 2px;
-      display: block;
-    }
-
-    .kpi-title {
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--text-muted);
-      margin-bottom: 2px;
-    }
-
-    .kpi-num {
-      font-family: var(--font-mono);
-      font-size: 22px;
-      font-weight: 800;
-      color: var(--laser);
-      line-height: 1.1;
-    }
-
-    .kpi-num.denim {
-      color: var(--denim);
-    }
-
-    .kpi-num.success {
-      color: var(--success);
-    }
-
-    .kpi-num.warning {
-      color: var(--warning);
-    }
-
-    .kpi-unit {
-      font-size: 10.5px;
-      color: var(--text-dim);
-      font-weight: 600;
-    }
-
-    .table-responsive {
-      width: 100%;
-      overflow-x: auto;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      margin-top: 8px;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 12.5px;
-      text-align: center;
-      background: var(--bg-surface);
-      white-space: nowrap;
-    }
-
-    th {
-      background: var(--bg-input);
-      color: var(--text-muted);
-      font-weight: 700;
-      font-size: 11.5px;
-      padding: 10px 8px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    td {
-      padding: 10px 8px;
-      border-bottom: 1px solid var(--border);
-      color: var(--text);
-      font-family: var(--font-mono);
-      font-size: 12.5px;
-    }
-
-    td.text-cell {
-      font-family: var(--font-main);
-      font-weight: 700;
-      text-align: right;
-    }
-
-    tfoot td {
-      font-weight: 800;
-      background: var(--bg-input);
-      border-top: 2px solid var(--border);
-    }
-
-    tr:last-child td {
-      border-bottom: none;
-    }
-
-    .tag-badge {
-      display: inline-block;
-      padding: 2px 7px;
-      border-radius: 5px;
-      font-size: 11px;
-      font-weight: 700;
-      font-family: var(--font-main);
-    }
-
-    .tag-badge.laser {
-      background: var(--laser-glow);
-      color: var(--laser);
-    }
-
-    .tag-badge.denim {
-      background: var(--denim-dim);
-      color: var(--denim);
-    }
-
-    .machine-bars {
-      margin-top: 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .bar-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 11.5px;
-    }
-
-    .bar-label {
-      width: 58px;
-      font-weight: 700;
-      color: var(--text-muted);
-    }
-
-    .bar-track {
-      flex: 1;
-      height: 7px;
-      background: var(--bg-input);
-      border-radius: 4px;
-      overflow: hidden;
-    }
-
-    .bar-fill {
-      height: 100%;
-      background: var(--laser-gradient);
-      border-radius: 4px;
-      transition: width 0.6s ease;
-    }
-
-    .bar-val {
-      width: 65px;
-      text-align: left;
-      font-family: var(--font-mono);
-      font-weight: 700;
-      color: var(--text);
-    }
-
-    .export-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
-      margin-top: 14px;
-    }
-
-    .btn-action-outline {
-      height: 42px;
-      background: var(--bg-surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      color: var(--text);
-      font-size: 13px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 5px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .btn-action-outline:hover {
-      border-color: var(--laser);
-      color: var(--laser);
-    }
-
-    .btn-action-outline.whatsapp {
-      border-color: #25D366;
-      color: #25D366;
-    }
-
-    .btn-action-outline.whatsapp:hover {
-      background: rgba(37, 211, 102, 0.1);
-    }
-
-    /* النوافذ المنبثقة */
-    .modal-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(4px);
-      z-index: 1200;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
-    }
-
-    .modal-backdrop.open {
-      display: flex;
-      animation: fadeIn 0.2s ease;
-    }
-
-    .modal-box {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 20px 16px;
-      width: 100%;
-      max-width: 360px;
-      box-shadow: var(--shadow-lg);
-      text-align: center;
-    }
-
-    .modal-icon {
-      font-size: 32px;
-      margin-bottom: 10px;
-    }
-
-    .modal-title {
-      font-size: 17px;
-      font-weight: 800;
-      color: var(--text);
-      margin-bottom: 6px;
-    }
-
-    .modal-desc {
-      font-size: 13px;
-      color: var(--text-muted);
-      margin-bottom: 18px;
-      line-height: 1.5;
-    }
-
-    .modal-actions {
-      display: flex;
-      gap: 8px;
-    }
-
-    .modal-btn {
-      flex: 1;
-      height: 42px;
-      border-radius: 8px;
-      font-size: 13.5px;
-      font-weight: 700;
-      cursor: pointer;
-      border: none;
-    }
-
-    .modal-btn.cancel {
-      background: var(--bg-input);
-      border: 1px solid var(--border);
-      color: var(--text);
-    }
-
-    .modal-btn.confirm {
-      background: var(--danger);
-      color: #fff;
-    }
-
-    /* نافذة المعاينة */
-    .preview-modal-container {
-      background: #0f172a;
-      border: none;
-      border-radius: 0;
-      width: 100vw;
-      max-width: 100vw;
-      height: 100vh;
-      max-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      position: fixed;
-      inset: 0;
-      z-index: 9999;
-      overflow: hidden;
-      box-shadow: none;
-    }
-
-    .preview-modal-header {
-      padding: 12px 20px;
-      background: #1e293b;
-      border-bottom: 1px solid #334155;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
-      z-index: 10;
-      flex-shrink: 0;
-    }
-
-    .preview-modal-title {
-      font-size: 15px;
-      font-weight: 800;
-      color: #ffffff;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .preview-modal-actions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .btn-preview-action {
-      height: 38px;
-      padding: 0 14px;
-      border-radius: 8px;
-      font-size: 13px;
-      font-weight: 800;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.2s ease;
-    }
-
-    .btn-preview-action.print {
-      background: var(--laser);
-      color: #ffffff;
-      border: none;
-      box-shadow: 0 2px 8px rgba(249, 115, 22, 0.3);
-    }
-
-    .btn-preview-action.print:hover {
-      opacity: 0.92;
-      transform: translateY(-1px);
-    }
-
-    .btn-preview-action.close {
-      background: #334155;
-      color: #ffffff;
-      border: 1px solid #475569;
-    }
-
-    .btn-preview-action.close:hover {
-      background: var(--danger);
-      color: #ffffff;
-      border-color: var(--danger);
-    }
-
-    .preview-modal-body {
-      flex: 1;
-      overflow-y: auto;
-      background: #090d16;
-      padding: 24px;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-    }
-
-    .preview-modal-body::-webkit-scrollbar {
-      display: none;
-    }
-
-    .a4-preview-sheet {
-      background: #ffffff;
-      color: #0f172a;
-      width: 100%;
-      max-width: 1120px;
-      min-height: 790px;
-      padding: 28px 34px;
-      border-top: 6px solid #f97316;
-      border-radius: 5px;
-      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.45);
-      font-family: var(--font-main);
-      box-sizing: border-box;
-    }
-
-    .a4-preview-sheet * {
-      box-sizing: border-box;
-    }
-
-    .print-header {
-      display: none;
-    }
-
-    .a4-preview-sheet .print-header {
-      display: block !important;
-      margin-bottom: 14px !important;
-      padding-bottom: 12px !important;
-      border-bottom: 2px solid #172554 !important;
-    }
-
-    .a4-preview-sheet .print-brand-row {
-      display: flex !important;
-      align-items: center !important;
-      justify-content: space-between !important;
-      gap: 20px !important;
-      margin-bottom: 10px !important;
-    }
-
-    .a4-preview-sheet .print-factory-name h2 {
-      color: #172554 !important;
-      font-size: 21px !important;
-      font-weight: 900 !important;
-      line-height: 1.2 !important;
-      margin: 0 0 4px !important;
-    }
-
-    .a4-preview-sheet .print-factory-name p {
-      color: #64748b !important;
-      font-size: 11px !important;
-      font-weight: 600 !important;
-      margin: 0 !important;
-    }
-
-    .a4-preview-sheet .print-meta-badge {
-      background: #fff7ed !important;
-      color: #c2410c !important;
-      border: 1.5px solid #f97316 !important;
-      border-radius: 7px !important;
-      padding: 6px 12px !important;
-      font-size: 12px !important;
-      font-weight: 900 !important;
-      white-space: nowrap !important;
-    }
-
-    .a4-preview-sheet .print-meta-grid {
-      display: grid !important;
-      grid-template-columns: repeat(4, 1fr) !important;
-      gap: 8px !important;
-      padding: 9px 12px !important;
-      background: #f8fafc !important;
-      border: 1px solid #cbd5e1 !important;
-      border-radius: 6px !important;
-      color: #334155 !important;
-      font-size: 10px !important;
-    }
-
-    .a4-preview-sheet .print-meta-item strong {
-      color: #ea580c !important;
-    }
-
-    .a4-preview-sheet .card {
-      background: #ffffff !important;
-      border: 1px solid #cbd5e1 !important;
-      border-radius: 7px !important;
-      box-shadow: none !important;
-      padding: 12px 14px !important;
-      margin-bottom: 12px !important;
-    }
-
-    .a4-preview-sheet .card-header {
-      margin-bottom: 9px !important;
-      padding-bottom: 7px !important;
-      border-bottom: 2px solid #f97316 !important;
-    }
-
-    .a4-preview-sheet .card-title {
-      color: #172554 !important;
-      font-size: 14px !important;
-      font-weight: 900 !important;
-    }
-
-    .a4-preview-sheet .card-title svg {
-      display: none !important;
-    }
-
-    .a4-preview-sheet .kpi-grid {
-      display: grid !important;
-      grid-template-columns: repeat(3, 1fr) !important;
-      gap: 10px !important;
-      margin-bottom: 4px !important;
-    }
-
-    .a4-preview-sheet .kpi-card {
-      min-height: 82px !important;
-      padding: 10px 8px !important;
-      background: #f8fafc !important;
-      border: 1px solid #cbd5e1 !important;
-      border-radius: 7px !important;
-      box-shadow: none !important;
-    }
-
-    .a4-preview-sheet .kpi-card.hero {
-      background: #fff7ed !important;
-      border-color: #f97316 !important;
-    }
-
-    .a4-preview-sheet .kpi-card.hero::after {
-      background: #f97316 !important;
-      height: 4px !important;
-    }
-
-    .a4-preview-sheet .kpi-icon {
-      display: none !important;
-    }
-
-    .a4-preview-sheet .kpi-title {
-      color: #475569 !important;
-      font-size: 10px !important;
-      font-weight: 800 !important;
-    }
-
-    .a4-preview-sheet .kpi-num {
-      color: #c2410c !important;
-      font-size: 20px !important;
-      font-weight: 900 !important;
-    }
-
-    .a4-preview-sheet .kpi-num.denim {
-      color: #0369a1 !important;
-    }
-
-    .a4-preview-sheet .kpi-num.warning {
-      color: #b45309 !important;
-    }
-
-    .a4-preview-sheet .kpi-unit {
-      color: #64748b !important;
-      font-size: 9px !important;
-    }
-
-    .a4-preview-sheet .table-responsive {
-      width: 100% !important;
-      margin-top: 5px !important;
-      border: 1px solid #94a3b8 !important;
-      border-radius: 5px !important;
-      overflow: visible !important;
-    }
-
-    .a4-preview-sheet table {
-      width: 100% !important;
-      background: #ffffff !important;
-      color: #0f172a !important;
-      font-size: 10px !important;
-      border-collapse: collapse !important;
-    }
-
-    .a4-preview-sheet th {
-      background: #172554 !important;
-      color: #ffffff !important;
-      border: 1px solid #0f1d43 !important;
-      padding: 6px 5px !important;
-      font-size: 9.5px !important;
-      font-weight: 900 !important;
-      white-space: nowrap !important;
-    }
-
-    .a4-preview-sheet td {
-      color: #0f172a !important;
-      border: 1px solid #cbd5e1 !important;
-      padding: 5px 4px !important;
-      font-size: 9.5px !important;
-      white-space: nowrap !important;
-    }
-
-    .a4-preview-sheet tbody tr:nth-child(even) td {
-      background: #f8fafc !important;
-    }
-
-    .a4-preview-sheet td.text-cell {
-      text-align: right !important;
-      font-weight: 800 !important;
-    }
-
-    .a4-preview-sheet tfoot td {
-      background: #fff7ed !important;
-      color: #172554 !important;
-      border-top: 2px solid #f97316 !important;
-      font-weight: 900 !important;
-    }
-
-    .a4-preview-sheet .tag-badge.laser {
-      background: #ffedd5 !important;
-      color: #c2410c !important;
-      border: 1px solid #fdba74 !important;
-    }
-
-    .a4-preview-sheet .tag-badge.denim {
-      background: #e0f2fe !important;
-      color: #0369a1 !important;
-      border: 1px solid #7dd3fc !important;
-    }
-
-    .print-footer {
-      display: none;
-    }
-
-    .a4-preview-sheet .print-footer {
-      display: flex !important;
-      justify-content: space-between !important;
-      gap: 20px !important;
-      margin-top: 14px !important;
-      padding-top: 9px !important;
-      border-top: 1px solid #cbd5e1 !important;
-      color: #64748b !important;
-      font-size: 10px !important;
-      font-weight: 600 !important;
-    }
-
-    /* الطباعة */
-    @page {
-      size: A4 landscape;
-      margin: 10mm;
-    }
-
+    .app-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; padding: 4px 2px; }
+    .brand-group { display: flex; align-items: center; gap: 10px; }
+    .brand-icon { width: 40px; height: 40px; border-radius: 10px; background: var(--laser-gradient); display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-laser); color: #fff; flex-shrink: 0; }
+    .brand-icon svg { width: 22px; height: 22px; }
+    .brand-title { font-size: 18px; font-weight: 800; color: var(--text); line-height: 1.2; }
+    .brand-subtitle { font-size: 11.5px; color: var(--laser); font-weight: 600; letter-spacing: 0.3px; }
+    .header-actions { display: flex; align-items: center; gap: 6px; }
+    .icon-btn { width: 38px; height: 38px; border-radius: 8px; background: var(--bg-card); border: 1px solid var(--border); color: var(--text-muted); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease; }
+    .icon-btn:hover, .icon-btn:active { color: var(--text); border-color: var(--laser); background: var(--bg-card-hover); }
+    .icon-btn svg { width: 18px; height: 18px; }
+
+    .toast-msg { position: fixed; top: 14px; left: 50%; transform: translateX(-50%) translateY(-60px); background: var(--bg-surface); color: var(--text); border: 1px solid var(--border); padding: 8px 16px; border-radius: 30px; font-size: 12.5px; font-weight: 600; box-shadow: var(--shadow-lg); display: flex; align-items: center; gap: 8px; z-index: 1000; opacity: 0; transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease; pointer-events: none; white-space: nowrap; }
+    .toast-msg.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+    .toast-msg.success { border-color: var(--success); color: var(--success); }
+    .toast-msg.danger { border-color: var(--danger); color: var(--danger); }
+
+    .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 14px; margin-bottom: 14px; box-shadow: var(--shadow); position: relative; }
+    .card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+    .card-title { font-size: 15px; font-weight: 700; color: var(--text); display: flex; align-items: center; gap: 6px; }
+    .card-title svg { width: 17px; height: 17px; color: var(--laser); flex-shrink: 0; }
+
+    .form-group { margin-bottom: 10px; }
+    .form-group:last-child { margin-bottom: 0; }
+    label { display: block; font-size: 12px; font-weight: 600; color: var(--text-muted); margin-bottom: 5px; }
+    input, select, textarea { width: 100%; height: 44px; background: var(--bg-input); border: 1px solid var(--border); border-radius: 8px; padding: 0 12px; font-size: 14px; color: var(--text); transition: all 0.2s ease; outline: none; -webkit-appearance: none; appearance: none; }
+    select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2394a3b8'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: left 10px center; background-size: 14px; padding-left: 32px; }
+    input:focus, select:focus, textarea:focus { border-color: var(--border-focus); box-shadow: 0 0 0 3px var(--laser-glow); }
+    input[type="time"] { font-family: var(--font-mono); font-size: 14.5px; font-weight: 600; text-align: center; letter-spacing: 0.5px; padding: 0 6px; }
+    input[type="number"] { font-family: var(--font-mono); font-size: 14.5px; font-weight: 600; direction: ltr; text-align: center; }
+    input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+    input[type="number"] { -moz-appearance: textfield; }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .time-grid-responsive { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .shift-select-box { margin-bottom: 12px; }
+    .shift-select-custom { height: 46px; background: var(--bg-surface); border: 1.5px solid var(--border); border-radius: 10px; padding: 0 14px 0 38px; font-size: 13.5px; font-weight: 700; color: var(--text); cursor: pointer; box-shadow: var(--shadow-sm); transition: all 0.2s ease; }
+    .shift-select-custom:focus { border-color: var(--laser); box-shadow: 0 0 0 3px var(--laser-glow); }
+
+    .shift-summary-ribbon { background: var(--bg-surface); border: 1px solid var(--border); border-radius: 8px; padding: 8px 6px; display: flex; align-items: center; justify-content: space-around; gap: 4px; margin-top: 10px; font-size: 12px; }
+    .ribbon-item { text-align: center; flex: 1; min-width: 0; padding: 0 2px; }
+    .ribbon-item:not(:last-child) { border-inline-end: 1px solid var(--border); }
+    .ribbon-label { color: var(--text-dim); margin-bottom: 2px; font-size: 10.5px; white-space: nowrap; }
+    .ribbon-value { font-family: var(--font-mono); font-weight: 700; font-size: 12.5px; color: var(--laser); white-space: nowrap; }
+    .ribbon-value.ok { color: var(--success); }
+    .ribbon-value.warning { color: var(--warning); }
+
+    .machine-tabs { display: flex; gap: 5px; overflow-x: auto; padding: 2px 2px 8px; margin-bottom: 4px; scrollbar-width: none; -webkit-overflow-scrolling: touch; scroll-snap-type: x mandatory; }
+    .machine-tabs::-webkit-scrollbar { display: none; }
+    .tab-btn { flex: 1; min-width: 66px; height: 38px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; color: var(--text-muted); font-size: 12.5px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 5px; cursor: pointer; transition: all 0.2s ease; white-space: nowrap; padding: 0 8px; scroll-snap-align: start; }
+    .tab-btn:hover { border-color: var(--border-focus); color: var(--text); }
+    .tab-btn.active { background: var(--laser-gradient); border-color: transparent; color: #ffffff; box-shadow: var(--shadow-laser); }
+    .tab-badge { font-size: 10px; background: rgba(255, 255, 255, 0.25); color: #fff; padding: 1px 5px; border-radius: 8px; font-family: var(--font-mono); }
+    .tab-btn:not(.active) .tab-badge { background: var(--bg-input); color: var(--text-dim); }
+
+    .machine-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 12px; margin-bottom: 12px; box-shadow: var(--shadow); position: relative; overflow: hidden; transition: transform 0.2s ease, border-color 0.2s ease; }
+    .machine-card::before { content: ''; position: absolute; top: 0; bottom: 0; inset-inline-start: 0; width: 4px; background: linear-gradient(180deg, var(--denim), var(--laser)); }
+    .machine-top-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+    .machine-name-title { font-size: 15px; font-weight: 800; color: var(--denim); display: flex; align-items: center; gap: 6px; }
+    .machine-name-title .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--denim); box-shadow: 0 0 8px var(--denim); display: inline-block; }
+    .machine-status-tag { font-size: 11px; font-weight: 600; padding: 2px 7px; border-radius: 6px; background: var(--bg-input); color: var(--text-dim); border: 1px solid var(--border); }
+
+    .stepper-box { background: var(--bg-surface); border: 1px solid var(--border); border-radius: 8px; padding: 8px 10px; display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 10px; }
+    .stepper-label { font-size: 12.5px; font-weight: 600; color: var(--text); }
+    .stepper-controls { display: flex; align-items: center; gap: 5px; }
+    .step-btn { width: 32px; height: 32px; border-radius: 6px; background: var(--bg-input); border: 1px solid var(--border); color: var(--text); font-weight: 700; font-size: 15px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.15s ease; }
+    .step-btn:hover, .step-btn:active { background: var(--laser); color: #fff; border-color: var(--laser); }
+    .stepper-controls input { width: 52px; height: 32px; font-size: 14px; font-weight: 700; padding: 0; }
+
+    .drawer-btn { width: 100%; height: 42px; background: var(--bg-surface); border: 1px solid var(--border); border-radius: 8px; padding: 0 12px; display: flex; align-items: center; justify-content: space-between; color: var(--text); font-size: 13px; font-weight: 700; cursor: pointer; margin-bottom: 6px; transition: all 0.2s ease; }
+    .drawer-btn:hover { background: var(--bg-card-hover); border-color: var(--denim); }
+    .drawer-btn .drawer-val { font-family: var(--font-mono); font-size: 12px; color: var(--laser); display: flex; align-items: center; gap: 4px; }
+    .drawer-btn .chev { font-size: 13px; transition: transform 0.25s ease; color: var(--text-dim); }
+    .drawer-btn.open { border-bottom-left-radius: 0; border-bottom-right-radius: 0; border-color: var(--border-focus); background: var(--bg-card-hover); }
+    .drawer-btn.open .chev { transform: rotate(90deg); color: var(--laser); }
+    .drawer-content { display: none; background: var(--bg-surface); border: 1px solid var(--border); border-top: none; border-radius: 0 0 8px 8px; padding: 12px; margin-bottom: 10px; animation: fadeIn 0.2s ease-out; }
+    .drawer-content.open { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+
+    .client-entry { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 10px; margin-bottom: 8px; box-shadow: var(--shadow-sm); position: relative; }
+    .client-entry:last-child { margin-bottom: 10px; }
+    .client-entry-row1 { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 6px; margin-bottom: 8px; }
+    .client-entry-row2 { display: grid; grid-template-columns: 1fr 1fr 38px; gap: 6px; align-items: center; }
+    .del-client-btn { width: 38px; height: 40px; background: var(--danger-dim); color: var(--danger); border: 1px solid transparent; border-radius: 6px; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+    .del-client-btn:hover { background: var(--danger); color: #fff; }
+    .add-client-btn { width: 100%; height: 38px; background: var(--denim-dim); color: var(--denim); border: 1px dashed var(--denim); border-radius: 6px; font-size: 12.5px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px; transition: all 0.2s ease; }
+    .add-client-btn:hover { background: var(--denim); color: #fff; }
+
+    .stoppage-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
+
+    .bottom-action-bar { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(17, 24, 39, 0.92); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-top: 1px solid var(--border); padding: 8px 12px calc(8px + env(safe-area-inset-bottom, 8px)); box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.4); z-index: 900; display: flex; gap: 8px; max-width: 820px; margin: 0 auto; }
+    [data-theme="light"] .bottom-action-bar { background: rgba(255, 255, 255, 0.92); }
+    .btn-main-calc { flex: 2; height: 46px; background: var(--laser-gradient); color: #ffffff; border: none; border-radius: 10px; font-size: 15px; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 6px; cursor: pointer; box-shadow: var(--shadow-laser); transition: all 0.2s ease; }
+    .btn-main-calc:active { transform: scale(0.98); }
+    .btn-secondary { flex: 1; height: 46px; background: var(--bg-card); color: var(--denim); border: 1px solid var(--denim); border-radius: 10px; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 5px; cursor: pointer; transition: all 0.2s ease; }
+    .btn-secondary:hover { background: var(--denim-dim); }
+    .btn-secondary svg, .btn-main-calc svg { width: 17px; height: 17px; }
+
+    #resultsContainer { display: none; margin-top: 18px; animation: slideUp 0.3s ease-out; }
+    @keyframes slideUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
+    .kpi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px; }
+    .kpi-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 12px 8px; text-align: center; box-shadow: var(--shadow); position: relative; overflow: hidden; }
+    .kpi-card.hero { background: linear-gradient(145deg, var(--bg-card), var(--bg-card-hover)); border-color: var(--laser); }
+    .kpi-card.hero::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--laser-gradient); }
+    .kpi-icon { font-size: 18px; margin-bottom: 2px; display: block; }
+    .kpi-title { font-size: 11px; font-weight: 600; color: var(--text-muted); margin-bottom: 2px; }
+    .kpi-num { font-family: var(--font-mono); font-size: 22px; font-weight: 800; color: var(--laser); line-height: 1.1; }
+    .kpi-num.denim { color: var(--denim); }
+    .kpi-num.success { color: var(--success); }
+    .kpi-num.warning { color: var(--warning); }
+    .kpi-unit { font-size: 10.5px; color: var(--text-dim); font-weight: 600; }
+
+    .table-responsive { width: 100%; overflow-x: auto; border-radius: 8px; border: 1px solid var(--border); margin-top: 8px; -webkit-overflow-scrolling: touch; }
+    table { width: 100%; border-collapse: collapse; font-size: 12.5px; text-align: center; background: var(--bg-surface); white-space: nowrap; }
+    th { background: var(--bg-input); color: var(--text-muted); font-weight: 700; font-size: 11.5px; padding: 10px 8px; border-bottom: 1px solid var(--border); }
+    td { padding: 10px 8px; border-bottom: 1px solid var(--border); color: var(--text); font-family: var(--font-mono); font-size: 12.5px; }
+    td.text-cell { font-family: var(--font-main); font-weight: 700; text-align: right; }
+    tfoot td { font-weight: 800; background: var(--bg-input); border-top: 2px solid var(--border); }
+    tr:last-child td { border-bottom: none; }
+    .tag-badge { display: inline-block; padding: 2px 7px; border-radius: 5px; font-size: 11px; font-weight: 700; font-family: var(--font-main); }
+    .tag-badge.laser { background: var(--laser-glow); color: var(--laser); }
+    .tag-badge.denim { background: var(--denim-dim); color: var(--denim); }
+
+    .machine-bars { margin-top: 12px; display: flex; flex-direction: column; gap: 6px; }
+    .bar-row { display: flex; align-items: center; gap: 8px; font-size: 11.5px; }
+    .bar-label { width: 58px; font-weight: 700; color: var(--text-muted); }
+    .bar-track { flex: 1; height: 7px; background: var(--bg-input); border-radius: 4px; overflow: hidden; }
+    .bar-fill { height: 100%; background: var(--laser-gradient); border-radius: 4px; transition: width 0.6s ease; }
+    .bar-val { width: 65px; text-align: left; font-family: var(--font-mono); font-weight: 700; color: var(--text); }
+
+    .export-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 14px; }
+    .btn-action-outline { height: 42px; background: var(--bg-surface); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 5px; cursor: pointer; transition: all 0.2s ease; }
+    .btn-action-outline:hover { border-color: var(--laser); color: var(--laser); }
+    .btn-action-outline.whatsapp { border-color: #25D366; color: #25D366; }
+    .btn-action-outline.whatsapp:hover { background: rgba(37, 211, 102, 0.1); }
+
+    .modal-backdrop { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(4px); z-index: 1200; display: none; align-items: center; justify-content: center; padding: 16px; }
+    .modal-backdrop.open { display: flex; animation: fadeIn 0.2s ease; }
+    .modal-box { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px 16px; width: 100%; max-width: 360px; box-shadow: var(--shadow-lg); text-align: center; }
+    .modal-icon { font-size: 32px; margin-bottom: 10px; }
+    .modal-title { font-size: 17px; font-weight: 800; color: var(--text); margin-bottom: 6px; }
+    .modal-desc { font-size: 13px; color: var(--text-muted); margin-bottom: 18px; line-height: 1.5; }
+    .modal-actions { display: flex; gap: 8px; }
+    .modal-btn { flex: 1; height: 42px; border-radius: 8px; font-size: 13.5px; font-weight: 700; cursor: pointer; border: none; }
+    .modal-btn.cancel { background: var(--bg-input); border: 1px solid var(--border); color: var(--text); }
+    .modal-btn.confirm { background: var(--danger); color: #fff; }
+
+    .preview-modal-container { background: #0f172a; border: none; border-radius: 0; width: 100vw; max-width: 100vw; height: 100vh; max-height: 100vh; display: flex; flex-direction: column; position: fixed; inset: 0; z-index: 9999; overflow: hidden; box-shadow: none; }
+    .preview-modal-header { padding: 12px 20px; background: #1e293b; border-bottom: 1px solid #334155; display: flex; align-items: center; justify-content: space-between; gap: 10px; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4); z-index: 10; flex-shrink: 0; }
+    .preview-modal-title { font-size: 15px; font-weight: 800; color: #ffffff; display: flex; align-items: center; gap: 8px; }
+    .preview-modal-actions { display: flex; align-items: center; gap: 8px; }
+    .btn-preview-action { height: 38px; padding: 0 14px; border-radius: 8px; font-size: 13px; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.2s ease; }
+    .btn-preview-action.print { background: var(--laser); color: #ffffff; border: none; box-shadow: 0 2px 8px rgba(249, 115, 22, 0.3); }
+    .btn-preview-action.print:hover { opacity: 0.92; transform: translateY(-1px); }
+    .btn-preview-action.close { background: #334155; color: #ffffff; border: 1px solid #475569; }
+    .btn-preview-action.close:hover { background: var(--danger); color: #ffffff; border-color: var(--danger); }
+    .preview-modal-body { flex: 1; overflow-y: auto; background: #090d16; padding: 24px; display: flex; justify-content: center; align-items: flex-start; scrollbar-width: none; -ms-overflow-style: none; }
+    .preview-modal-body::-webkit-scrollbar { display: none; }
+
+    /* ============ التصميم الجديد للتقرير ============ */
+    .a4-preview-sheet { background: #ffffff; color: #0f172a; width: 100%; max-width: 1120px; min-height: 790px; padding: 0; border-radius: 16px; box-shadow: 0 14px 40px rgba(0, 0, 0, 0.45); font-family: var(--font-main); box-sizing: border-box; overflow: hidden; }
+    .a4-preview-sheet * { box-sizing: border-box; }
+    .print-header { display: none; }
+    .a4-preview-sheet .print-header { display: block !important; background: linear-gradient(135deg, #ea580c, #1e3a8a) !important; border-radius: 0 !important; padding: 24px 28px !important; color: #ffffff !important; margin-bottom: 0 !important; border: none !important; }
+    .a4-preview-sheet .print-brand-row { display: flex !important; align-items: center !important; justify-content: space-between !important; gap: 20px !important; margin-bottom: 12px !important; }
+    .a4-preview-sheet .print-factory-name h2 { color: #ffffff !important; font-size: 24px !important; font-weight: 900 !important; line-height: 1.2 !important; margin: 0 0 4px !important; }
+    .a4-preview-sheet .print-factory-name p { color: #fef3c7 !important; font-size: 13px !important; font-weight: 600 !important; margin: 0 !important; }
+    .a4-preview-sheet .print-meta-badge { background: #ffffff !important; color: #ea580c !important; border: none !important; border-radius: 25px !important; padding: 8px 18px !important; font-size: 14px !important; font-weight: 900 !important; white-space: nowrap !important; box-shadow: 0 4px 12px rgba(0,0,0,0.2) !important; }
+    .a4-preview-sheet .print-meta-grid { display: grid !important; grid-template-columns: repeat(4, 1fr) !important; gap: 10px !important; padding: 12px 16px !important; background: rgba(255,255,255,0.15) !important; border: none !important; border-radius: 10px !important; color: #ffffff !important; font-size: 11px !important; }
+    .a4-preview-sheet .print-meta-item strong { color: #fef3c7 !important; }
+    .a4-preview-sheet .card { background: #ffffff !important; border: 1px solid #e2e8f0 !important; border-radius: 12px !important; box-shadow: 0 2px 8px rgba(0,0,0,0.06) !important; padding: 16px 18px !important; margin: 16px 20px !important; }
+    .a4-preview-sheet .card-header { margin-bottom: 12px !important; padding-bottom: 10px !important; border-bottom: 3px solid #f97316 !important; }
+    .a4-preview-sheet .card-title { color: #1e3a8a !important; font-size: 16px !important; font-weight: 900 !important; }
+    .a4-preview-sheet .card-title svg { display: none !important; }
+    .a4-preview-sheet .kpi-grid { display: grid !important; grid-template-columns: repeat(3, 1fr) !important; gap: 12px !important; margin-bottom: 8px !important; }
+    .a4-preview-sheet .kpi-card { min-height: 90px !important; padding: 14px 10px !important; background: #f8fafc !important; border: 2px solid #e2e8f0 !important; border-radius: 12px !important; box-shadow: 0 2px 8px rgba(0,0,0,0.06) !important; }
+    .a4-preview-sheet .kpi-card.hero { background: linear-gradient(135deg, #fff7ed, #ffedd5) !important; border-color: #f97316 !important; }
+    .a4-preview-sheet .kpi-card.hero::after { background: linear-gradient(90deg, #f97316, #fb923c) !important; height: 4px !important; }
+    .a4-preview-sheet .kpi-icon { display: none !important; }
+    .a4-preview-sheet .kpi-title { color: #475569 !important; font-size: 11px !important; font-weight: 800 !important; }
+    .a4-preview-sheet .kpi-num { color: #ea580c !important; font-size: 24px !important; font-weight: 900 !important; }
+    .a4-preview-sheet .kpi-num.denim { color: #1e40af !important; }
+    .a4-preview-sheet .kpi-num.warning { color: #b45309 !important; }
+    .a4-preview-sheet .kpi-unit { color: #64748b !important; font-size: 10px !important; }
+    .a4-preview-sheet .table-responsive { width: 100% !important; margin-top: 6px !important; border: none !important; border-radius: 10px !important; overflow: hidden !important; }
+    .a4-preview-sheet table { width: 100% !important; background: #ffffff !important; color: #0f172a !important; font-size: 11px !important; border-collapse: collapse !important; }
+    .a4-preview-sheet th { background: linear-gradient(135deg, #1e3a8a, #1e40af) !important; color: #ffffff !important; border: none !important; padding: 12px 10px !important; font-size: 11px !important; font-weight: 900 !important; white-space: nowrap !important; }
+    .a4-preview-sheet td { color: #0f172a !important; border-bottom: 1px solid #e2e8f0 !important; padding: 10px 8px !important; font-size: 11px !important; white-space: nowrap !important; }
+    .a4-preview-sheet tbody tr:nth-child(even) td { background: #f8fafc !important; }
+    .a4-preview-sheet tbody tr:hover td { background: #fef3c7 !important; }
+    .a4-preview-sheet td.text-cell { text-align: right !important; font-weight: 800 !important; }
+    .a4-preview-sheet tfoot td { background: #fff7ed !important; color: #1e3a8a !important; border-top: 3px solid #f97316 !important; font-weight: 900 !important; font-size: 12px !important; }
+    .a4-preview-sheet .tag-badge.laser { background: #ffedd5 !important; color: #ea580c !important; border: 1px solid #fdba74 !important; }
+    .a4-preview-sheet .tag-badge.denim { background: #e0f2fe !important; color: #1e40af !important; border: 1px solid #7dd3fc !important; }
+    .print-footer { display: none; }
+    .a4-preview-sheet .print-footer { display: flex !important; justify-content: space-between !important; gap: 20px !important; margin: 16px 20px !important; padding: 14px 16px !important; background: #1e3a8a !important; color: #ffffff !important; border-radius: 10px !important; font-size: 11px !important; font-weight: 600 !important; }
+
+    @page { size: A4 landscape; margin: 10mm; }
     @media print {
-      html,
-      body {
-        width: 100% !important;
-        max-width: 100% !important;
-        min-height: auto !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        background: #ffffff !important;
-        color: #0f172a !important;
-        direction: rtl !important;
-        font-family: 'Cairo', Arial, sans-serif !important;
-        font-size: 10px !important;
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
-      }
-
-      .app-header,
-      #shiftSettingsCard,
-      .machine-tabs,
-      #machinesSection,
-      .bottom-action-bar,
-      .export-grid,
-      .toast-msg,
-      .modal-backdrop,
-      .machine-bars,
-      .quick-sync-box,
-      .step-btn,
-      .add-client-btn,
-      .del-client-btn {
-        display: none !important;
-      }
-
-      .print-header {
-        display: block !important;
-        margin-bottom: 10px !important;
-        padding-bottom: 9px !important;
-        border-bottom: 2px solid #172554 !important;
-      }
-
-      .print-brand-row {
-        display: flex !important;
-        align-items: center !important;
-        justify-content: space-between !important;
-        gap: 20px !important;
-        margin-bottom: 8px !important;
-      }
-
-      .print-factory-name h2 {
-        color: #172554 !important;
-        font-size: 20px !important;
-        font-weight: 900 !important;
-        line-height: 1.2 !important;
-        margin: 0 0 3px !important;
-      }
-
-      .print-factory-name p {
-        color: #64748b !important;
-        font-size: 10.5px !important;
-        font-weight: 600 !important;
-        margin: 0 !important;
-      }
-
-      .print-meta-badge {
-        color: #c2410c !important;
-        background: #fff7ed !important;
-        border: 1.5px solid #f97316 !important;
-        border-radius: 6px !important;
-        padding: 5px 10px !important;
-        font-size: 11px !important;
-        font-weight: 900 !important;
-        white-space: nowrap !important;
-      }
-
-      .print-meta-grid {
-        display: grid !important;
-        grid-template-columns: repeat(4, 1fr) !important;
-        gap: 7px !important;
-        padding: 7px 10px !important;
-        background: #f8fafc !important;
-        border: 1px solid #cbd5e1 !important;
-        border-radius: 5px !important;
-        color: #334155 !important;
-        font-size: 9.5px !important;
-      }
-
-      .print-meta-item strong {
-        color: #ea580c !important;
-      }
-
-      #resultsContainer {
-        display: block !important;
-        width: 100% !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        animation: none !important;
-      }
-
-      #resultsContainer > .card {
-        width: 100% !important;
-        margin-bottom: 10px !important;
-        padding: 10px 12px !important;
-        background: #ffffff !important;
-        border: 1px solid #cbd5e1 !important;
-        border-radius: 5px !important;
-        box-shadow: none !important;
-      }
-
-      #resultsContainer .card-header {
-        margin-bottom: 7px !important;
-        padding-bottom: 5px !important;
-        border-bottom: 2px solid #f97316 !important;
-      }
-
-      #resultsContainer .card-header svg {
-        display: none !important;
-      }
-
-      #resultsContainer .card-title {
-        color: #172554 !important;
-        font-size: 12.5px !important;
-        font-weight: 900 !important;
-      }
-
-      #resultsContainer .kpi-grid {
-        display: grid !important;
-        grid-template-columns: repeat(3, 1fr) !important;
-        gap: 8px !important;
-        margin-bottom: 0 !important;
-      }
-
-      #resultsContainer .kpi-card {
-        min-height: 72px !important;
-        padding: 7px 5px !important;
-        background: #f8fafc !important;
-        border: 1px solid #cbd5e1 !important;
-        border-radius: 5px !important;
-        box-shadow: none !important;
-        break-inside: avoid !important;
-      }
-
-      #resultsContainer .kpi-card.hero {
-        background: #fff7ed !important;
-        border-color: #f97316 !important;
-      }
-
-      #resultsContainer .kpi-icon {
-        display: none !important;
-      }
-
-      #resultsContainer .kpi-title {
-        color: #475569 !important;
-        font-size: 9.5px !important;
-        font-weight: 800 !important;
-      }
-
-      #resultsContainer .kpi-num {
-        color: #c2410c !important;
-        font-size: 17px !important;
-        font-weight: 900 !important;
-      }
-
-      #resultsContainer .kpi-num.denim {
-        color: #0369a1 !important;
-      }
-
-      #resultsContainer .kpi-num.warning {
-        color: #b45309 !important;
-      }
-
-      #resultsContainer .kpi-unit {
-        color: #64748b !important;
-        font-size: 8.5px !important;
-      }
-
-      #resultsContainer .table-responsive {
-        width: 100% !important;
-        margin-top: 4px !important;
-        border: 1px solid #94a3b8 !important;
-        border-radius: 4px !important;
-        overflow: visible !important;
-      }
-
-      #resultsContainer table {
-        width: 100% !important;
-        background: #ffffff !important;
-        color: #0f172a !important;
-        border-collapse: collapse !important;
-        font-size: 9.5px !important;
-      }
-
-      #resultsContainer thead {
-        display: table-header-group !important;
-      }
-
-      #resultsContainer th {
-        background: #172554 !important;
-        color: #ffffff !important;
-        border: 1px solid #0f1d43 !important;
-        padding: 6px 4px !important;
-        font-size: 9px !important;
-        font-weight: 900 !important;
-        white-space: nowrap !important;
-      }
-
-      #resultsContainer td {
-        color: #0f172a !important;
-        border: 1px solid #cbd5e1 !important;
-        padding: 5px 4px !important;
-        font-size: 9.5px !important;
-        white-space: nowrap !important;
-      }
-
-      #resultsContainer tbody tr {
-        break-inside: avoid !important;
-        page-break-inside: avoid !important;
-      }
-
-      #resultsContainer tbody tr:nth-child(even) td {
-        background: #f8fafc !important;
-      }
-
-      #resultsContainer td.text-cell {
-        text-align: right !important;
-        font-weight: 800 !important;
-      }
-
-      #resultsContainer tfoot td {
-        background: #fff7ed !important;
-        color: #172554 !important;
-        border-top: 2px solid #f97316 !important;
-        font-weight: 900 !important;
-      }
-
-      #clientDetailTable {
-        table-layout: fixed !important;
-      }
-
-      #clientDetailTable th:nth-child(1),
-      #clientDetailTable td:nth-child(1) {
-        width: 14%;
-      }
-
-      #clientDetailTable th:nth-child(2),
-      #clientDetailTable td:nth-child(2) {
-        width: 9%;
-      }
-
-      #clientDetailTable th:nth-child(3),
-      #clientDetailTable td:nth-child(3) {
-        width: 7%;
-      }
-
-      #clientDetailTable th:nth-child(4),
-      #clientDetailTable td:nth-child(4) {
-        width: 9%;
-      }
-
-      #clientDetailTable th:nth-child(5),
-      #clientDetailTable td:nth-child(5) {
-        width: 17%;
-      }
-
-      #clientDetailTable th:nth-child(6),
-      #clientDetailTable td:nth-child(6) {
-        width: 8%;
-      }
-
-      #clientDetailTable th:nth-child(7),
-      #clientDetailTable td:nth-child(7) {
-        width: 9%;
-      }
-
-      #clientDetailTable th:nth-child(8),
-      #clientDetailTable td:nth-child(8) {
-        width: 11%;
-      }
-
-      #clientDetailTable th:nth-child(9),
-      #clientDetailTable td:nth-child(9) {
-        width: 10%;
-      }
-
-      #clientDetailTable th:nth-child(10),
-      #clientDetailTable td:nth-child(10) {
-        width: 6%;
-      }
-
-      #clientDetailTable td:nth-child(1),
-      #clientDetailTable td:nth-child(5) {
-        white-space: normal !important;
-        line-height: 1.25 !important;
-      }
-
-      #resultsContainer .tag-badge.laser {
-        background: #ffedd5 !important;
-        color: #c2410c !important;
-        border: 1px solid #fdba74 !important;
-      }
-
-      #resultsContainer .tag-badge.denim {
-        background: #e0f2fe !important;
-        color: #0369a1 !important;
-        border: 1px solid #7dd3fc !important;
-      }
-
-      .print-footer {
-        display: flex !important;
-        justify-content: space-between !important;
-        gap: 20px !important;
-        margin-top: 12px !important;
-        padding-top: 8px !important;
-        border-top: 1px solid #cbd5e1 !important;
-        color: #64748b !important;
-        font-size: 9.5px !important;
-        font-weight: 600 !important;
-      }
+      html, body { width: 100% !important; max-width: 100% !important; min-height: auto !important; margin: 0 !important; padding: 0 !important; background: #ffffff !important; color: #0f172a !important; direction: rtl !important; font-family: 'Cairo', Arial, sans-serif !important; font-size: 10px !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+      .app-header, #shiftSettingsCard, .machine-tabs, #machinesSection, .bottom-action-bar, .export-grid, .toast-msg, .modal-backdrop, .machine-bars, .quick-sync-box, .step-btn, .add-client-btn, .del-client-btn { display: none !important; }
+      .print-header { display: block !important; background: linear-gradient(135deg, #ea580c, #1e3a8a) !important; border-radius: 0 !important; padding: 20px 24px !important; color: #ffffff !important; margin-bottom: 0 !important; border: none !important; }
+      .print-brand-row { display: flex !important; align-items: center !important; justify-content: space-between !important; gap: 20px !important; margin-bottom: 10px !important; }
+      .print-factory-name h2 { color: #ffffff !important; font-size: 22px !important; font-weight: 900 !important; line-height: 1.2 !important; margin: 0 0 3px !important; }
+      .print-factory-name p { color: #fef3c7 !important; font-size: 12px !important; font-weight: 600 !important; margin: 0 !important; }
+      .print-meta-badge { background: #ffffff !important; color: #ea580c !important; border: none !important; border-radius: 25px !important; padding: 6px 14px !important; font-size: 13px !important; font-weight: 900 !important; white-space: nowrap !important; box-shadow: 0 4px 12px rgba(0,0,0,0.2) !important; }
+      .print-meta-grid { display: grid !important; grid-template-columns: repeat(4, 1fr) !important; gap: 8px !important; padding: 10px 14px !important; background: rgba(255,255,255,0.15) !important; border: none !important; border-radius: 8px !important; color: #ffffff !important; font-size: 10px !important; }
+      .print-meta-item strong { color: #fef3c7 !important; }
+      #resultsContainer { display: block !important; width: 100% !important; margin: 0 !important; padding: 0 !important; animation: none !important; }
+      #resultsContainer > .card { width: 100% !important; margin: 0 0 12px 0 !important; padding: 14px 16px !important; background: #ffffff !important; border: 1px solid #e2e8f0 !important; border-radius: 10px !important; box-shadow: none !important; }
+      #resultsContainer .card-header { margin-bottom: 10px !important; padding-bottom: 8px !important; border-bottom: 3px solid #f97316 !important; }
+      #resultsContainer .card-header svg { display: none !important; }
+      #resultsContainer .card-title { color: #1e3a8a !important; font-size: 14px !important; font-weight: 900 !important; }
+      #resultsContainer .kpi-grid { display: grid !important; grid-template-columns: repeat(3, 1fr) !important; gap: 10px !important; margin-bottom: 4px !important; }
+      #resultsContainer .kpi-card { min-height: 78px !important; padding: 10px 8px !important; background: #f8fafc !important; border: 2px solid #e2e8f0 !important; border-radius: 10px !important; box-shadow: none !important; break-inside: avoid !important; }
+      #resultsContainer .kpi-card.hero { background: linear-gradient(135deg, #fff7ed, #ffedd5) !important; border-color: #f97316 !important; }
+      #resultsContainer .kpi-icon { display: none !important; }
+      #resultsContainer .kpi-title { color: #475569 !important; font-size: 10px !important; font-weight: 800 !important; }
+      #resultsContainer .kpi-num { color: #ea580c !important; font-size: 20px !important; font-weight: 900 !important; }
+      #resultsContainer .kpi-num.denim { color: #1e40af !important; }
+      #resultsContainer .kpi-num.warning { color: #b45309 !important; }
+      #resultsContainer .kpi-unit { color: #64748b !important; font-size: 9px !important; }
+      #resultsContainer .table-responsive { width: 100% !important; margin-top: 4px !important; border: none !important; border-radius: 8px !important; overflow: hidden !important; }
+      #resultsContainer table { width: 100% !important; background: #ffffff !important; color: #0f172a !important; border-collapse: collapse !important; font-size: 10px !important; }
+      #resultsContainer thead { display: table-header-group !important; }
+      #resultsContainer th { background: linear-gradient(135deg, #1e3a8a, #1e40af) !important; color: #ffffff !important; border: none !important; padding: 10px 8px !important; font-size: 10px !important; font-weight: 900 !important; white-space: nowrap !important; }
+      #resultsContainer td { color: #0f172a !important; border-bottom: 1px solid #e2e8f0 !important; padding: 8px 6px !important; font-size: 10px !important; white-space: nowrap !important; }
+      #resultsContainer tbody tr { break-inside: avoid !important; page-break-inside: avoid !important; }
+      #resultsContainer tbody tr:nth-child(even) td { background: #f8fafc !important; }
+      #resultsContainer td.text-cell { text-align: right !important; font-weight: 800 !important; }
+      #resultsContainer tfoot td { background: #fff7ed !important; color: #1e3a8a !important; border-top: 3px solid #f97316 !important; font-weight: 900 !important; font-size: 11px !important; }
+      #clientDetailTable { table-layout: fixed !important; }
+      #clientDetailTable th:nth-child(1), #clientDetailTable td:nth-child(1) { width: 14%; }
+      #clientDetailTable th:nth-child(2), #clientDetailTable td:nth-child(2) { width: 9%; }
+      #clientDetailTable th:nth-child(3), #clientDetailTable td:nth-child(3) { width: 7%; }
+      #clientDetailTable th:nth-child(4), #clientDetailTable td:nth-child(4) { width: 9%; }
+      #clientDetailTable th:nth-child(5), #clientDetailTable td:nth-child(5) { width: 17%; }
+      #clientDetailTable th:nth-child(6), #clientDetailTable td:nth-child(6) { width: 8%; }
+      #clientDetailTable th:nth-child(7), #clientDetailTable td:nth-child(7) { width: 9%; }
+      #clientDetailTable th:nth-child(8), #clientDetailTable td:nth-child(8) { width: 11%; }
+      #clientDetailTable th:nth-child(9), #clientDetailTable td:nth-child(9) { width: 10%; }
+      #clientDetailTable th:nth-child(10), #clientDetailTable td:nth-child(10) { width: 6%; }
+      #clientDetailTable td:nth-child(1), #clientDetailTable td:nth-child(5) { white-space: normal !important; line-height: 1.25 !important; }
+      #resultsContainer .tag-badge.laser { background: #ffedd5 !important; color: #ea580c !important; border: 1px solid #fdba74 !important; }
+      #resultsContainer .tag-badge.denim { background: #e0f2fe !important; color: #1e40af !important; border: 1px solid #7dd3fc !important; }
+      .print-footer { display: flex !important; justify-content: space-between !important; gap: 20px !important; margin-top: 12px !important; padding: 12px 14px !important; background: #1e3a8a !important; color: #ffffff !important; border-radius: 8px !important; font-size: 10px !important; font-weight: 600 !important; }
     }
 
     @media (max-width: 540px) {
-      .time-grid-responsive {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .time-grid-responsive .form-group:first-child {
-        grid-column: span 2;
-      }
-
-      .client-entry-row1 {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .preview-modal-header {
-        padding: 10px;
-      }
-
-      .preview-modal-title {
-        font-size: 12px;
-      }
-
-      .btn-preview-action {
-        height: 34px;
-        padding: 0 8px;
-        font-size: 11px;
-      }
-
-      .preview-modal-body {
-        padding: 10px;
-        justify-content: flex-start;
-      }
-
-      .a4-preview-sheet {
-        width: 1040px;
-        max-width: none;
-      }
-
-      .export-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
+      .time-grid-responsive { grid-template-columns: 1fr 1fr; }
+      .time-grid-responsive .form-group:first-child { grid-column: span 2; }
+      .client-entry-row1 { grid-template-columns: 1fr 1fr; }
+      .preview-modal-header { padding: 10px; }
+      .preview-modal-title { font-size: 12px; }
+      .btn-preview-action { height: 34px; padding: 0 8px; font-size: 11px; }
+      .preview-modal-body { padding: 10px; justify-content: flex-start; }
+      .a4-preview-sheet { width: 1040px; max-width: none; }
+      .export-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
     @media (max-width: 360px) {
-      .client-entry-row1 {
-        grid-template-columns: 1fr;
-      }
-
-      .stoppage-grid {
-        grid-template-columns: 1fr;
-      }
+      .client-entry-row1 { grid-template-columns: 1fr; }
+      .stoppage-grid { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 320px) {
-      .time-grid-responsive {
-        grid-template-columns: 1fr;
-      }
-
-      .time-grid-responsive .form-group:first-child {
-        grid-column: span 1;
-      }
+      .time-grid-responsive { grid-template-columns: 1fr; }
+      .time-grid-responsive .form-group:first-child { grid-column: span 1; }
     }
 
     @media (max-width: 480px) {
-      .kpi-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .header-actions {
-        gap: 3px;
-      }
-
-      .icon-btn {
-        width: 34px;
-        height: 34px;
-      }
-
-      .brand-title {
-        font-size: 16px;
-      }
-
-      .brand-subtitle {
-        font-size: 10px;
-      }
+      .kpi-grid { grid-template-columns: 1fr; }
+      .header-actions { gap: 3px; }
+      .icon-btn { width: 34px; height: 34px; }
+      .brand-title { font-size: 16px; }
+      .brand-subtitle { font-size: 10px; }
     }
   </style>
 </head>
-
 <body>
 
   <div class="toast-msg" id="toast">
@@ -1894,43 +375,22 @@
     <span id="toastText">تم الحفظ تلقائياً</span>
   </div>
 
-  <!-- رأس التقرير -->
   <div class="print-header">
     <div class="print-brand-row">
       <div class="print-factory-name">
         <h2>تقرير إنتاج قسم الليزر اليومي</h2>
         <p>مصنع تشغيل وتجهيز الملابس الجاهزة والجينز</p>
       </div>
-
-      <div class="print-meta-badge" id="printShiftBadge">
-        10 ساعات صباحي
-      </div>
+      <div class="print-meta-badge" id="printShiftBadge">10 ساعات صباحي</div>
     </div>
-
     <div class="print-meta-grid">
-      <div class="print-meta-item">
-        <strong>📅 التاريخ:</strong>
-        <span id="printDateText">-</span>
-      </div>
-
-      <div class="print-meta-item">
-        <strong>⏰ مواعيد الوردية:</strong>
-        <span id="printShiftTimes">08:00 ص إلى 06:00 م</span>
-      </div>
-
-      <div class="print-meta-item">
-        <strong>⏱️ التشغيل الفعلي:</strong>
-        <span id="printActualDuration">10 ساعات</span>
-      </div>
-
-      <div class="print-meta-item">
-        <strong>🚪 الخروج المبكر:</strong>
-        <span id="printEarlyLeave">لا يوجد</span>
-      </div>
+      <div class="print-meta-item"><strong>📅 التاريخ:</strong> <span id="printDateText">-</span></div>
+      <div class="print-meta-item"><strong>⏰ مواعيد الوردية:</strong> <span id="printShiftTimes">08:00 ص إلى 06:00 م</span></div>
+      <div class="print-meta-item"><strong>⏱️ التشغيل الفعلي:</strong> <span id="printActualDuration">10 ساعات</span></div>
+      <div class="print-meta-item"><strong>🚪 الخروج المبكر:</strong> <span id="printEarlyLeave">لا يوجد</span></div>
     </div>
   </div>
 
-  <!-- رأس التطبيق -->
   <header class="app-header">
     <div class="brand-group">
       <div class="brand-icon">
@@ -1938,13 +398,11 @@
           <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
         </svg>
       </div>
-
       <div>
         <h1 class="brand-title">حاسبة إنتاج الليزر</h1>
         <p class="brand-subtitle">لوحة تحكم وتتبع الوردية اليومية</p>
       </div>
     </div>
-
     <div class="header-actions">
       <button type="button" class="icon-btn" id="themeToggleBtn" title="تبديل المظهر">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1959,7 +417,6 @@
           <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
         </svg>
       </button>
-
       <button type="button" class="icon-btn" id="summaryBtn" title="ملخص الفترة">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M18 20V10"></path>
@@ -1967,14 +424,12 @@
           <path d="M6 20v-6"></path>
         </svg>
       </button>
-
       <button type="button" class="icon-btn" id="historyBtn" title="سجل الأيام السابقة">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="10"></circle>
           <polyline points="12 6 12 12 16 14"></polyline>
         </svg>
       </button>
-
       <button type="button" class="icon-btn" id="resetBtn" title="تفريغ الوردية">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M3 6h18"></path>
@@ -1984,7 +439,6 @@
     </div>
   </header>
 
-  <!-- إعدادات الوردية -->
   <section class="card" id="shiftSettingsCard">
     <div class="card-header">
       <div class="card-title">
@@ -1994,10 +448,7 @@
         </svg>
         إعدادات الوردية
       </div>
-
-      <span class="tag-badge laser" id="activeShiftBadge">
-        10 س صباحي
-      </span>
+      <span class="tag-badge laser" id="activeShiftBadge">10 س صباحي</span>
     </div>
 
     <div class="grid-2" style="margin-bottom: 12px; gap: 10px;">
@@ -2005,22 +456,13 @@
         <label for="shiftDateInput">📅 تاريخ الوردية:</label>
         <input type="date" id="shiftDateInput" class="shift-select-custom" style="padding: 0 12px; font-weight: 700;">
       </div>
-
       <div class="form-group" style="margin-bottom: 0;">
         <label for="shiftPresetSelect">⚡ نظام الوردية:</label>
         <select id="shiftPresetSelect" class="shift-select-custom">
-          <option value="10-morning" data-start="08:00" data-end="18:00" data-label="10 س صباحي" selected>
-            ☀️ وردية 10 ساعات صباحي (08:00 ص - 06:00 م)
-          </option>
-          <option value="10-evening" data-start="18:00" data-end="04:00" data-label="10 س مسائي">
-            🌙 وردية 10 ساعات مسائي (06:00 م - 04:00 ص)
-          </option>
-          <option value="12-morning" data-start="08:00" data-end="20:00" data-label="12 س صباحي">
-            ☀️ وردية 12 ساعة صباحي (08:00 ص - 08:00 م)
-          </option>
-          <option value="12-evening" data-start="20:00" data-end="08:00" data-label="12 س مسائي">
-            🌙 وردية 12 ساعة مسائي (08:00 م - 08:00 ص)
-          </option>
+          <option value="10-morning" data-start="08:00" data-end="18:00" data-label="10 س صباحي" selected>☀️ وردية 10 ساعات صباحي (08:00 ص - 06:00 م)</option>
+          <option value="10-evening" data-start="18:00" data-end="04:00" data-label="10 س مسائي">🌙 وردية 10 ساعات مسائي (06:00 م - 04:00 ص)</option>
+          <option value="12-morning" data-start="08:00" data-end="20:00" data-label="12 س صباحي">☀️ وردية 12 ساعة صباحي (08:00 ص - 08:00 م)</option>
+          <option value="12-evening" data-start="20:00" data-end="08:00" data-label="12 س مسائي">🌙 وردية 12 ساعة مسائي (08:00 م - 08:00 ص)</option>
         </select>
       </div>
     </div>
@@ -2030,12 +472,10 @@
         <label for="startTime">بدأ الشغل</label>
         <input type="time" id="startTime" value="08:00">
       </div>
-
       <div class="form-group">
         <label for="shiftEndTime">نهاية الوردية</label>
         <input type="time" id="shiftEndTime" value="18:00">
       </div>
-
       <div class="form-group">
         <label for="actualEndTime">الخروج الفعلي</label>
         <input type="time" id="actualEndTime" value="18:00">
@@ -2047,12 +487,10 @@
         <div class="ribbon-label">زمن الوردية</div>
         <div class="ribbon-value" id="shiftDurationLabel">10:00 س</div>
       </div>
-
       <div class="ribbon-item">
         <div class="ribbon-label">الخروج المبكر</div>
         <div class="ribbon-value" id="earlyLeaveLabel">0 د</div>
       </div>
-
       <div class="ribbon-item">
         <div class="ribbon-label">الزمن الفعلي</div>
         <div class="ribbon-value ok" id="elapsedLabel">10:00 س</div>
@@ -2060,34 +498,18 @@
     </div>
   </section>
 
-  <!-- تبويبات الماكينات -->
   <div class="machine-tabs" id="machineTabs">
-    <button type="button" class="tab-btn active" data-filter="all">
-      الكل <span class="tab-badge">4</span>
-    </button>
-
-    <button type="button" class="tab-btn" data-filter="0">
-      ماكينة 1 <span class="tab-badge" id="badgeM0">0</span>
-    </button>
-
-    <button type="button" class="tab-btn" data-filter="1">
-      ماكينة 2 <span class="tab-badge" id="badgeM1">0</span>
-    </button>
-
-    <button type="button" class="tab-btn" data-filter="2">
-      ماكينة 3 <span class="tab-badge" id="badgeM2">0</span>
-    </button>
-
-    <button type="button" class="tab-btn" data-filter="3">
-      ماكينة 4 <span class="tab-badge" id="badgeM3">0</span>
-    </button>
+    <button type="button" class="tab-btn active" data-filter="all">الكل <span class="tab-badge">4</span></button>
+    <button type="button" class="tab-btn" data-filter="0">ماكينة 1 <span class="tab-badge" id="badgeM0">0</span></button>
+    <button type="button" class="tab-btn" data-filter="1">ماكينة 2 <span class="tab-badge" id="badgeM1">0</span></button>
+    <button type="button" class="tab-btn" data-filter="2">ماكينة 3 <span class="tab-badge" id="badgeM2">0</span></button>
+    <button type="button" class="tab-btn" data-filter="3">ماكينة 4 <span class="tab-badge" id="badgeM3">0</span></button>
   </div>
 
   <div id="machinesSection">
     <div id="machinesList"></div>
   </div>
 
-  <!-- النتائج -->
   <section id="resultsContainer">
     <div class="card">
       <div class="card-header">
@@ -2099,7 +521,6 @@
           </svg>
           ملخص إنتاج الوردية
         </div>
-
         <span class="tag-badge denim" id="resShiftTag">10 ساعات</span>
       </div>
 
@@ -2110,14 +531,12 @@
           <div class="kpi-num" id="kpiTotalPants">0</div>
           <div class="kpi-unit">بنطلون</div>
         </div>
-
         <div class="kpi-card">
           <span class="kpi-icon">⚡</span>
           <div class="kpi-title">المعدل بالساعة</div>
           <div class="kpi-num denim" id="kpiPerHour">0</div>
           <div class="kpi-unit">بنطلون / س</div>
         </div>
-
         <div class="kpi-card">
           <span class="kpi-icon">⏱️</span>
           <div class="kpi-title">إجمالي التوقفات</div>
@@ -2141,7 +560,6 @@
           تفصيل إنتاج العملاء والموديلات
         </div>
       </div>
-
       <div class="table-responsive">
         <table id="clientDetailTable">
           <thead>
@@ -2158,7 +576,6 @@
               <th>معدل/س</th>
             </tr>
           </thead>
-
           <tbody id="clientTableBody"></tbody>
           <tfoot id="clientDetailTableFoot"></tfoot>
         </table>
@@ -2176,7 +593,6 @@
           ملخص إنتاج الماكينات
         </div>
       </div>
-
       <div class="table-responsive">
         <table id="detailTable">
           <thead>
@@ -2190,7 +606,6 @@
               <th>معدل/س</th>
             </tr>
           </thead>
-
           <tbody id="detailTableBody"></tbody>
           <tfoot id="detailTableFoot"></tfoot>
         </table>
@@ -2198,31 +613,18 @@
     </div>
 
     <div class="export-grid">
-      <button type="button" class="btn-action-outline" id="previewReportBtn" style="border-color: var(--laser); color: var(--laser);">
-        👁️ معاينة
-      </button>
-
-      <button type="button" class="btn-action-outline whatsapp" id="shareWhatsappBtn">
-        واتساب
-      </button>
-
-      <button type="button" class="btn-action-outline" id="exportExcelBtn" style="border-color: #10b981; color: #10b981;">
-        📥 Excel
-      </button>
-
-      <button type="button" class="btn-action-outline" id="printReportBtn">
-        🖨️ طباعة
-      </button>
+      <button type="button" class="btn-action-outline" id="previewReportBtn" style="border-color: var(--laser); color: var(--laser);">👁️ معاينة</button>
+      <button type="button" class="btn-action-outline whatsapp" id="shareWhatsappBtn">واتساب</button>
+      <button type="button" class="btn-action-outline" id="exportExcelBtn" style="border-color: #10b981; color: #10b981;">📥 Excel</button>
+      <button type="button" class="btn-action-outline" id="printReportBtn">🖨️ طباعة</button>
     </div>
 
-    <!-- تذييل التقرير -->
     <div class="print-footer" id="printFooter">
       <span>تم إعداد التقرير آلياً بواسطة حاسبة إنتاج قسم الليزر</span>
       <span>اعتماد المشرف: ____________________</span>
     </div>
   </section>
 
-  <!-- شريط الأزرار السفلي -->
   <div class="bottom-action-bar">
     <button type="button" class="btn-main-calc" id="calcBtn">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
@@ -2230,48 +632,30 @@
       </svg>
       احسب الإنتاج
     </button>
-
-    <button type="button" class="btn-secondary" id="quickPreviewBtn">
-      👁️ معاينة
-    </button>
-
-    <button type="button" class="btn-secondary" id="quickPrintBtn">
-      🖨️ طباعة
-    </button>
+    <button type="button" class="btn-secondary" id="quickPreviewBtn">👁️ معاينة</button>
+    <button type="button" class="btn-secondary" id="quickPrintBtn">🖨️ طباعة</button>
   </div>
 
-  <!-- نافذة المعاينة -->
   <div class="modal-backdrop" id="previewModal">
     <div class="preview-modal-container">
       <div class="preview-modal-header">
         <div class="preview-modal-title">👁️ معاينة تقرير الوردية</div>
-
         <div class="preview-modal-actions">
-          <button type="button" class="btn-preview-action print" id="modalPrintBtn">
-            🖨️ طباعة الآن
-          </button>
-
-          <button type="button" class="btn-preview-action close" id="closePreviewBtn">
-            ✕ إغلاق
-          </button>
+          <button type="button" class="btn-preview-action print" id="modalPrintBtn">🖨️ طباعة الآن</button>
+          <button type="button" class="btn-preview-action close" id="closePreviewBtn">✕ إغلاق</button>
         </div>
       </div>
-
       <div class="preview-modal-body">
         <div class="a4-preview-sheet" id="a4PreviewSheet"></div>
       </div>
     </div>
   </div>
 
-  <!-- نافذة التفريغ -->
   <div class="modal-backdrop" id="resetModal">
     <div class="modal-box">
       <div class="modal-icon">⚠️</div>
       <h3 class="modal-title">تفريغ بيانات الوردية؟</h3>
-      <p class="modal-desc">
-        سيتم مسح جميع بيانات العملاء والتوقفات المدخلة واستعادة الإعدادات الافتراضية للوردية الجديدة.
-      </p>
-
+      <p class="modal-desc">سيتم مسح جميع بيانات العملاء والتوقفات المدخلة واستعادة الإعدادات الافتراضية للوردية الجديدة.</p>
       <div class="modal-actions">
         <button type="button" class="modal-btn cancel" id="cancelResetBtn">إلغاء</button>
         <button type="button" class="modal-btn confirm" id="confirmResetBtn">تفريغ الآن</button>
@@ -2279,53 +663,41 @@
     </div>
   </div>
 
-  <!-- نافذة السجل -->
   <div class="modal-backdrop" id="historyModal">
     <div class="modal-box" style="max-width: 480px; text-align: right;">
       <div class="modal-icon">📅</div>
       <h3 class="modal-title" style="text-align: center;">سجل الأيام السابقة</h3>
       <p class="modal-desc" style="text-align: center;">اختر يوم للتحميل أو الحذف</p>
-
       <div style="display:flex; gap:8px; margin-bottom:14px;">
-        <button type="button" class="sync-btn" id="exportBackupBtn" style="flex:1; background:var(--success);">
-          ⬇️ تصدير نسخة احتياطية
-        </button>
-
+        <button type="button" class="sync-btn" id="exportBackupBtn" style="flex:1; background:var(--success);">⬇️ تصدير نسخة احتياطية</button>
         <label class="sync-btn" id="importBackupLabel" style="flex:1; background:var(--denim); text-align:center; cursor:pointer;">
           ⬆️ استرجاع نسخة
           <input type="file" id="importBackupInput" accept="application/json" style="display:none;">
         </label>
       </div>
-
       <div id="historyList" style="max-height:300px; overflow-y:auto; margin-bottom:16px;"></div>
-
       <div class="modal-actions">
         <button type="button" class="modal-btn cancel" id="closeHistoryBtn">إغلاق</button>
       </div>
     </div>
   </div>
 
-  <!-- نافذة الملخص -->
   <div class="modal-backdrop" id="summaryModal">
     <div class="modal-box" style="max-width: 560px; text-align: right;">
       <div class="modal-icon">📊</div>
       <h3 class="modal-title" style="text-align: center;">ملخص الفترة</h3>
-
       <div class="grid-2" style="margin-bottom: 12px;">
         <div class="form-group" style="margin-bottom: 0;">
           <label>من تاريخ</label>
           <input type="date" id="summaryFromDate">
         </div>
-
         <div class="form-group" style="margin-bottom: 0;">
           <label>إلى تاريخ</label>
           <input type="date" id="summaryToDate">
         </div>
       </div>
-
       <div id="summaryChart" style="margin-bottom: 14px;"></div>
       <div id="summaryTableWrap" style="max-height: 260px; overflow-y: auto; margin-bottom: 14px;"></div>
-
       <div class="modal-actions">
         <button type="button" class="modal-btn cancel" id="closeSummaryBtn">إغلاق</button>
       </div>
@@ -2336,7 +708,7 @@
     (function () {
       'use strict';
 
-      const STORAGE_KEY = 'laser_production_pro_v8';
+      const STORAGE_KEY = 'laser_production_pro_v10';
       const THEME_KEY = 'laser_app_theme';
       const MACHINE_DEFAULTS = [0, 0, 0, 0];
       const NUM_MACHINES = 4;
@@ -2374,126 +746,86 @@
         toastTextEl.textContent = text;
         toastIconEl.textContent = icon;
         toastEl.className = 'toast-msg show' + (type ? ' ' + type : '');
-
         clearTimeout(toastTimer);
-
-        toastTimer = setTimeout(() => {
-          toastEl.classList.remove('show');
-        }, 1800);
+        toastTimer = setTimeout(() => { toastEl.classList.remove('show'); }, 1800);
       }
 
       function parseTimeToMinutes(tStr) {
         if (!tStr || !tStr.includes(':')) return null;
-
         const [h, m] = tStr.split(':').map(Number);
-
         if (isNaN(h) || isNaN(m)) return null;
-
         return h * 60 + m;
       }
 
       function formatMinsToDuration(totalMins) {
-        if (totalMins == null || isNaN(totalMins) || totalMins < 0) {
-          return '0 د';
-        }
-
+        if (totalMins == null || isNaN(totalMins) || totalMins < 0) return '0 د';
         const hrs = Math.floor(totalMins / 60);
         const mins = Math.round(totalMins % 60);
-
         if (hrs === 0) return `${mins} د`;
         if (mins === 0) return `${hrs} س`;
-
         return `${hrs} س و ${mins} د`;
       }
 
       function formatTimeTo12Hour(tStr) {
-        if (!tStr || typeof tStr !== 'string' || !tStr.includes(':')) {
-          return tStr || '';
-        }
-
+        if (!tStr || typeof tStr !== 'string' || !tStr.includes(':')) return tStr || '';
         const parts = tStr.split(':');
         let h = parseInt(parts[0], 10);
         const m = parseInt(parts[1], 10);
-
         if (isNaN(h) || isNaN(m)) return tStr;
-
         const period = h < 12 ? 'ص' : 'م';
         let h12 = h % 12;
-
         if (h12 === 0) h12 = 12;
-
         return `${String(h12).padStart(2, '0')}:${String(m).padStart(2, '0')} ${period}`;
       }
 
       function calcTimeDifference(startStr, endStr) {
         const s = parseTimeToMinutes(startStr);
         const e = parseTimeToMinutes(endStr);
-
         if (s === null || e === null) return 0;
         if (e >= s) return e - s;
-
         return (24 * 60 - s) + e;
       }
 
-      function getMachineName(idx) {
-        return `ماكينة ${idx + 1}`;
-      }
+      function getMachineName(idx) { return `ماكينة ${idx + 1}`; }
 
       function updateShiftStats() {
         const start = startTimeInput.value;
         const plannedEnd = shiftEndTimeInput.value;
         const actualEnd = actualEndTimeInput.value;
-
         const plannedDurationMins = calcTimeDifference(start, plannedEnd);
         const actualDurationMins = calcTimeDifference(start, actualEnd);
-
         shiftDurationLabel.textContent = formatMinsToDuration(plannedDurationMins);
         elapsedLabel.textContent = formatMinsToDuration(actualDurationMins);
-
         if (actualDurationMins < plannedDurationMins) {
           const earlyMins = plannedDurationMins - actualDurationMins;
-
           earlyLeaveLabel.textContent = formatMinsToDuration(earlyMins);
           earlyLeaveLabel.className = 'ribbon-value warning';
         } else {
           earlyLeaveLabel.textContent = '0 د';
           earlyLeaveLabel.className = 'ribbon-value ok';
         }
-
         autoSave();
       }
 
       document.getElementById('themeToggleBtn').addEventListener('click', () => {
         currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
-
         applyTheme(currentTheme);
         localStorage.setItem(THEME_KEY, currentTheme);
-
-        showToast(
-          currentTheme === 'dark'
-            ? 'تم تفعيل الوضع الداكن'
-            : 'تم تفعيل الوضع الفاتح',
-          '🌓'
-        );
+        showToast(currentTheme === 'dark' ? 'تم تفعيل الوضع الداكن' : 'تم تفعيل الوضع الفاتح', '🌓');
       });
 
       shiftPresetSelect.addEventListener('change', () => {
         const opt = shiftPresetSelect.options[shiftPresetSelect.selectedIndex];
-
         if (!opt) return;
-
         const start = opt.dataset.start;
         const end = opt.dataset.end;
         const label = opt.dataset.label || opt.text;
-
         if (start && end) {
           startTimeInput.value = start;
           shiftEndTimeInput.value = end;
           actualEndTimeInput.value = end;
         }
-
         activeShiftBadge.textContent = label;
-
         updateShiftStats();
         showToast(`تم اختيار ${label}`, '⏰');
       });
@@ -2505,65 +837,42 @@
 
       function renderMachines() {
         machinesListEl.innerHTML = '';
-
         for (let i = 0; i < NUM_MACHINES; i++) {
           const defaultSec = MACHINE_DEFAULTS[i];
-
           const mCard = document.createElement('div');
-
           mCard.className = 'machine-card';
           mCard.id = `machineCard_${i}`;
           mCard.dataset.index = i;
-
           mCard.innerHTML = `
             <div class="machine-top-bar">
-              <div class="machine-name-title">
-                <span class="dot"></span>
-                ماكينة ${i + 1}
-              </div>
-              <span class="machine-status-tag" id="statusTag_${i}">
-                جاهزة للعمل
-              </span>
+              <div class="machine-name-title"><span class="dot"></span>ماكينة ${i + 1}</div>
+              <span class="machine-status-tag" id="statusTag_${i}">جاهزة للعمل</span>
             </div>
-
             <button type="button" class="drawer-btn" data-target="clientDrawer_${i}">
               <span>👥 العملاء والتشغيلات الخاصة</span>
-              <span class="drawer-val" id="clientSummary_${i}">
-                مفيش عملاء <span class="chev">›</span>
-              </span>
+              <span class="drawer-val" id="clientSummary_${i}">مفيش عملاء <span class="chev">›</span></span>
             </button>
-
             <div class="drawer-content" id="clientDrawer_${i}">
               <div class="client-list" data-machine="${i}"></div>
-
-              <button type="button" class="add-client-btn" data-machine="${i}">
-                + إضافة عميل / تشغيلة
-              </button>
+              <button type="button" class="add-client-btn" data-machine="${i}">+ إضافة عميل / تشغيلة</button>
             </div>
-
             <button type="button" class="drawer-btn" data-target="stopDrawer_${i}">
               <span>🛑 التوقفات والأعطال</span>
-              <span class="drawer-val" id="stopSummary_${i}">
-                0 دقيقة <span class="chev">›</span>
-              </span>
+              <span class="drawer-val" id="stopSummary_${i}">0 دقيقة <span class="chev">›</span></span>
             </button>
-
             <div class="drawer-content" id="stopDrawer_${i}">
               <div class="stoppage-grid">
                 <div class="form-group">
                   <label>بداية الراحة (+30د تلقائي)</label>
                   <input type="time" class="restFrom" data-idx="${i}">
                 </div>
-
                 <div class="form-group">
                   <label>سحب الغاز (+10د تلقائي)</label>
                   <input type="time" class="gasFrom" data-idx="${i}">
                 </div>
               </div>
-
               <div class="form-group">
                 <label>تغيير مقاسات</label>
-
                 <select class="sizeInput shift-select-custom" data-idx="${i}">
                   <option value="0" selected>0 دقيقة (بدون تغيير مقاس)</option>
                   <option value="5">5 دقائق</option>
@@ -2575,52 +884,36 @@
                   <option value="60">60 دقيقة (ساعة)</option>
                 </select>
               </div>
-
               <div class="form-group">
                 <label>عطل طارئ (من - إلى)</label>
-
                 <div class="grid-2">
                   <input type="time" class="downFrom" data-idx="${i}">
                   <input type="time" class="downTo" data-idx="${i}">
                 </div>
               </div>
-
               <div class="form-group">
                 <label>سبب العطل (اختياري)</label>
                 <input type="text" class="reasonInput" data-idx="${i}" placeholder="مثال: صيانة سيرفو، عطل كهرباء">
               </div>
             </div>
-
             <button type="button" class="drawer-btn" data-target="secDrawer_${i}">
               <span>⏱️ زمن الجنب الأساسي للماكينة</span>
-
-              <span class="drawer-val" id="secSummary_${i}">
-                ${defaultSec} ثانية <span class="chev">›</span>
-              </span>
+              <span class="drawer-val" id="secSummary_${i}">${defaultSec} ثانية <span class="chev">›</span></span>
             </button>
-
             <div class="drawer-content" id="secDrawer_${i}">
               <div class="stepper-box" style="margin-bottom:0;">
                 <span class="stepper-label">تعديل زمن الجنب الأساسي:</span>
-
                 <div class="stepper-controls">
                   <button type="button" class="step-btn dec-sec" data-idx="${i}">-</button>
-
                   <input type="number" class="secInput" data-idx="${i}" value="${defaultSec}" min="0" max="300">
-
                   <button type="button" class="step-btn inc-sec" data-idx="${i}">+</button>
-
-                  <span style="font-size:12px; font-weight:700; color:var(--text-muted);">
-                    ث
-                  </span>
+                  <span style="font-size:12px; font-weight:700; color:var(--text-muted);">ث</span>
                 </div>
               </div>
             </div>
           `;
-
           machinesListEl.appendChild(mCard);
         }
-
         attachMachineEvents();
       }
 
@@ -2629,11 +922,8 @@
           btn.onclick = () => {
             const targetId = btn.dataset.target;
             const content = document.getElementById(targetId);
-
             if (!content) return;
-
             const isOpen = content.classList.contains('open');
-
             content.classList.toggle('open', !isOpen);
             btn.classList.toggle('open', !isOpen);
           };
@@ -2642,32 +932,15 @@
         document.querySelectorAll('.step-btn').forEach(btn => {
           btn.onclick = (e) => {
             e.stopPropagation();
-
             const idx = btn.dataset.idx;
-            const input = machinesListEl.querySelector(
-              `.secInput[data-idx="${idx}"]`
-            );
-
+            const input = machinesListEl.querySelector(`.secInput[data-idx="${idx}"]`);
             if (!input) return;
-
             let value = parseInt(input.value, 10) || 0;
-
-            if (btn.classList.contains('inc-sec')) {
-              value += 1;
-            }
-
-            if (btn.classList.contains('dec-sec')) {
-              value = Math.max(0, value - 1);
-            }
-
+            if (btn.classList.contains('inc-sec')) value += 1;
+            if (btn.classList.contains('dec-sec')) value = Math.max(0, value - 1);
             input.value = value;
-
             const summaryEl = document.getElementById(`secSummary_${idx}`);
-
-            if (summaryEl) {
-              summaryEl.innerHTML = `${value} ثانية <span class="chev">›</span>`;
-            }
-
+            if (summaryEl) summaryEl.innerHTML = `${value} ثانية <span class="chev">›</span>`;
             autoSave();
           };
         });
@@ -2680,24 +953,15 @@
         });
 
         if (staticEventsAttached) return;
-
         staticEventsAttached = true;
 
         document.querySelectorAll('.tab-btn').forEach(tab => {
           tab.addEventListener('click', () => {
-            document.querySelectorAll('.tab-btn').forEach(t => {
-              t.classList.remove('active');
-            });
-
+            document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
             tab.classList.add('active');
-
             const filter = tab.dataset.filter;
-
             document.querySelectorAll('.machine-card').forEach((card, idx) => {
-              card.style.display =
-                filter === 'all' || filter === String(idx)
-                  ? 'block'
-                  : 'none';
+              card.style.display = filter === 'all' || filter === String(idx) ? 'block' : 'none';
             });
           });
         });
@@ -2706,12 +970,8 @@
           if (e.target.classList.contains('secInput')) {
             const idx = e.target.dataset.idx;
             const summaryEl = document.getElementById(`secSummary_${idx}`);
-
-            if (summaryEl) {
-              summaryEl.innerHTML = `${e.target.value} ثانية <span class="chev">›</span>`;
-            }
+            if (summaryEl) summaryEl.innerHTML = `${e.target.value} ثانية <span class="chev">›</span>`;
           }
-
           updateAllSummaries();
           autoSave();
         });
@@ -2719,173 +979,91 @@
         machinesListEl.addEventListener('change', (e) => {
           if (e.target.classList.contains('restFrom')) {
             const value = e.target.value;
-
             document.querySelectorAll('.restFrom').forEach(input => {
               if (input !== e.target) input.value = value;
             });
-
-            showToast(
-              'تم مزامنة الراحة مع جميع الماكينات',
-              '🔄',
-              'success'
-            );
+            showToast('تم مزامنة الراحة مع جميع الماكينات', '🔄', 'success');
           }
-
           updateAllSummaries();
           autoSave();
         });
       }
 
       function addClientRow(machineIdx, clientData = null) {
-        const clientList = machinesListEl.querySelector(
-          `.client-list[data-machine="${machineIdx}"]`
-        );
-
+        const clientList = machinesListEl.querySelector(`.client-list[data-machine="${machineIdx}"]`);
         if (!clientList) return;
-
-        const baseSecInput = machinesListEl.querySelector(
-          `.secInput[data-idx="${machineIdx}"]`
-        );
-
-        const baseSec =
-          baseSecInput && parseFloat(baseSecInput.value) > 0
-            ? baseSecInput.value
-            : '';
-
+        const baseSecInput = machinesListEl.querySelector(`.secInput[data-idx="${machineIdx}"]`);
+        const baseSec = baseSecInput && parseFloat(baseSecInput.value) > 0 ? baseSecInput.value : '';
         let suggestedStart = startTimeInput.value || '08:00';
-
         const existingEntries = clientList.querySelectorAll('.client-entry');
-
         if (existingEntries.length > 0) {
-          const lastToInput =
-            existingEntries[existingEntries.length - 1].querySelector('.clientTo');
-
-          if (lastToInput && lastToInput.value) {
-            suggestedStart = lastToInput.value;
-          }
+          const lastToInput = existingEntries[existingEntries.length - 1].querySelector('.clientTo');
+          if (lastToInput && lastToInput.value) suggestedStart = lastToInput.value;
         }
-
-        const defaultEnd =
-          actualEndTimeInput.value ||
-          shiftEndTimeInput.value ||
-          '18:00';
-
+        const defaultEnd = actualEndTimeInput.value || shiftEndTimeInput.value || '18:00';
         const name = clientData ? clientData.name : '';
         const washNo = clientData ? clientData.washNo : '';
         const pieceCount = clientData ? clientData.pieceCount : '';
-        const legSec = clientData
-          ? clientData.legSec
-          : (baseSec || '');
-
+        const legSec = clientData ? clientData.legSec : (baseSec || '');
         const from = clientData ? clientData.from : suggestedStart;
         const to = clientData ? clientData.to : defaultEnd;
-
         const row = document.createElement('div');
-
         row.className = 'client-entry';
-
         row.innerHTML = `
           <div class="client-entry-row1">
             <div class="form-group" style="margin-bottom:0;">
-              <label style="font-size:10px; margin-bottom:2px; color:var(--text-dim);">
-                العميل / الموديل
-              </label>
+              <label style="font-size:10px; margin-bottom:2px; color:var(--text-dim);">العميل / الموديل</label>
               <input type="text" class="clientName" placeholder="اسم العميل" value="${name}">
             </div>
-
             <div class="form-group" style="margin-bottom:0;">
-              <label style="font-size:10px; margin-bottom:2px; color:var(--text-dim);">
-                رقم الغسلة / اللوت
-              </label>
+              <label style="font-size:10px; margin-bottom:2px; color:var(--text-dim);">رقم الغسلة / اللوت</label>
               <input type="text" class="clientWashNo" placeholder="رقم الغسلة" value="${washNo}">
             </div>
-
             <div class="form-group" style="margin-bottom:0;">
-              <label style="font-size:10px; margin-bottom:2px; color:var(--text-dim);">
-                عدد القطع
-              </label>
+              <label style="font-size:10px; margin-bottom:2px; color:var(--text-dim);">عدد القطع</label>
               <input type="number" class="clientPieceCount" placeholder="القطع المطلوبة" value="${pieceCount}" min="0">
             </div>
-
             <div class="form-group" style="margin-bottom:0;">
-              <label style="font-size:10px; margin-bottom:2px; color:var(--text-dim);">
-                زمن الجنب (ث)
-              </label>
+              <label style="font-size:10px; margin-bottom:2px; color:var(--text-dim);">زمن الجنب (ث)</label>
               <input type="number" class="clientLegSec" placeholder="ثواني" value="${legSec}" min="1">
             </div>
           </div>
-
           <div class="client-entry-row2">
             <div class="form-group" style="margin-bottom:0;">
-              <label style="font-size:10px; margin-bottom:2px; color:var(--text-dim);">
-                من الساعة
-              </label>
+              <label style="font-size:10px; margin-bottom:2px; color:var(--text-dim);">من الساعة</label>
               <input type="time" class="clientFrom" value="${from}">
             </div>
-
             <div class="form-group" style="margin-bottom:0;">
-              <label style="font-size:10px; margin-bottom:2px; color:var(--text-dim);">
-                إلى الساعة
-              </label>
+              <label style="font-size:10px; margin-bottom:2px; color:var(--text-dim);">إلى الساعة</label>
               <input type="time" class="clientTo" value="${to}">
             </div>
-
-            <button type="button" class="del-client-btn" title="حذف العميل" style="margin-top:14px;">
-              ×
-            </button>
+            <button type="button" class="del-client-btn" title="حذف العميل" style="margin-top:14px;">×</button>
           </div>
         `;
-
         row.querySelector('.del-client-btn').addEventListener('click', () => {
           row.remove();
           updateMachineClientBadge(machineIdx);
           autoSave();
         });
-
         clientList.appendChild(row);
-
         updateMachineClientBadge(machineIdx);
-
         const drawer = document.getElementById(`clientDrawer_${machineIdx}`);
-        const drawerBtn = document.querySelector(
-          `.drawer-btn[data-target="clientDrawer_${machineIdx}"]`
-        );
-
+        const drawerBtn = document.querySelector(`.drawer-btn[data-target="clientDrawer_${machineIdx}"]`);
         if (drawer && !drawer.classList.contains('open')) {
           drawer.classList.add('open');
-
-          if (drawerBtn) {
-            drawerBtn.classList.add('open');
-          }
+          if (drawerBtn) drawerBtn.classList.add('open');
         }
-
         autoSave();
       }
 
       function updateMachineClientBadge(machineIdx) {
-        const clientList = machinesListEl.querySelector(
-          `.client-list[data-machine="${machineIdx}"]`
-        );
-
-        const count = clientList
-          ? clientList.querySelectorAll('.client-entry').length
-          : 0;
-
+        const clientList = machinesListEl.querySelector(`.client-list[data-machine="${machineIdx}"]`);
+        const count = clientList ? clientList.querySelectorAll('.client-entry').length : 0;
         const summaryLabel = document.getElementById(`clientSummary_${machineIdx}`);
-
-        if (summaryLabel) {
-          summaryLabel.innerHTML =
-            `${count > 0 ? count + ' عميل' : 'مفيش عملاء'} <span class="chev">›</span>`;
-        }
-
+        if (summaryLabel) summaryLabel.innerHTML = `${count > 0 ? count + ' عميل' : 'مفيش عملاء'} <span class="chev">›</span>`;
         const tabBadge = document.getElementById(`badgeM${machineIdx}`);
-
-        if (tabBadge) {
-          tabBadge.textContent = count;
-        }
-
+        if (tabBadge) tabBadge.textContent = count;
         const statusTag = document.getElementById(`statusTag_${machineIdx}`);
-
         if (statusTag) {
           if (count > 0) {
             statusTag.textContent = `${count} عملاء`;
@@ -2902,330 +1080,158 @@
       function updateAllSummaries() {
         for (let i = 0; i < NUM_MACHINES; i++) {
           updateMachineClientBadge(i);
-
           const card = document.getElementById(`machineCard_${i}`);
-
           if (!card) continue;
-
           let stopMins = 0;
-
           const restFrom = card.querySelector('.restFrom').value;
           const gasFrom = card.querySelector('.gasFrom').value;
-          const sizeMins = parseInt(
-            card.querySelector('.sizeInput').value,
-            10
-          ) || 0;
-
+          const sizeMins = parseInt(card.querySelector('.sizeInput').value, 10) || 0;
           const downFrom = card.querySelector('.downFrom').value;
           const downTo = card.querySelector('.downTo').value;
-
           if (restFrom) stopMins += 30;
           if (gasFrom) stopMins += 10;
-
           stopMins += sizeMins;
-
-          if (downFrom && downTo) {
-            stopMins += calcTimeDifference(downFrom, downTo);
-          }
-
+          if (downFrom && downTo) stopMins += calcTimeDifference(downFrom, downTo);
           const stopSummary = document.getElementById(`stopSummary_${i}`);
-
-          if (stopSummary) {
-            stopSummary.innerHTML =
-              `${stopMins} دقيقة <span class="chev">›</span>`;
-          }
-
-          const secVal =
-            card.querySelector('.secInput')?.value ||
-            MACHINE_DEFAULTS[i];
-
+          if (stopSummary) stopSummary.innerHTML = `${stopMins} دقيقة <span class="chev">›</span>`;
+          const secVal = card.querySelector('.secInput')?.value || MACHINE_DEFAULTS[i];
           const secSummary = document.getElementById(`secSummary_${i}`);
-
-          if (secSummary) {
-            secSummary.innerHTML =
-              `${secVal} ثانية <span class="chev">›</span>`;
-          }
+          if (secSummary) secSummary.innerHTML = `${secVal} ثانية <span class="chev">›</span>`;
         }
       }
 
       function getOverlapMins(s1, e1, s2, e2) {
-        if (
-          s1 === null ||
-          e1 === null ||
-          s2 === null ||
-          e2 === null
-        ) {
-          return 0;
-        }
-
-        let cStart = s1;
-        let cEnd = e1;
-        let dStart = s2;
-        let dEnd = e2;
-
+        if (s1 === null || e1 === null || s2 === null || e2 === null) return 0;
+        let cStart = s1, cEnd = e1, dStart = s2, dEnd = e2;
         if (cEnd < cStart) cEnd += 24 * 60;
         if (dEnd < dStart) dEnd += 24 * 60;
-
         const maxStart = Math.max(cStart, dStart);
         const minEnd = Math.min(cEnd, dEnd);
-
         return Math.max(0, minEnd - maxStart);
       }
 
       function calculateProduction() {
         const startStr = startTimeInput.value;
-        const actualEndStr =
-          actualEndTimeInput.value ||
-          shiftEndTimeInput.value;
-
-        const totalActualMins = calcTimeDifference(
-          startStr,
-          actualEndStr
-        );
-
+        const actualEndStr = actualEndTimeInput.value || shiftEndTimeInput.value;
+        const totalActualMins = calcTimeDifference(startStr, actualEndStr);
         if (totalActualMins <= 0) {
-          showToast(
-            'يرجى التأكد من صحة أوقات الوردية',
-            '⚠️',
-            'danger'
-          );
+          showToast('يرجى التأكد من صحة أوقات الوردية', '⚠️', 'danger');
           return;
         }
 
         let totalPantsOverall = 0;
         let totalDowntimeAllMachines = 0;
         let totalNetOperatingMinsAllMachines = 0;
-
         const machineResults = [];
         const clientResults = [];
 
         for (let i = 0; i < NUM_MACHINES; i++) {
           const card = document.getElementById(`machineCard_${i}`);
-
-          const baseLegSec =
-            parseFloat(card.querySelector('.secInput').value) || 0;
-
+          const baseLegSec = parseFloat(card.querySelector('.secInput').value) || 0;
           let machineDowntime = 0;
-
           const restFrom = card.querySelector('.restFrom').value;
           const gasFrom = card.querySelector('.gasFrom').value;
-          const sizeMins =
-            parseFloat(card.querySelector('.sizeInput').value) || 0;
-
+          const sizeMins = parseFloat(card.querySelector('.sizeInput').value) || 0;
           const downFrom = card.querySelector('.downFrom').value;
           const downTo = card.querySelector('.downTo').value;
-
           if (restFrom) machineDowntime += 30;
           if (gasFrom) machineDowntime += 10;
-
           machineDowntime += sizeMins;
-
-          if (downFrom && downTo) {
-            machineDowntime += calcTimeDifference(downFrom, downTo);
-          }
-
+          if (downFrom && downTo) machineDowntime += calcTimeDifference(downFrom, downTo);
           totalDowntimeAllMachines += machineDowntime;
-
-          const machineNetMins = Math.max(
-            0,
-            totalActualMins - machineDowntime
-          );
-
+          const machineNetMins = Math.max(0, totalActualMins - machineDowntime);
           totalNetOperatingMinsAllMachines += machineNetMins;
+          const machineEfficiency = totalActualMins > 0 ? Math.round((machineNetMins / totalActualMins) * 100) : 0;
 
-          const machineEfficiency =
-            totalActualMins > 0
-              ? Math.round((machineNetMins / totalActualMins) * 100)
-              : 0;
-
-          const clientEntries =
-            card.querySelectorAll('.client-entry');
-
+          const clientEntries = card.querySelectorAll('.client-entry');
           let machineTotalPants = 0;
 
           if (clientEntries.length > 0) {
             const clientsData = [];
-
             clientEntries.forEach(entry => {
-              const name =
-                entry.querySelector('.clientName').value.trim() ||
-                `عميل م${i + 1}`;
-
-              const washNo =
-                entry.querySelector('.clientWashNo')?.value.trim() ||
-                '-';
-
-              const pieceCount =
-                parseInt(
-                  entry.querySelector('.clientPieceCount')?.value,
-                  10
-                ) || 0;
-
-              const legSec =
-                parseFloat(
-                  entry.querySelector('.clientLegSec').value
-                ) ||
-                baseLegSec ||
-                0;
-
-              const cFrom =
-                entry.querySelector('.clientFrom').value ||
-                startStr;
-
-              const cTo =
-                entry.querySelector('.clientTo').value ||
-                actualEndStr;
-
-              const grossMins = Math.max(
-                0,
-                calcTimeDifference(cFrom, cTo)
-              );
-
-              clientsData.push({
-                name,
-                washNo,
-                pieceCount,
-                legSec,
-                cFrom,
-                cTo,
-                grossMins
-              });
+              const name = entry.querySelector('.clientName').value.trim() || `عميل م${i + 1}`;
+              const washNo = entry.querySelector('.clientWashNo')?.value.trim() || '-';
+              const pieceCount = parseInt(entry.querySelector('.clientPieceCount')?.value, 10) || 0;
+              const legSec = parseFloat(entry.querySelector('.clientLegSec').value) || baseLegSec || 0;
+              const cFrom = entry.querySelector('.clientFrom').value || startStr;
+              const cTo = entry.querySelector('.clientTo').value || actualEndStr;
+              const grossMins = Math.max(0, calcTimeDifference(cFrom, cTo));
+              clientsData.push({ name, washNo, pieceCount, legSec, cFrom, cTo, grossMins });
             });
 
             clientsData.forEach(c => {
               let clientDownMins = 0;
 
+              // 1. خصم الراحة (30 دقيقة)
               if (restFrom) {
                 const restStart = parseTimeToMinutes(restFrom);
-                const restEnd =
-                  restStart !== null
-                    ? (restStart + 30) % (24 * 60)
-                    : null;
-
-                const cStart = parseTimeToMinutes(c.cFrom);
-                const cEnd = parseTimeToMinutes(c.cTo);
-
-                if (
-                  restStart !== null &&
-                  restEnd !== null &&
-                  cStart !== null &&
-                  cEnd !== null
-                ) {
-                  clientDownMins += getOverlapMins(
-                    cStart,
-                    cEnd,
-                    restStart,
-                    restEnd
-                  );
+                const restEnd = (restStart !== null) ? (restStart + 30) % (24 * 60) : null;
+                if (restStart !== null && restEnd !== null) {
+                  const cStart = parseTimeToMinutes(c.cFrom);
+                  const cEnd = parseTimeToMinutes(c.cTo);
+                  if (cStart !== null && cEnd !== null) {
+                    clientDownMins += getOverlapMins(cStart, cEnd, restStart, restEnd);
+                  }
                 }
               }
 
+              // 2. خصم سحب الغاز (10 دقائق) - مع التحقق من عدم التداخل مع الراحة
               if (gasFrom) {
                 const gasStart = parseTimeToMinutes(gasFrom);
-                const gasEnd =
-                  gasStart !== null
-                    ? (gasStart + 10) % (24 * 60)
-                    : null;
-
-                const cStart = parseTimeToMinutes(c.cFrom);
-                const cEnd = parseTimeToMinutes(c.cTo);
-
-                if (
-                  gasStart !== null &&
-                  gasEnd !== null &&
-                  cStart !== null &&
-                  cEnd !== null
-                ) {
-                  clientDownMins += getOverlapMins(
-                    cStart,
-                    cEnd,
-                    gasStart,
-                    gasEnd
-                  );
+                const gasEnd = (gasStart !== null) ? (gasStart + 10) % (24 * 60) : null;
+                if (gasStart !== null && gasEnd !== null) {
+                  const cStart = parseTimeToMinutes(c.cFrom);
+                  const cEnd = parseTimeToMinutes(c.cTo);
+                  if (cStart !== null && cEnd !== null) {
+                    const restStart = restFrom ? parseTimeToMinutes(restFrom) : null;
+                    const restEnd = restStart !== null ? (restStart + 30) % (24 * 60) : null;
+                    let shouldDeductGas = true;
+                    if (restStart !== null && restEnd !== null) {
+                      const overlapWithRest = getOverlapMins(gasStart, gasEnd, restStart, restEnd);
+                      if (overlapWithRest > 0) shouldDeductGas = false;
+                    }
+                    if (shouldDeductGas) {
+                      clientDownMins += getOverlapMins(cStart, cEnd, gasStart, gasEnd);
+                    }
+                  }
                 }
               }
 
+              // 3. خصم العطل الطارئ
               if (downFrom && downTo) {
                 const uStart = parseTimeToMinutes(downFrom);
                 const uEnd = parseTimeToMinutes(downTo);
-
-                const cStart = parseTimeToMinutes(c.cFrom);
-                const cEnd = parseTimeToMinutes(c.cTo);
-
-                if (
-                  uStart !== null &&
-                  uEnd !== null &&
-                  cStart !== null &&
-                  cEnd !== null
-                ) {
-                  clientDownMins += getOverlapMins(
-                    cStart,
-                    cEnd,
-                    uStart,
-                    uEnd
-                  );
+                if (uStart !== null && uEnd !== null) {
+                  const cStart = parseTimeToMinutes(c.cFrom);
+                  const cEnd = parseTimeToMinutes(c.cTo);
+                  if (cStart !== null && cEnd !== null) {
+                    clientDownMins += getOverlapMins(cStart, cEnd, uStart, uEnd);
+                  }
                 }
               }
 
-              const totalClientsGross = clientsData.reduce(
-                (sum, client) => sum + client.grossMins,
-                0
-              );
+              // 4. خصم المقاسات (بالنسبة)
+              const totalClientsGross = clientsData.reduce((sum, cl) => sum + cl.grossMins, 0);
+              const sizeRatio = totalClientsGross > 0 ? (c.grossMins / totalClientsGross) : 0;
+              clientDownMins += Math.round(sizeMins * sizeRatio);
 
-              const sizeRatio =
-                totalClientsGross > 0
-                  ? c.grossMins / totalClientsGross
-                  : 0;
-
-              clientDownMins += Math.round(
-                sizeMins * sizeRatio
-              );
-
-              const clientNetMins = Math.max(
-                0,
-                c.grossMins - clientDownMins
-              );
-
+              const clientNetMins = Math.max(0, c.grossMins - clientDownMins);
               const clientNetSecs = clientNetMins * 60;
-
               let clientPants = 0;
-
               if (c.legSec > 0 && clientNetSecs > 0) {
-                clientPants = Math.floor(
-                  clientNetSecs / (2 * c.legSec)
-                );
+                clientPants = Math.floor(clientNetSecs / (2 * c.legSec));
               }
-
-              if (
-                !isFinite(clientPants) ||
-                isNaN(clientPants) ||
-                clientPants < 0
-              ) {
-                clientPants = 0;
-              }
-
+              if (!isFinite(clientPants) || isNaN(clientPants) || clientPants < 0) clientPants = 0;
               machineTotalPants += clientPants;
-
-              const cRate =
-                c.grossMins > 0
-                  ? (
-                      clientPants /
-                      (c.grossMins / 60)
-                    ).toFixed(1)
-                  : '0.0';
-
+              const cRate = c.grossMins > 0 ? (clientPants / (c.grossMins / 60)).toFixed(1) : '0.0';
               clientResults.push({
                 clientName: c.name,
                 washNo: c.washNo,
                 pieceCount: c.pieceCount,
                 machineNum: i + 1,
-                timeRange:
-                  `${formatTimeTo12Hour(c.cFrom)} - ${formatTimeTo12Hour(c.cTo)}`,
+                timeRange: `${formatTimeTo12Hour(c.cFrom)} - ${formatTimeTo12Hour(c.cTo)}`,
                 grossDuration: formatMinsToDuration(c.grossMins),
-                legSec:
-                  c.legSec > 0
-                    ? `${c.legSec} ث`
-                    : '-',
+                legSec: c.legSec > 0 ? `${c.legSec} ث` : '-',
                 downMins: clientDownMins,
                 netMins: clientNetMins,
                 pants: clientPants,
@@ -3235,39 +1241,18 @@
           } else {
             if (baseLegSec > 0) {
               const netSeconds = machineNetMins * 60;
-
-              machineTotalPants = Math.floor(
-                netSeconds / (2 * baseLegSec)
-              );
+              machineTotalPants = Math.floor(netSeconds / (2 * baseLegSec));
             } else {
               machineTotalPants = 0;
             }
           }
 
-          if (
-            !isFinite(machineTotalPants) ||
-            isNaN(machineTotalPants) ||
-            machineTotalPants < 0
-          ) {
-            machineTotalPants = 0;
-          }
-
+          if (!isFinite(machineTotalPants) || isNaN(machineTotalPants) || machineTotalPants < 0) machineTotalPants = 0;
           totalPantsOverall += machineTotalPants;
-
-          const machinePerHour =
-            totalActualMins > 0
-              ? (
-                  machineTotalPants /
-                  (totalActualMins / 60)
-                ).toFixed(1)
-              : '0.0';
-
+          const machinePerHour = totalActualMins > 0 ? (machineTotalPants / (totalActualMins / 60)).toFixed(1) : '0.0';
           machineResults.push({
             machineNum: i + 1,
-            legSec:
-              baseLegSec > 0
-                ? `${baseLegSec} ث`
-                : '-',
+            legSec: baseLegSec > 0 ? `${baseLegSec} ث` : '-',
             downtimeMins: machineDowntime,
             netMins: machineNetMins,
             efficiency: machineEfficiency,
@@ -3277,145 +1262,53 @@
         }
 
         const actualHours = totalActualMins / 60;
+        const totalPerHour = (actualHours > 0 && isFinite(totalPantsOverall)) ? Math.round(totalPantsOverall / actualHours) : 0;
+        const totalCapacityMins = totalActualMins * NUM_MACHINES;
+        const efficiencyPercent = totalCapacityMins > 0 ? Math.round((totalNetOperatingMinsAllMachines / totalCapacityMins) * 100) : 0;
 
-        const totalPerHour =
-          actualHours > 0 && isFinite(totalPantsOverall)
-            ? Math.round(totalPantsOverall / actualHours)
-            : 0;
+        document.getElementById('kpiTotalPants').textContent = totalPantsOverall.toLocaleString('en-US');
+        document.getElementById('kpiPerHour').textContent = totalPerHour.toLocaleString('en-US');
+        document.getElementById('kpiTotalDown').textContent = formatMinsToDuration(totalDowntimeAllMachines);
+        document.getElementById('resShiftTag').textContent = activeShiftBadge.textContent;
 
-        const totalCapacityMins =
-          totalActualMins * NUM_MACHINES;
-
-        const efficiencyPercent =
-          totalCapacityMins > 0
-            ? Math.round(
-                (totalNetOperatingMinsAllMachines /
-                  totalCapacityMins) *
-                  100
-              )
-            : 0;
-
-        document.getElementById('kpiTotalPants').textContent =
-          totalPantsOverall.toLocaleString('en-US');
-
-        document.getElementById('kpiPerHour').textContent =
-          totalPerHour.toLocaleString('en-US');
-
-        document.getElementById('kpiTotalDown').textContent =
-          formatMinsToDuration(totalDowntimeAllMachines);
-
-        document.getElementById('resShiftTag').textContent =
-          activeShiftBadge.textContent;
-
-        const selectedDate =
-          shiftDateInput && shiftDateInput.value
-            ? new Date(`${shiftDateInput.value}T00:00:00`)
-            : new Date();
-
-        const todayStr = selectedDate.toLocaleDateString(
-          'ar-EG',
-          {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-            weekday: 'long'
-          }
-        );
-
-        const plannedEndStr =
-          shiftEndTimeInput.value || '18:00';
-
-        const plannedMins = calcTimeDifference(
-          startStr,
-          plannedEndStr
-        );
-
+        const selectedDate = (shiftDateInput && shiftDateInput.value) ? new Date(`${shiftDateInput.value}T00:00:00`) : new Date();
+        const todayStr = selectedDate.toLocaleDateString('ar-EG', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' });
+        const plannedEndStr = shiftEndTimeInput.value || '18:00';
+        const plannedMins = calcTimeDifference(startStr, plannedEndStr);
         let earlyLeaveStr = 'لا يوجد';
-
-        if (
-          actualEndStr &&
-          actualEndStr !== plannedEndStr
-        ) {
-          const actualMins = calcTimeDifference(
-            startStr,
-            actualEndStr
-          );
-
+        if (actualEndStr && actualEndStr !== plannedEndStr) {
+          const actualMins = calcTimeDifference(startStr, actualEndStr);
           if (actualMins < plannedMins) {
             const diffM = plannedMins - actualMins;
-
-            earlyLeaveStr =
-              `${formatTimeTo12Hour(actualEndStr)} (مبكر ${formatMinsToDuration(diffM)})`;
+            earlyLeaveStr = `${formatTimeTo12Hour(actualEndStr)} (مبكر ${formatMinsToDuration(diffM)})`;
           } else if (actualMins > plannedMins) {
             const extraM = actualMins - plannedMins;
-
-            earlyLeaveStr =
-              `${formatTimeTo12Hour(actualEndStr)} (إضافي ${formatMinsToDuration(extraM)})`;
+            earlyLeaveStr = `${formatTimeTo12Hour(actualEndStr)} (إضافي ${formatMinsToDuration(extraM)})`;
           }
         }
-
-        document.getElementById('printDateText').textContent =
-          todayStr;
-
-        document.getElementById('printShiftTimes').textContent =
-          `${formatTimeTo12Hour(startStr)} إلى ${formatTimeTo12Hour(plannedEndStr)}`;
-
-        document.getElementById('printActualDuration').textContent =
-          formatMinsToDuration(totalActualMins);
-
-        document.getElementById('printEarlyLeave').textContent =
-          earlyLeaveStr;
-
-        document.getElementById('printShiftBadge').textContent =
-          activeShiftBadge.textContent;
+        document.getElementById('printDateText').textContent = todayStr;
+        document.getElementById('printShiftTimes').textContent = `${formatTimeTo12Hour(startStr)} إلى ${formatTimeTo12Hour(plannedEndStr)}`;
+        document.getElementById('printActualDuration').textContent = formatMinsToDuration(totalActualMins);
+        document.getElementById('printEarlyLeave').textContent = earlyLeaveStr;
+        document.getElementById('printShiftBadge').textContent = activeShiftBadge.textContent;
 
         const tbody = document.getElementById('detailTableBody');
         tbody.innerHTML = '';
-
         machineResults.forEach(machine => {
           const tr = document.createElement('tr');
-
           tr.innerHTML = `
-            <td class="text-cell">
-              <span class="tag-badge denim">
-                ماكينة ${machine.machineNum}
-              </span>
-            </td>
-
+            <td class="text-cell"><span class="tag-badge denim">ماكينة ${machine.machineNum}</span></td>
             <td>${machine.legSec}</td>
-
-            <td>
-              <span style="color:var(--warning);">
-                ${machine.downtimeMins} د
-              </span>
-            </td>
-
+            <td><span style="color:var(--warning);">${machine.downtimeMins} د</span></td>
             <td>${formatMinsToDuration(machine.netMins)}</td>
-
-            <td>
-              <span style="color:${
-                machine.efficiency >= 80
-                  ? 'var(--success)'
-                  : machine.efficiency >= 50
-                    ? 'var(--warning)'
-                    : 'var(--danger)'
-              }; font-weight:700;">
-                ${machine.efficiency}%
-              </span>
-            </td>
-
-            <td style="color:var(--laser); font-weight:800; font-size:14px;">
-              ${machine.pants.toLocaleString()}
-            </td>
-
+            <td><span style="color:${machine.efficiency >= 80 ? 'var(--success)' : (machine.efficiency >= 50 ? 'var(--warning)' : 'var(--danger)')}; font-weight:700;">${machine.efficiency}%</span></td>
+            <td style="color:var(--laser); font-weight:800; font-size:14px;">${machine.pants.toLocaleString()}</td>
             <td>${machine.perHour}</td>
           `;
-
           tbody.appendChild(tr);
         });
 
         const tfoot = document.getElementById('detailTableFoot');
-
         tfoot.innerHTML = `
           <tr>
             <td class="text-cell">الإجمالي الكلي</td>
@@ -3423,62 +1316,32 @@
             <td>${totalDowntimeAllMachines} د</td>
             <td>${formatMinsToDuration(totalNetOperatingMinsAllMachines / NUM_MACHINES)}</td>
             <td>${efficiencyPercent}%</td>
-            <td style="font-weight:800; font-size:14px;">
-              ${totalPantsOverall.toLocaleString()}
-            </td>
+            <td style="font-weight:800; font-size:14px;">${totalPantsOverall.toLocaleString()}</td>
             <td>${totalPerHour}</td>
           </tr>
         `;
 
-        const barsContainer =
-          document.getElementById('machineBarsContainer');
-
+        const barsContainer = document.getElementById('machineBarsContainer');
         barsContainer.innerHTML = '';
-
         machineResults.forEach(machine => {
-          const share =
-            totalPantsOverall > 0
-              ? ((machine.pants / totalPantsOverall) * 100).toFixed(1)
-              : 0;
-
+          const share = totalPantsOverall > 0 ? ((machine.pants / totalPantsOverall) * 100).toFixed(1) : 0;
           const barRow = document.createElement('div');
-
           barRow.className = 'bar-row';
-
           barRow.innerHTML = `
-            <div class="bar-label">
-              ماكينة ${machine.machineNum}
-            </div>
-
-            <div class="bar-track">
-              <div class="bar-fill" style="width:${share}%;"></div>
-            </div>
-
-            <div class="bar-val">
-              ${machine.pants}
-              <span style="font-size:10px; color:var(--text-dim);">
-                (${share}%)
-              </span>
-            </div>
+            <div class="bar-label">ماكينة ${machine.machineNum}</div>
+            <div class="bar-track"><div class="bar-fill" style="width:${share}%;"></div></div>
+            <div class="bar-val">${machine.pants} <span style="font-size:10px; color:var(--text-dim);">(${share}%)</span></div>
           `;
-
           barsContainer.appendChild(barRow);
         });
 
-        const clientResultsCard =
-          document.getElementById('clientResultsCard');
-
-        const clientTableBody =
-          document.getElementById('clientTableBody');
-
-        const clientTableFoot =
-          document.getElementById('clientDetailTableFoot');
-
+        const clientResultsCard = document.getElementById('clientResultsCard');
+        const clientTableBody = document.getElementById('clientTableBody');
+        const clientTableFoot = document.getElementById('clientDetailTableFoot');
         clientTableBody.innerHTML = '';
 
         if (clientResults.length > 0) {
           clientResultsCard.style.display = 'block';
-
           let totalClientPantsSum = 0;
           let totalClientDownSum = 0;
           let totalClientNetSum = 0;
@@ -3488,43 +1351,21 @@
             totalClientPantsSum += client.pants;
             totalClientDownSum += client.downMins;
             totalClientNetSum += client.netMins;
-
-            if (client.pieceCount > 0) {
-              totalClientPiecesSum += client.pieceCount;
-            }
+            if (client.pieceCount > 0) totalClientPiecesSum += client.pieceCount;
 
             const tr = document.createElement('tr');
-
             tr.innerHTML = `
-              <td class="text-cell">
-                <span class="tag-badge laser">
-                  ${client.clientName}
-                </span>
-              </td>
-
+              <td class="text-cell"><span class="tag-badge laser">${client.clientName}</span></td>
               <td>${client.washNo}</td>
-
-              <td>
-                ${
-                  client.pieceCount > 0
-                    ? client.pieceCount.toLocaleString()
-                    : '-'
-                }
-              </td>
-
+              <td>${client.pieceCount > 0 ? client.pieceCount.toLocaleString() : '-'}</td>
               <td>ماكينة ${client.machineNum}</td>
               <td>${client.timeRange}</td>
               <td>${client.legSec}</td>
               <td>${client.downMins} د</td>
               <td>${formatMinsToDuration(client.netMins)}</td>
-
-              <td style="color:var(--laser); font-weight:800; font-size:14px;">
-                ${client.pants.toLocaleString()}
-              </td>
-
+              <td style="color:var(--laser); font-weight:800; font-size:14px;">${client.pants.toLocaleString()}</td>
               <td>${client.perHour}</td>
             `;
-
             clientTableBody.appendChild(tr);
           });
 
@@ -3532,30 +1373,14 @@
             <tr>
               <td class="text-cell">إجمالي العملاء</td>
               <td>-</td>
-              <td>
-                ${
-                  totalClientPiecesSum > 0
-                    ? totalClientPiecesSum.toLocaleString()
-                    : '-'
-                }
-              </td>
+              <td>${totalClientPiecesSum > 0 ? totalClientPiecesSum.toLocaleString() : '-'}</td>
               <td>-</td>
               <td>-</td>
               <td>-</td>
               <td>${totalClientDownSum} د</td>
               <td>${formatMinsToDuration(totalClientNetSum)}</td>
-
-              <td style="font-weight:800; font-size:14px; color:var(--laser);">
-                ${totalClientPantsSum.toLocaleString()}
-              </td>
-
-              <td>
-                ${
-                  actualHours > 0
-                    ? (totalClientPantsSum / actualHours).toFixed(1)
-                    : '0.0'
-                }
-              </td>
+              <td style="font-weight:800; font-size:14px; color:var(--laser);">${totalClientPantsSum.toLocaleString()}</td>
+              <td>${(actualHours > 0 ? (totalClientPantsSum / actualHours).toFixed(1) : '0.0')}</td>
             </tr>
           `;
         } else {
@@ -3563,17 +1388,8 @@
         }
 
         resultsContainer.style.display = 'block';
-
-        resultsContainer.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
-        });
-
-        showToast(
-          'تم حساب الإنتاج بدقة!',
-          '⚡',
-          'success'
-        );
+        resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        showToast('تم حساب الإنتاج بدقة!', '⚡', 'success');
 
         window._lastCalculation = {
           dateStr: todayStr,
@@ -3592,260 +1408,121 @@
         };
       }
 
-      document.getElementById('calcBtn').addEventListener(
-        'click',
-        calculateProduction
-      );
+      document.getElementById('calcBtn').addEventListener('click', calculateProduction);
 
-      document.getElementById('shareWhatsappBtn').addEventListener(
-        'click',
-        () => {
-          calculateProduction();
-
-          const data = window._lastCalculation;
-
-          if (!data) return;
-
-          let msg = `📊 *تقرير إنتاج قسم الليزر*\n`;
-
-          msg += `📅 *التاريخ:* ${data.dateStr}\n`;
-          msg += `⏰ *مواعيد الوردية:* ${formatTimeTo12Hour(data.startTime)} إلى ${formatTimeTo12Hour(data.plannedEnd || data.endTime)}\n`;
-          msg += `⏱️ *التشغيل الفعلي:* ${data.actualDuration}\n`;
-
-          if (
-            data.earlyLeave &&
-            data.earlyLeave !== 'لا يوجد'
-          ) {
-            msg += `🚪 *الخروج المبكر:* ${data.earlyLeave}\n`;
-          }
-
+      document.getElementById('shareWhatsappBtn').addEventListener('click', () => {
+        calculateProduction();
+        const data = window._lastCalculation;
+        if (!data) return;
+        let msg = `📊 *تقرير إنتاج قسم الليزر*\n`;
+        msg += `📅 *التاريخ:* ${data.dateStr}\n`;
+        msg += `⏰ *مواعيد الوردية:* ${formatTimeTo12Hour(data.startTime)} إلى ${formatTimeTo12Hour(data.plannedEnd || data.endTime)}\n`;
+        msg += `⏱️ *التشغيل الفعلي:* ${data.actualDuration}\n`;
+        if (data.earlyLeave && data.earlyLeave !== 'لا يوجد') msg += `🚪 *الخروج المبكر:* ${data.earlyLeave}\n`;
+        msg += `─────────────────\n`;
+        msg += `👖 *إجمالي الإنتاج:* ${data.totalPants.toLocaleString()} بنطلون\n`;
+        msg += `⚡ *معدل الإنتاج:* ${data.perHour} بنطلون/ساعة\n`;
+        msg += `🛑 *إجمالي التوقفات:* ${data.totalDown}\n`;
+        msg += `─────────────────\n`;
+        msg += `🏭 *تفاصيل الماكينات:*\n`;
+        data.machines.forEach(machine => {
+          msg += `• *ماكينة ${machine.machineNum}:* ${machine.pants.toLocaleString()} بنطلون (توقف: ${machine.downtimeMins} د، كفاءة: ${machine.efficiency}%)\n`;
+        });
+        if (data.clients && data.clients.length > 0) {
           msg += `─────────────────\n`;
-          msg += `👖 *إجمالي الإنتاج:* ${data.totalPants.toLocaleString()} بنطلون\n`;
-          msg += `⚡ *معدل الإنتاج:* ${data.perHour} بنطلون/ساعة\n`;
-          msg += `🛑 *إجمالي التوقفات:* ${data.totalDown}\n`;
-          msg += `─────────────────\n`;
-          msg += `🏭 *تفاصيل الماكينات:*\n`;
-
-          data.machines.forEach(machine => {
-            msg += `• *ماكينة ${machine.machineNum}:* ${machine.pants.toLocaleString()} بنطلون (توقف: ${machine.downtimeMins} د، كفاءة: ${machine.efficiency}%)\n`;
+          msg += `👥 *تفصيل إنتاج العملاء والموديلات:*\n`;
+          data.clients.forEach(client => {
+            const washStr = client.washNo && client.washNo !== '-' ? ` (غسلة: ${client.washNo})` : '';
+            const qtyStr = client.pieceCount > 0 ? ` | مطلوب: ${client.pieceCount}` : '';
+            msg += `• *${client.clientName}*${washStr} (ماكينة ${client.machineNum}): ${client.pants.toLocaleString()} بنطلون${qtyStr}\n`;
+            msg += `   └ الفترة: ${client.timeRange} | زمن الجنب: ${client.legSec} | الصافي: ${formatMinsToDuration(client.netMins)} | معدل: ${client.perHour}/س\n`;
           });
-
-          if (data.clients && data.clients.length > 0) {
-            msg += `─────────────────\n`;
-            msg += `👥 *تفصيل إنتاج العملاء والموديلات:*\n`;
-
-            data.clients.forEach(client => {
-              const washStr =
-                client.washNo && client.washNo !== '-'
-                  ? ` (غسلة: ${client.washNo})`
-                  : '';
-
-              const qtyStr =
-                client.pieceCount > 0
-                  ? ` | مطلوب: ${client.pieceCount}`
-                  : '';
-
-              msg += `• *${client.clientName}*${washStr} (ماكينة ${client.machineNum}): ${client.pants.toLocaleString()} بنطلون${qtyStr}\n`;
-              msg += `   └ الفترة: ${client.timeRange} | زمن الجنب: ${client.legSec} | الصافي: ${formatMinsToDuration(client.netMins)} | معدل: ${client.perHour}/س\n`;
-            });
-          }
-
-          msg += `─────────────────\n`;
-          msg += `تم الإنشاء عبر منظومة حاسبة إنتاج الليزر ✨`;
-
-          window.open(
-            `https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`,
-            '_blank'
-          );
         }
-      );
+        msg += `─────────────────\n`;
+        msg += `تم الإنشاء عبر منظومة حاسبة إنتاج الليزر ✨`;
+        window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`, '_blank');
+      });
 
-      document.getElementById('exportExcelBtn').addEventListener(
-        'click',
-        () => {
-          calculateProduction();
-
-          const data = window._lastCalculation;
-
-          if (!data) return;
-
-          let csv = '\uFEFF';
-
-          csv += 'تقرير إنتاج قسم الليزر\n';
-          csv += `التاريخ,${data.dateStr}\n`;
-          csv += `الوردية,${data.shiftName}\n`;
-          csv += `إجمالي الإنتاج,${data.totalPants}\n`;
-          csv += `معدل الإنتاج بالساعة,${data.perHour}\n`;
-          csv += `إجمالي التوقفات,${data.totalDown}\n\n`;
-
-          csv += 'تفاصيل الماكينات\n';
-          csv += 'الماكينة,زمن الجنب,التوقف,الصافي,الكفاءة,الإنتاج,معدل/س\n';
-
-          data.machines.forEach(machine => {
-            csv += `ماكينة ${machine.machineNum},${machine.legSec},${machine.downtimeMins} د,${formatMinsToDuration(machine.netMins)},${machine.efficiency}%,${machine.pants},${machine.perHour}\n`;
+      document.getElementById('exportExcelBtn').addEventListener('click', () => {
+        calculateProduction();
+        const data = window._lastCalculation;
+        if (!data) return;
+        let csv = '\uFEFF';
+        csv += 'تقرير إنتاج قسم الليزر\n';
+        csv += `التاريخ,${data.dateStr}\n`;
+        csv += `الوردية,${data.shiftName}\n`;
+        csv += `إجمالي الإنتاج,${data.totalPants}\n`;
+        csv += `معدل الإنتاج بالساعة,${data.perHour}\n`;
+        csv += `إجمالي التوقفات,${data.totalDown}\n\n`;
+        csv += 'تفاصيل الماكينات\n';
+        csv += 'الماكينة,زمن الجنب,التوقف,الصافي,الكفاءة,الإنتاج,معدل/س\n';
+        data.machines.forEach(machine => {
+          csv += `ماكينة ${machine.machineNum},${machine.legSec},${machine.downtimeMins} د,${formatMinsToDuration(machine.netMins)},${machine.efficiency}%,${machine.pants},${machine.perHour}\n`;
+        });
+        if (data.clients && data.clients.length > 0) {
+          csv += '\nتفاصيل العملاء\n';
+          csv += 'العميل,رقم الغسلة,الكمية,الماكينة,الفترة,زمن الجنب,توقف مخصوم,الصافي,البناطيل,معدل/س\n';
+          data.clients.forEach(client => {
+            csv += `${client.clientName},${client.washNo},${client.pieceCount},ماكينة ${client.machineNum},${client.timeRange},${client.legSec},${client.downMins} د,${formatMinsToDuration(client.netMins)},${client.pants},${client.perHour}\n`;
           });
-
-          if (data.clients && data.clients.length > 0) {
-            csv += '\nتفاصيل العملاء\n';
-            csv += 'العميل,رقم الغسلة,الكمية,الماكينة,الفترة,زمن الجنب,توقف مخصوم,الصافي,البناطيل,معدل/س\n';
-
-            data.clients.forEach(client => {
-              csv += `${client.clientName},${client.washNo},${client.pieceCount},ماكينة ${client.machineNum},${client.timeRange},${client.legSec},${client.downMins} د,${formatMinsToDuration(client.netMins)},${client.pants},${client.perHour}\n`;
-            });
-          }
-
-          const blob = new Blob([csv], {
-            type: 'text/csv;charset=utf-8;'
-          });
-
-          const link = document.createElement('a');
-
-          link.href = URL.createObjectURL(blob);
-          link.download = `تقرير_إنتاج_${data.dateStr.replace(/\s/g, '_')}.csv`;
-
-          link.click();
-
-          URL.revokeObjectURL(link.href);
-
-          showToast(
-            'تم تصدير التقرير CSV بنجاح',
-            '📥',
-            'success'
-          );
         }
-      );
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = `تقرير_إنتاج_${data.dateStr.replace(/\s/g, '_')}.csv`;
+        link.click();
+        URL.revokeObjectURL(link.href);
+        showToast('تم تصدير التقرير CSV بنجاح', '📥', 'success');
+      });
 
-      const previewModal =
-        document.getElementById('previewModal');
-
-      const a4PreviewSheet =
-        document.getElementById('a4PreviewSheet');
-
-      const quickPreviewBtn =
-        document.getElementById('quickPreviewBtn');
-
-      const previewReportBtn =
-        document.getElementById('previewReportBtn');
-
-      const closePreviewBtn =
-        document.getElementById('closePreviewBtn');
-
-      const modalPrintBtn =
-        document.getElementById('modalPrintBtn');
+      const previewModal = document.getElementById('previewModal');
+      const a4PreviewSheet = document.getElementById('a4PreviewSheet');
+      const quickPreviewBtn = document.getElementById('quickPreviewBtn');
+      const previewReportBtn = document.getElementById('previewReportBtn');
+      const closePreviewBtn = document.getElementById('closePreviewBtn');
+      const modalPrintBtn = document.getElementById('modalPrintBtn');
 
       function openPrintPreview() {
         calculateProduction();
-
         if (!window._lastCalculation) return;
-
-        const printHeaderEl =
-          document.querySelector('.print-header');
-
-        const kpiCardEl =
-          document.querySelector(
-            '#resultsContainer > .card:first-child'
-          );
-
-        const clientCardEl =
-          document.getElementById('clientResultsCard');
-
-        const machineCardEl =
-          document.getElementById('machineResultsCard');
-
-        const footerEl =
-          document.getElementById('printFooter');
-
+        const printHeaderEl = document.querySelector('.print-header');
+        const kpiCardEl = document.querySelector('#resultsContainer > .card:first-child');
+        const clientCardEl = document.getElementById('clientResultsCard');
+        const machineCardEl = document.getElementById('machineResultsCard');
+        const footerEl = document.getElementById('printFooter');
         let html = '';
-
-        if (printHeaderEl) {
-          html += printHeaderEl.outerHTML;
-        }
-
+        if (printHeaderEl) html += printHeaderEl.outerHTML;
         if (kpiCardEl) {
           const kpiClone = kpiCardEl.cloneNode(true);
           const bars = kpiClone.querySelector('.machine-bars');
-
-          if (bars) {
-            bars.remove();
-          }
-
+          if (bars) bars.remove();
           html += kpiClone.outerHTML;
         }
-
-        if (
-          clientCardEl &&
-          clientCardEl.style.display !== 'none'
-        ) {
-          html += clientCardEl.outerHTML;
-        }
-
-        if (machineCardEl) {
-          html += machineCardEl.outerHTML;
-        }
-
-        if (footerEl) {
-          html += footerEl.outerHTML;
-        }
-
+        if (clientCardEl && clientCardEl.style.display !== 'none') html += clientCardEl.outerHTML;
+        if (machineCardEl) html += machineCardEl.outerHTML;
+        if (footerEl) html += footerEl.outerHTML;
         a4PreviewSheet.innerHTML = html;
         previewModal.classList.add('open');
       }
 
-      function closePrintPreview() {
-        previewModal.classList.remove('open');
-      }
-
-      quickPreviewBtn.addEventListener(
-        'click',
-        openPrintPreview
-      );
-
-      previewReportBtn.addEventListener(
-        'click',
-        openPrintPreview
-      );
-
-      closePreviewBtn.addEventListener(
-        'click',
-        closePrintPreview
-      );
-
-      previewModal.addEventListener('click', e => {
-        if (e.target === previewModal) {
-          closePrintPreview();
-        }
-      });
+      function closePrintPreview() { previewModal.classList.remove('open'); }
+      quickPreviewBtn.addEventListener('click', openPrintPreview);
+      previewReportBtn.addEventListener('click', openPrintPreview);
+      closePreviewBtn.addEventListener('click', closePrintPreview);
+      previewModal.addEventListener('click', e => { if (e.target === previewModal) closePrintPreview(); });
 
       function triggerPrint() {
         calculateProduction();
         closePrintPreview();
-
-        setTimeout(() => {
-          window.print();
-        }, 150);
+        setTimeout(() => { window.print(); }, 150);
       }
-
-      document.getElementById('quickPrintBtn').addEventListener(
-        'click',
-        triggerPrint
-      );
-
-      document.getElementById('printReportBtn').addEventListener(
-        'click',
-        triggerPrint
-      );
-
-      modalPrintBtn.addEventListener(
-        'click',
-        triggerPrint
-      );
+      document.getElementById('quickPrintBtn').addEventListener('click', triggerPrint);
+      document.getElementById('printReportBtn').addEventListener('click', triggerPrint);
+      modalPrintBtn.addEventListener('click', triggerPrint);
 
       function autoSave() {
         try {
-          const dateKey =
-            shiftDateInput?.value ||
-            new Date().toISOString().split('T')[0];
-
+          const dateKey = shiftDateInput?.value || new Date().toISOString().split('T')[0];
           const state = {
             date: dateKey,
             startTime: startTimeInput.value,
@@ -3854,62 +1531,34 @@
             activePreset: shiftPresetSelect.value,
             machines: []
           };
-
           for (let i = 0; i < NUM_MACHINES; i++) {
-            const card = document.getElementById(
-              `machineCard_${i}`
-            );
-
+            const card = document.getElementById(`machineCard_${i}`);
             if (!card) continue;
-
             const machineData = {
-              secInput:
-                card.querySelector('.secInput')?.value || '0',
-              restFrom:
-                card.querySelector('.restFrom')?.value || '',
-              gasFrom:
-                card.querySelector('.gasFrom')?.value || '',
-              sizeInput:
-                card.querySelector('.sizeInput')?.value || '0',
-              downFrom:
-                card.querySelector('.downFrom')?.value || '',
-              downTo:
-                card.querySelector('.downTo')?.value || '',
-              reasonInput:
-                card.querySelector('.reasonInput')?.value || '',
+              secInput: card.querySelector('.secInput')?.value || '0',
+              restFrom: card.querySelector('.restFrom')?.value || '',
+              gasFrom: card.querySelector('.gasFrom')?.value || '',
+              sizeInput: card.querySelector('.sizeInput')?.value || '0',
+              downFrom: card.querySelector('.downFrom')?.value || '',
+              downTo: card.querySelector('.downTo')?.value || '',
+              reasonInput: card.querySelector('.reasonInput')?.value || '',
               clients: []
             };
-
             card.querySelectorAll('.client-entry').forEach(entry => {
               machineData.clients.push({
-                name:
-                  entry.querySelector('.clientName')?.value || '',
-                washNo:
-                  entry.querySelector('.clientWashNo')?.value || '',
-                pieceCount:
-                  entry.querySelector('.clientPieceCount')?.value || '',
-                legSec:
-                  entry.querySelector('.clientLegSec')?.value || '',
-                from:
-                  entry.querySelector('.clientFrom')?.value || '',
-                to:
-                  entry.querySelector('.clientTo')?.value || ''
+                name: entry.querySelector('.clientName')?.value || '',
+                washNo: entry.querySelector('.clientWashNo')?.value || '',
+                pieceCount: entry.querySelector('.clientPieceCount')?.value || '',
+                legSec: entry.querySelector('.clientLegSec')?.value || '',
+                from: entry.querySelector('.clientFrom')?.value || '',
+                to: entry.querySelector('.clientTo')?.value || ''
               });
             });
-
             state.machines.push(machineData);
           }
-
-          const allData = JSON.parse(
-            localStorage.getItem(STORAGE_KEY) || '{}'
-          );
-
+          const allData = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
           allData[dateKey] = state;
-
-          localStorage.setItem(
-            STORAGE_KEY,
-            JSON.stringify(allData)
-          );
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(allData));
         } catch (error) {
           console.warn('AutoSave error:', error);
         }
@@ -3917,91 +1566,37 @@
 
       function loadSavedState() {
         try {
-          const dateKey =
-            shiftDateInput?.value ||
-            new Date().toISOString().split('T')[0];
-
-          const allData = JSON.parse(
-            localStorage.getItem(STORAGE_KEY) || '{}'
-          );
-
+          const dateKey = shiftDateInput?.value || new Date().toISOString().split('T')[0];
+          const allData = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
           const state = allData[dateKey];
-
           if (!state) return false;
-
-          if (state.date) {
-            shiftDateInput.value = state.date;
-          }
-
-          if (state.startTime) {
-            startTimeInput.value = state.startTime;
-          }
-
-          if (state.shiftEndTime) {
-            shiftEndTimeInput.value = state.shiftEndTime;
-          }
-
-          if (state.actualEndTime) {
-            actualEndTimeInput.value = state.actualEndTime;
-          }
-
+          if (state.date) shiftDateInput.value = state.date;
+          if (state.startTime) startTimeInput.value = state.startTime;
+          if (state.shiftEndTime) shiftEndTimeInput.value = state.shiftEndTime;
+          if (state.actualEndTime) actualEndTimeInput.value = state.actualEndTime;
           if (state.activePreset) {
             shiftPresetSelect.value = state.activePreset;
-
-            const opt =
-              shiftPresetSelect.options[
-                shiftPresetSelect.selectedIndex
-              ];
-
-            if (opt) {
-              activeShiftBadge.textContent =
-                opt.dataset.label || opt.text;
-            }
+            const opt = shiftPresetSelect.options[shiftPresetSelect.selectedIndex];
+            if (opt) activeShiftBadge.textContent = opt.dataset.label || opt.text;
           }
-
           if (Array.isArray(state.machines)) {
             state.machines.forEach((machineData, i) => {
-              const card = document.getElementById(
-                `machineCard_${i}`
-              );
-
+              const card = document.getElementById(`machineCard_${i}`);
               if (!card || !machineData) return;
-
-              card.querySelector('.secInput').value =
-                machineData.secInput !== undefined &&
-                machineData.secInput !== ''
-                  ? machineData.secInput
-                  : '0';
-
-              card.querySelector('.restFrom').value =
-                machineData.restFrom || '';
-
-              card.querySelector('.gasFrom').value =
-                machineData.gasFrom || '';
-
-              card.querySelector('.sizeInput').value =
-                machineData.sizeInput || '0';
-
-              card.querySelector('.downFrom').value =
-                machineData.downFrom || '';
-
-              card.querySelector('.downTo').value =
-                machineData.downTo || '';
-
-              card.querySelector('.reasonInput').value =
-                machineData.reasonInput || '';
-
+              card.querySelector('.secInput').value = machineData.secInput !== undefined && machineData.secInput !== '' ? machineData.secInput : '0';
+              card.querySelector('.restFrom').value = machineData.restFrom || '';
+              card.querySelector('.gasFrom').value = machineData.gasFrom || '';
+              card.querySelector('.sizeInput').value = machineData.sizeInput || '0';
+              card.querySelector('.downFrom').value = machineData.downFrom || '';
+              card.querySelector('.downTo').value = machineData.downTo || '';
+              card.querySelector('.reasonInput').value = machineData.reasonInput || '';
               if (Array.isArray(machineData.clients)) {
-                machineData.clients.forEach(client => {
-                  addClientRow(i, client);
-                });
+                machineData.clients.forEach(client => { addClientRow(i, client); });
               }
             });
           }
-
           updateShiftStats();
           updateAllSummaries();
-
           return true;
         } catch (error) {
           console.error('Error loading state:', error);
@@ -4009,14 +1604,9 @@
         }
       }
 
-      const historyBtn =
-        document.getElementById('historyBtn');
-
-      const closeHistoryBtn =
-        document.getElementById('closeHistoryBtn');
-
-      const historyList =
-        document.getElementById('historyList');
+      const historyBtn = document.getElementById('historyBtn');
+      const closeHistoryBtn = document.getElementById('closeHistoryBtn');
+      const historyList = document.getElementById('historyList');
 
       historyBtn.addEventListener('click', () => {
         renderHistoryList();
@@ -4029,717 +1619,280 @@
 
       function renderHistoryList() {
         try {
-          const allData = JSON.parse(
-            localStorage.getItem(STORAGE_KEY) || '{}'
-          );
-
-          const dates = Object.keys(allData)
-            .sort()
-            .reverse();
-
+          const allData = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+          const dates = Object.keys(allData).sort().reverse();
           historyList.innerHTML = '';
-
           if (dates.length === 0) {
-            historyList.innerHTML =
-              '<p style="text-align:center; color:var(--text-dim); padding:20px;">لا يوجد أيام محفوظة بعد</p>';
-
+            historyList.innerHTML = '<p style="text-align:center; color:var(--text-dim); padding:20px;">لا يوجد أيام محفوظة بعد</p>';
             return;
           }
-
           dates.forEach(dateKey => {
             const state = allData[dateKey];
-
-            const dateObj = new Date(
-              `${dateKey}T00:00:00`
-            );
-
-            const dateLabel = dateObj.toLocaleDateString(
-              'ar-EG',
-              {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-                weekday: 'long'
-              }
-            );
-
+            const dateObj = new Date(`${dateKey}T00:00:00`);
+            const dateLabel = dateObj.toLocaleDateString('ar-EG', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' });
             const item = document.createElement('div');
-
-            item.style.cssText =
-              'display:flex; align-items:center; justify-content:space-between; padding:10px; border:1px solid var(--border); border-radius:8px; margin-bottom:6px;';
-
+            item.style.cssText = 'display:flex; align-items:center; justify-content:space-between; padding:10px; border:1px solid var(--border); border-radius:8px; margin-bottom:6px;';
             item.innerHTML = `
               <div>
-                <div style="font-weight:700; font-size:13px;">
-                  📅 ${dateLabel}
-                </div>
-
-                <div style="font-size:11px; color:var(--text-dim);">
-                  ${state.activePreset || 'وردية'}
-                </div>
+                <div style="font-weight:700; font-size:13px;">📅 ${dateLabel}</div>
+                <div style="font-size:11px; color:var(--text-dim);">${state.activePreset || 'وردية'}</div>
               </div>
-
               <div style="display:flex; gap:6px;">
-                <button class="sync-btn" data-load="${dateKey}" style="background:var(--denim);">
-                  تحميل
-                </button>
-
-                <button class="sync-btn" data-delete="${dateKey}" style="background:var(--danger);">
-                  حذف
-                </button>
+                <button class="sync-btn" data-load="${dateKey}" style="background:var(--denim);">تحميل</button>
+                <button class="sync-btn" data-delete="${dateKey}" style="background:var(--danger);">حذف</button>
               </div>
             `;
-
             historyList.appendChild(item);
           });
-
           historyList.querySelectorAll('[data-load]').forEach(btn => {
             btn.addEventListener('click', () => {
               const dateKey = btn.dataset.load;
-
               shiftDateInput.value = dateKey;
-
               renderMachines();
               loadSavedState();
-
               historyModal.classList.remove('open');
-
-              showToast(
-                'تم تحميل بيانات اليوم بنجاح',
-                '📅',
-                'success'
-              );
+              showToast('تم تحميل بيانات اليوم بنجاح', '📅', 'success');
             });
           });
-
           historyList.querySelectorAll('[data-delete]').forEach(btn => {
             btn.addEventListener('click', () => {
               const dateKey = btn.dataset.delete;
-
-              if (!confirm('هل تريد حذف بيانات هذا اليوم؟')) {
-                return;
-              }
-
-              const allData = JSON.parse(
-                localStorage.getItem(STORAGE_KEY) || '{}'
-              );
-
+              if (!confirm('هل تريد حذف بيانات هذا اليوم؟')) return;
+              const allData = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
               delete allData[dateKey];
-
-              localStorage.setItem(
-                STORAGE_KEY,
-                JSON.stringify(allData)
-              );
-
+              localStorage.setItem(STORAGE_KEY, JSON.stringify(allData));
               renderHistoryList();
-
-              showToast(
-                'تم حذف اليوم بنجاح',
-                '🗑️'
-              );
+              showToast('تم حذف اليوم بنجاح', '🗑️');
             });
           });
         } catch (error) {
-          historyList.innerHTML =
-            '<p style="text-align:center; color:var(--text-dim);">حدث خطأ في تحميل السجل</p>';
+          historyList.innerHTML = '<p style="text-align:center; color:var(--text-dim);">حدث خطأ في تحميل السجل</p>';
         }
       }
 
-      const exportBackupBtn =
-        document.getElementById('exportBackupBtn');
-
-      const importBackupInput =
-        document.getElementById('importBackupInput');
+      const exportBackupBtn = document.getElementById('exportBackupBtn');
+      const importBackupInput = document.getElementById('importBackupInput');
 
       exportBackupBtn.addEventListener('click', () => {
         try {
-          const allData =
-            localStorage.getItem(STORAGE_KEY) || '{}';
-
-          const blob = new Blob([allData], {
-            type: 'application/json;charset=utf-8;'
-          });
-
+          const allData = localStorage.getItem(STORAGE_KEY) || '{}';
+          const blob = new Blob([allData], { type: 'application/json;charset=utf-8;' });
           const link = document.createElement('a');
-
           link.href = URL.createObjectURL(blob);
-
-          const stamp =
-            new Date().toISOString().split('T')[0];
-
-          link.download =
-            `نسخة_احتياطية_حاسبة_الليزر_${stamp}.json`;
-
+          const stamp = new Date().toISOString().split('T')[0];
+          link.download = `نسخة_احتياطية_حاسبة_الليزر_${stamp}.json`;
           link.click();
-
           URL.revokeObjectURL(link.href);
-
-          showToast(
-            'تم تصدير النسخة الاحتياطية',
-            '⬇️',
-            'success'
-          );
+          showToast('تم تصدير النسخة الاحتياطية', '⬇️', 'success');
         } catch (error) {
-          showToast(
-            'حصل خطأ أثناء التصدير',
-            '⚠️',
-            'danger'
-          );
+          showToast('حصل خطأ أثناء التصدير', '⚠️', 'danger');
         }
       });
 
       importBackupInput.addEventListener('change', e => {
-        const file =
-          e.target.files && e.target.files[0];
-
+        const file = e.target.files && e.target.files[0];
         if (!file) return;
-
         const reader = new FileReader();
-
         reader.onload = event => {
           try {
-            const imported =
-              JSON.parse(event.target.result);
-
-            if (
-              typeof imported !== 'object' ||
-              imported === null
-            ) {
-              throw new Error('صيغة غير صحيحة');
-            }
-
-            const existing = JSON.parse(
-              localStorage.getItem(STORAGE_KEY) || '{}'
-            );
-
-            const merged = Object.assign(
-              {},
-              existing,
-              imported
-            );
-
-            localStorage.setItem(
-              STORAGE_KEY,
-              JSON.stringify(merged)
-            );
-
+            const imported = JSON.parse(event.target.result);
+            if (typeof imported !== 'object' || imported === null) throw new Error('صيغة غير صحيحة');
+            const existing = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+            const merged = Object.assign({}, existing, imported);
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(merged));
             renderHistoryList();
-
-            showToast(
-              'تم استرجاع النسخة الاحتياطية بنجاح',
-              '✅',
-              'success'
-            );
+            showToast('تم استرجاع النسخة الاحتياطية بنجاح', '✅', 'success');
           } catch (error) {
-            showToast(
-              'الملف غير صالح، تأكد إنه نسخة احتياطية صحيحة',
-              '⚠️',
-              'danger'
-            );
+            showToast('الملف غير صالح، تأكد إنه نسخة احتياطية صحيحة', '⚠️', 'danger');
           }
         };
-
         reader.readAsText(file);
         importBackupInput.value = '';
       });
 
-      const summaryBtn =
-        document.getElementById('summaryBtn');
-
-      const summaryModal =
-        document.getElementById('summaryModal');
-
-      const closeSummaryBtn =
-        document.getElementById('closeSummaryBtn');
-
-      const summaryFromDate =
-        document.getElementById('summaryFromDate');
-
-      const summaryToDate =
-        document.getElementById('summaryToDate');
-
-      const summaryChart =
-        document.getElementById('summaryChart');
-
-      const summaryTableWrap =
-        document.getElementById('summaryTableWrap');
+      const summaryBtn = document.getElementById('summaryBtn');
+      const summaryModal = document.getElementById('summaryModal');
+      const closeSummaryBtn = document.getElementById('closeSummaryBtn');
+      const summaryFromDate = document.getElementById('summaryFromDate');
+      const summaryToDate = document.getElementById('summaryToDate');
+      const summaryChart = document.getElementById('summaryChart');
+      const summaryTableWrap = document.getElementById('summaryTableWrap');
 
       function computeDaySummary(state) {
         if (!state) return null;
-
-        const totalActualMins = calcTimeDifference(
-          state.startTime,
-          state.actualEndTime || state.shiftEndTime
-        );
-
+        const totalActualMins = calcTimeDifference(state.startTime, state.actualEndTime || state.shiftEndTime);
         if (totalActualMins <= 0) return null;
-
         let totalPantsOverall = 0;
-
         (state.machines || []).forEach(machineData => {
-          const baseLegSec =
-            parseFloat(machineData.secInput) || 0;
-
+          const baseLegSec = parseFloat(machineData.secInput) || 0;
           let machineDowntime = 0;
-
-          if (machineData.restFrom) {
-            machineDowntime += 30;
-          }
-
-          if (machineData.gasFrom) {
-            machineDowntime += 10;
-          }
-
-          machineDowntime +=
-            parseFloat(machineData.sizeInput) || 0;
-
-          if (
-            machineData.downFrom &&
-            machineData.downTo
-          ) {
-            machineDowntime += calcTimeDifference(
-              machineData.downFrom,
-              machineData.downTo
-            );
-          }
-
-          const machineNetMins = Math.max(
-            0,
-            totalActualMins - machineDowntime
-          );
-
+          if (machineData.restFrom) machineDowntime += 30;
+          if (machineData.gasFrom) machineDowntime += 10;
+          machineDowntime += parseFloat(machineData.sizeInput) || 0;
+          if (machineData.downFrom && machineData.downTo) machineDowntime += calcTimeDifference(machineData.downFrom, machineData.downTo);
+          const machineNetMins = Math.max(0, totalActualMins - machineDowntime);
           const clients = machineData.clients || [];
           let machineTotalPants = 0;
-
           if (clients.length > 0) {
             clients.forEach(client => {
-              const legSec =
-                parseFloat(client.legSec) ||
-                baseLegSec ||
-                0;
-
-              const grossMins = Math.max(
-                0,
-                calcTimeDifference(
-                  client.from,
-                  client.to
-                )
-              );
-
+              const legSec = parseFloat(client.legSec) || baseLegSec || 0;
+              const grossMins = Math.max(0, calcTimeDifference(client.from, client.to));
               let clientDownMins = 0;
-
               if (machineData.restFrom) {
-                const restStart = parseTimeToMinutes(
-                  machineData.restFrom
-                );
-
-                const restEnd =
-                  restStart !== null
-                    ? (restStart + 30) % (24 * 60)
-                    : null;
-
-                const clientStart =
-                  parseTimeToMinutes(client.from);
-
-                const clientEnd =
-                  parseTimeToMinutes(client.to);
-
-                if (
-                  restStart !== null &&
-                  restEnd !== null &&
-                  clientStart !== null &&
-                  clientEnd !== null
-                ) {
-                  clientDownMins += getOverlapMins(
-                    clientStart,
-                    clientEnd,
-                    restStart,
-                    restEnd
-                  );
-                }
+                const rs = parseTimeToMinutes(machineData.restFrom);
+                const re = rs !== null ? (rs + 30) % (24 * 60) : null;
+                const cs = parseTimeToMinutes(client.from), ce = parseTimeToMinutes(client.to);
+                if (rs !== null && cs !== null && ce !== null) clientDownMins += getOverlapMins(cs, ce, rs, re);
               }
-
               if (machineData.gasFrom) {
-                const gasStart = parseTimeToMinutes(
-                  machineData.gasFrom
-                );
-
-                const gasEnd =
-                  gasStart !== null
-                    ? (gasStart + 10) % (24 * 60)
-                    : null;
-
-                const clientStart =
-                  parseTimeToMinutes(client.from);
-
-                const clientEnd =
-                  parseTimeToMinutes(client.to);
-
-                if (
-                  gasStart !== null &&
-                  gasEnd !== null &&
-                  clientStart !== null &&
-                  clientEnd !== null
-                ) {
-                  clientDownMins += getOverlapMins(
-                    clientStart,
-                    clientEnd,
-                    gasStart,
-                    gasEnd
-                  );
+                const gs = parseTimeToMinutes(machineData.gasFrom);
+                const ge = gs !== null ? (gs + 10) % (24 * 60) : null;
+                const cs = parseTimeToMinutes(client.from), ce = parseTimeToMinutes(client.to);
+                if (gs !== null && cs !== null && ce !== null) {
+                  const rs = machineData.restFrom ? parseTimeToMinutes(machineData.restFrom) : null;
+                  const re = rs !== null ? (rs + 30) % (24 * 60) : null;
+                  let shouldDeduct = true;
+                  if (rs !== null && re !== null) {
+                    const overlap = getOverlapMins(gs, ge, rs, re);
+                    if (overlap > 0) shouldDeduct = false;
+                  }
+                  if (shouldDeduct) clientDownMins += getOverlapMins(cs, ce, gs, ge);
                 }
               }
-
-              if (
-                machineData.downFrom &&
-                machineData.downTo
-              ) {
-                const downStart = parseTimeToMinutes(
-                  machineData.downFrom
-                );
-
-                const downEnd = parseTimeToMinutes(
-                  machineData.downTo
-                );
-
-                const clientStart =
-                  parseTimeToMinutes(client.from);
-
-                const clientEnd =
-                  parseTimeToMinutes(client.to);
-
-                if (
-                  downStart !== null &&
-                  downEnd !== null &&
-                  clientStart !== null &&
-                  clientEnd !== null
-                ) {
-                  clientDownMins += getOverlapMins(
-                    clientStart,
-                    clientEnd,
-                    downStart,
-                    downEnd
-                  );
-                }
+              if (machineData.downFrom && machineData.downTo) {
+                const us = parseTimeToMinutes(machineData.downFrom), ue = parseTimeToMinutes(machineData.downTo);
+                const cs = parseTimeToMinutes(client.from), ce = parseTimeToMinutes(client.to);
+                if (us !== null && cs !== null && ce !== null) clientDownMins += getOverlapMins(cs, ce, us, ue);
               }
-
-              const totalGross = clients.reduce(
-                (sum, currentClient) =>
-                  sum +
-                  Math.max(
-                    0,
-                    calcTimeDifference(
-                      currentClient.from,
-                      currentClient.to
-                    )
-                  ),
-                0
-              );
-
-              const sizeRatio =
-                totalGross > 0
-                  ? grossMins / totalGross
-                  : 0;
-
-              clientDownMins += Math.round(
-                (parseFloat(machineData.sizeInput) || 0) *
-                sizeRatio
-              );
-
-              const netMins = Math.max(
-                0,
-                grossMins - clientDownMins
-              );
-
+              const totalGross = clients.reduce((s, cc) => s + Math.max(0, calcTimeDifference(cc.from, cc.to)), 0);
+              const sizeRatio = totalGross > 0 ? (grossMins / totalGross) : 0;
+              clientDownMins += Math.round((parseFloat(machineData.sizeInput) || 0) * sizeRatio);
+              const netMins = Math.max(0, grossMins - clientDownMins);
               const netSecs = netMins * 60;
-
-              let pants =
-                legSec > 0 && netSecs > 0
-                  ? Math.floor(
-                      netSecs / (2 * legSec)
-                    )
-                  : 0;
-
-              if (
-                !isFinite(pants) ||
-                isNaN(pants) ||
-                pants < 0
-              ) {
-                pants = 0;
-              }
-
+              let pants = (legSec > 0 && netSecs > 0) ? Math.floor(netSecs / (2 * legSec)) : 0;
+              if (!isFinite(pants) || isNaN(pants) || pants < 0) pants = 0;
               machineTotalPants += pants;
             });
           } else if (baseLegSec > 0) {
-            machineTotalPants = Math.floor(
-              (machineNetMins * 60) /
-              (2 * baseLegSec)
-            );
+            machineTotalPants = Math.floor((machineNetMins * 60) / (2 * baseLegSec));
           }
-
-          if (
-            !isFinite(machineTotalPants) ||
-            isNaN(machineTotalPants) ||
-            machineTotalPants < 0
-          ) {
-            machineTotalPants = 0;
-          }
-
+          if (!isFinite(machineTotalPants) || isNaN(machineTotalPants) || machineTotalPants < 0) machineTotalPants = 0;
           totalPantsOverall += machineTotalPants;
         });
-
-        const perHour =
-          totalActualMins > 0
-            ? Math.round(
-                totalPantsOverall /
-                (totalActualMins / 60)
-              )
-            : 0;
-
-        return {
-          totalPants: totalPantsOverall,
-          perHour
-        };
+        const perHour = totalActualMins > 0 ? Math.round(totalPantsOverall / (totalActualMins / 60)) : 0;
+        return { totalPants: totalPantsOverall, perHour };
       }
 
       function renderSummary() {
         try {
-          const allData = JSON.parse(
-            localStorage.getItem(STORAGE_KEY) || '{}'
-          );
-
+          const allData = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
           const fromVal = summaryFromDate.value;
           const toVal = summaryToDate.value;
-
-          const dates = Object.keys(allData)
-            .filter(date => {
-              if (fromVal && date < fromVal) return false;
-              if (toVal && date > toVal) return false;
-
-              return true;
-            })
-            .sort();
-
-          const rows = dates
-            .map(date => {
-              const summary = computeDaySummary(
-                allData[date]
-              );
-
-              return {
-                date,
-                shiftName:
-                  allData[date].activePreset || '-',
-                summary
-              };
-            })
-            .filter(row => row.summary);
-
+          const dates = Object.keys(allData).filter(date => {
+            if (fromVal && date < fromVal) return false;
+            if (toVal && date > toVal) return false;
+            return true;
+          }).sort();
+          const rows = dates.map(date => {
+            const summary = computeDaySummary(allData[date]);
+            return { date, shiftName: allData[date].activePreset || '-', summary };
+          }).filter(row => row.summary);
           if (rows.length === 0) {
-            summaryChart.innerHTML =
-              '<p style="text-align:center; color:var(--text-dim); padding:16px;">مفيش أيام محفوظة في الفترة دي</p>';
-
+            summaryChart.innerHTML = '<p style="text-align:center; color:var(--text-dim); padding:16px;">مفيش أيام محفوظة في الفترة دي</p>';
             summaryTableWrap.innerHTML = '';
-
             return;
           }
-
-          const maxPants = Math.max(
-            ...rows.map(row => row.summary.totalPants),
-            1
-          );
-
-          let chartHtml =
-            '<div style="display:flex; flex-direction:column; gap:6px;">';
-
+          const maxPants = Math.max(...rows.map(row => row.summary.totalPants), 1);
+          let chartHtml = '<div style="display:flex; flex-direction:column; gap:6px;">';
           rows.forEach(row => {
-            const pct = (
-              (row.summary.totalPants / maxPants) *
-              100
-            ).toFixed(1);
-
+            const pct = ((row.summary.totalPants / maxPants) * 100).toFixed(1);
             const shortDate = row.date.slice(5);
-
             chartHtml += `
               <div class="bar-row">
-                <div class="bar-label" style="width:44px; font-size:10.5px;">
-                  ${shortDate}
-                </div>
-
-                <div class="bar-track">
-                  <div class="bar-fill" style="width:${pct}%;"></div>
-                </div>
-
-                <div class="bar-val" style="width:56px;">
-                  ${row.summary.totalPants.toLocaleString()}
-                </div>
+                <div class="bar-label" style="width:44px; font-size:10.5px;">${shortDate}</div>
+                <div class="bar-track"><div class="bar-fill" style="width:${pct}%;"></div></div>
+                <div class="bar-val" style="width:56px;">${row.summary.totalPants.toLocaleString()}</div>
               </div>
             `;
           });
-
           chartHtml += '</div>';
           summaryChart.innerHTML = chartHtml;
-
           let totalPantsSum = 0;
-
           let tableHtml = `
             <div class="table-responsive">
               <table>
-                <thead>
-                  <tr>
-                    <th>التاريخ</th>
-                    <th>الوردية</th>
-                    <th>الإجمالي</th>
-                    <th>معدل/س</th>
-                  </tr>
-                </thead>
+                <thead><tr><th>التاريخ</th><th>الوردية</th><th>الإجمالي</th><th>معدل/س</th></tr></thead>
                 <tbody>
           `;
-
           rows.forEach(row => {
             totalPantsSum += row.summary.totalPants;
-
             tableHtml += `
               <tr>
                 <td class="text-cell">${row.date}</td>
                 <td style="font-size:11px;">${row.shiftName}</td>
-                <td style="font-weight:700; color:var(--laser);">
-                  ${row.summary.totalPants.toLocaleString()}
-                </td>
+                <td style="font-weight:700; color:var(--laser);">${row.summary.totalPants.toLocaleString()}</td>
                 <td>${row.summary.perHour}</td>
               </tr>
             `;
           });
-
           tableHtml += `
                 </tbody>
-                <tfoot>
-                  <tr>
-                    <td class="text-cell">الإجمالي</td>
-                    <td>-</td>
-                    <td style="font-weight:800;">
-                      ${totalPantsSum.toLocaleString()}
-                    </td>
-                    <td>-</td>
-                  </tr>
-                </tfoot>
+                <tfoot><tr><td class="text-cell">الإجمالي</td><td>-</td><td style="font-weight:800;">${totalPantsSum.toLocaleString()}</td><td>-</td></tr></tfoot>
               </table>
             </div>
           `;
-
           summaryTableWrap.innerHTML = tableHtml;
         } catch (error) {
-          summaryTableWrap.innerHTML =
-            '<p style="text-align:center; color:var(--text-dim);">حدث خطأ أثناء تجهيز الملخص</p>';
+          summaryTableWrap.innerHTML = '<p style="text-align:center; color:var(--text-dim);">حدث خطأ أثناء تجهيز الملخص</p>';
         }
       }
 
       summaryBtn.addEventListener('click', () => {
         const today = new Date();
-
-        const weekAgo = new Date(
-          today.getTime() -
-          6 * 24 * 60 * 60 * 1000
-        );
-
-        if (!summaryToDate.value) {
-          summaryToDate.value =
-            today.toISOString().split('T')[0];
-        }
-
-        if (!summaryFromDate.value) {
-          summaryFromDate.value =
-            weekAgo.toISOString().split('T')[0];
-        }
-
+        const weekAgo = new Date(today.getTime() - 6 * 24 * 60 * 60 * 1000);
+        if (!summaryToDate.value) summaryToDate.value = today.toISOString().split('T')[0];
+        if (!summaryFromDate.value) summaryFromDate.value = weekAgo.toISOString().split('T')[0];
         renderSummary();
         summaryModal.classList.add('open');
       });
 
-      closeSummaryBtn.addEventListener('click', () => {
-        summaryModal.classList.remove('open');
-      });
+      closeSummaryBtn.addEventListener('click', () => { summaryModal.classList.remove('open'); });
+      summaryFromDate.addEventListener('change', renderSummary);
+      summaryToDate.addEventListener('change', renderSummary);
 
-      summaryFromDate.addEventListener(
-        'change',
-        renderSummary
-      );
+      const resetBtn = document.getElementById('resetBtn');
+      const cancelResetBtn = document.getElementById('cancelResetBtn');
+      const confirmResetBtn = document.getElementById('confirmResetBtn');
 
-      summaryToDate.addEventListener(
-        'change',
-        renderSummary
-      );
-
-      const resetBtn =
-        document.getElementById('resetBtn');
-
-      const cancelResetBtn =
-        document.getElementById('cancelResetBtn');
-
-      const confirmResetBtn =
-        document.getElementById('confirmResetBtn');
-
-      resetBtn.addEventListener('click', () => {
-        resetModal.classList.add('open');
-      });
-
-      cancelResetBtn.addEventListener('click', () => {
-        resetModal.classList.remove('open');
-      });
-
+      resetBtn.addEventListener('click', () => { resetModal.classList.add('open'); });
+      cancelResetBtn.addEventListener('click', () => { resetModal.classList.remove('open'); });
       confirmResetBtn.addEventListener('click', () => {
-        const dateKey =
-          shiftDateInput?.value ||
-          new Date().toISOString().split('T')[0];
-
-        const allData = JSON.parse(
-          localStorage.getItem(STORAGE_KEY) || '{}'
-        );
-
+        const dateKey = shiftDateInput?.value || new Date().toISOString().split('T')[0];
+        const allData = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
         delete allData[dateKey];
-
-        localStorage.setItem(
-          STORAGE_KEY,
-          JSON.stringify(allData)
-        );
-
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(allData));
         resetModal.classList.remove('open');
-
         renderMachines();
-
-        shiftDateInput.value =
-          new Date().toISOString().split('T')[0];
-
+        shiftDateInput.value = new Date().toISOString().split('T')[0];
         startTimeInput.value = '08:00';
         shiftEndTimeInput.value = '18:00';
         actualEndTimeInput.value = '18:00';
-
         shiftPresetSelect.value = '10-morning';
         activeShiftBadge.textContent = '10 س صباحي';
-
         resultsContainer.style.display = 'none';
         window._lastCalculation = null;
-
         updateShiftStats();
         updateAllSummaries();
-
-        showToast(
-          'تم تفريغ بيانات الوردية بنجاح',
-          '🧹',
-          'success'
-        );
+        showToast('تم تفريغ بيانات الوردية بنجاح', '🧹', 'success');
       });
 
       if (!shiftDateInput.value) {
-        shiftDateInput.value =
-          new Date().toISOString().split('T')[0];
+        shiftDateInput.value = new Date().toISOString().split('T')[0];
       }
 
       shiftDateInput.addEventListener('change', () => {
         renderMachines();
-
         const loaded = loadSavedState();
-
         if (!loaded) {
           resultsContainer.style.display = 'none';
           updateShiftStats();
@@ -4748,9 +1901,7 @@
       });
 
       renderMachines();
-
       const loaded = loadSavedState();
-
       if (!loaded) {
         updateShiftStats();
         updateAllSummaries();
