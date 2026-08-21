@@ -463,16 +463,16 @@
       الكل <span class="tab-badge">4</span>
     </button>
     <button type="button" class="tab-btn" data-filter="0">
-      <span class="tabLabelText" id="tabLabel0">ماكينة 1</span> <span class="tab-badge" id="badgeM0">0</span>
+      ماكينة 1 <span class="tab-badge" id="badgeM0">0</span>
     </button>
     <button type="button" class="tab-btn" data-filter="1">
-      <span class="tabLabelText" id="tabLabel1">ماكينة 2</span> <span class="tab-badge" id="badgeM1">0</span>
+      ماكينة 2 <span class="tab-badge" id="badgeM1">0</span>
     </button>
     <button type="button" class="tab-btn" data-filter="2">
-      <span class="tabLabelText" id="tabLabel2">ماكينة 3</span> <span class="tab-badge" id="badgeM2">0</span>
+      ماكينة 3 <span class="tab-badge" id="badgeM2">0</span>
     </button>
     <button type="button" class="tab-btn" data-filter="3">
-      <span class="tabLabelText" id="tabLabel3">ماكينة 4</span> <span class="tab-badge" id="badgeM3">0</span>
+      ماكينة 4 <span class="tab-badge" id="badgeM3">0</span>
     </button>
   </div>
 
@@ -647,9 +647,9 @@
   <div class="modal-backdrop" id="previewModal">
     <div class="preview-modal-container">
       <div class="preview-modal-header">
-        <div class="preview-modal-title">👁️ معاينة تقرير الوردية (نموذج A4)</div>
+        <div class="preview-modal-title">👁️ معاينة تقرير الوردية</div>
         <div class="preview-modal-actions">
-          <button type="button" class="btn-preview-action print" id="modalPrintBtn">🖨️ طباعة الآن / حفظ PDF</button>
+          <button type="button" class="btn-preview-action print" id="modalPrintBtn">🖨️ طباعة الآن</button>
           <button type="button" class="btn-preview-action close" id="closePreviewBtn">✕ إغلاق</button>
         </div>
       </div>
@@ -797,10 +797,7 @@
       }
 
       function getMachineName(idx) {
-        const card = document.getElementById(`machineCard_${idx}`);
-        const nameInput = card ? card.querySelector('.machineNameInput') : null;
-        const val = nameInput ? nameInput.value.trim() : '';
-        return val || `ماكينة ${idx + 1}`;
+        return `ماكينة ${idx + 1}`;
       }
 
       function updateShiftStats() {
@@ -858,10 +855,6 @@
             <div class="machine-top-bar">
               <div class="machine-name-title"><span class="dot"></span>ماكينة ${i + 1}</div>
               <span class="machine-status-tag" id="statusTag_${i}">جاهزة للعمل</span>
-            </div>
-            <div class="form-group">
-              <label>اسم أو رقم الماكينة (اختياري)</label>
-              <input type="text" class="machineNameInput" data-idx="${i}" placeholder="مثال: ماكينة الفرز A">
             </div>
             <button type="button" class="drawer-btn" data-target="clientDrawer_${i}">
               <span>👥 العملاء والتشغيلات الخاصة</span>
@@ -994,17 +987,11 @@
               const summaryEl = document.getElementById(`secSummary_${idx}`);
               if (summaryEl) summaryEl.innerHTML = `${val} ثانية <span class="chev">›</span>`;
             }
-            if (e.target.classList.contains('machineNameInput')) {
-              const idx = e.target.dataset.idx;
-              const tabLabel = document.getElementById(`tabLabel${idx}`);
-              if (tabLabel) tabLabel.textContent = getMachineName(idx);
-            }
             updateAllSummaries();
             autoSave();
           });
 
           machinesListEl.addEventListener('change', (e) => {
-            // مزامنة الراحة تلقائياً بين جميع الماكينات
             if (e.target.classList.contains('restFrom')) {
               const value = e.target.value;
               document.querySelectorAll('.restFrom').forEach(inp => {
@@ -1127,8 +1114,6 @@
           const secVal = card.querySelector('.secInput')?.value || MACHINE_DEFAULTS[i];
           const secSummary = document.getElementById(`secSummary_${i}`);
           if (secSummary) secSummary.innerHTML = `${secVal} ثانية <span class="chev">›</span>`;
-          const tabLabel = document.getElementById(`tabLabel${i}`);
-          if (tabLabel) tabLabel.textContent = getMachineName(i);
         }
       }
 
@@ -1160,7 +1145,6 @@
 
         for (let i = 0; i < NUM_MACHINES; i++) {
           const card = document.getElementById(`machineCard_${i}`);
-          const mName = getMachineName(i);
           const baseLegSec = parseFloat(card.querySelector('.secInput').value) || 0;
           let machineDowntime = 0;
           const restFrom = card.querySelector('.restFrom').value;
@@ -1183,7 +1167,7 @@
           if (clientEntries.length > 0) {
             const clientsData = [];
             clientEntries.forEach(entry => {
-              const name = entry.querySelector('.clientName').value.trim() || `عميل ${mName}`;
+              const name = entry.querySelector('.clientName').value.trim() || `عميل م${i + 1}`;
               const washNo = entry.querySelector('.clientWashNo')?.value.trim() || '-';
               const pieceCount = parseInt(entry.querySelector('.clientPieceCount')?.value, 10) || 0;
               const legSec = parseFloat(entry.querySelector('.clientLegSec').value) || baseLegSec || 0;
@@ -1196,7 +1180,6 @@
             clientsData.forEach(c => {
               let clientDownMins = 0;
 
-              // خصم الراحة لو العميل شغال وقتها
               if (restFrom) {
                 const restStart = parseTimeToMinutes(restFrom);
                 const restEnd = (restStart !== null) ? (restStart + 30) % (24 * 60) : null;
@@ -1209,7 +1192,6 @@
                 }
               }
 
-              // خصم سحب الغاز لو العميل شغال وقتها
               if (gasFrom) {
                 const gasStart = parseTimeToMinutes(gasFrom);
                 const gasEnd = (gasStart !== null) ? (gasStart + 10) % (24 * 60) : null;
@@ -1222,7 +1204,6 @@
                 }
               }
 
-              // خصم العطل الطارئ لو العميل شغال وقتها
               if (downFrom && downTo) {
                 const uStart = parseTimeToMinutes(downFrom);
                 const uEnd = parseTimeToMinutes(downTo);
@@ -1235,7 +1216,6 @@
                 }
               }
 
-              // خصم المقاسات بالنسبة
               const totalClientsGross = clientsData.reduce((sum, cl) => sum + cl.grossMins, 0);
               const sizeRatio = totalClientsGross > 0 ? (c.grossMins / totalClientsGross) : 0;
               clientDownMins += Math.round(sizeMins * sizeRatio);
@@ -1255,7 +1235,6 @@
                 washNo: c.washNo,
                 pieceCount: c.pieceCount,
                 machineNum: i + 1,
-                machineName: mName,
                 timeRange: `${formatTimeTo12Hour(c.cFrom)} - ${formatTimeTo12Hour(c.cTo)}`,
                 grossDuration: formatMinsToDuration(c.grossMins),
                 legSec: c.legSec > 0 ? `${c.legSec} ث` : '-',
@@ -1279,7 +1258,6 @@
           const machinePerHour = totalActualMins > 0 ? (machineTotalPants / (totalActualMins / 60)).toFixed(1) : '0.0';
           machineResults.push({
             machineNum: i + 1,
-            machineName: mName,
             legSec: baseLegSec > 0 ? `${baseLegSec} ث` : '-',
             downtimeMins: machineDowntime,
             netMins: machineNetMins,
@@ -1331,7 +1309,7 @@
         machineResults.forEach(m => {
           const tr = document.createElement('tr');
           tr.innerHTML = `
-            <td class="text-cell"><span class="tag-badge denim">${m.machineName}</span></td>
+            <td class="text-cell"><span class="tag-badge denim">ماكينة ${m.machineNum}</span></td>
             <td>${m.legSec}</td>
             <td><span style="color:var(--warning);">${m.downtimeMins} د</span></td>
             <td>${formatMinsToDuration(m.netMins)}</td>
@@ -1364,7 +1342,7 @@
           const barRow = document.createElement('div');
           barRow.className = 'bar-row';
           barRow.innerHTML = `
-            <div class="bar-label">${m.machineName}</div>
+            <div class="bar-label">ماكينة ${m.machineNum}</div>
             <div class="bar-track"><div class="bar-fill" style="width: ${share}%;"></div></div>
             <div class="bar-val">${m.pants} <span style="font-size:10px; color:var(--text-dim);">(${share}%)</span></div>
           `;
@@ -1394,7 +1372,7 @@
               <td class="text-cell"><span class="tag-badge laser">${c.clientName}</span></td>
               <td>${c.washNo}</td>
               <td>${c.pieceCount > 0 ? c.pieceCount.toLocaleString() : '-'}</td>
-              <td>${c.machineName}</td>
+              <td>ماكينة ${c.machineNum}</td>
               <td>${c.timeRange}</td>
               <td>${c.legSec}</td>
               <td>${c.downMins} د</td>
@@ -1466,7 +1444,7 @@
         msg += `─────────────────\n`;
         msg += `🏭 *تفاصيل الماكينات:*\n`;
         data.machines.forEach(m => {
-          msg += `• *${m.machineName}:* ${m.pants.toLocaleString()} بنطلون (توقف: ${m.downtimeMins} د، كفاءة: ${m.efficiency}%)\n`;
+          msg += `• *ماكينة ${m.machineNum}:* ${m.pants.toLocaleString()} بنطلون (توقف: ${m.downtimeMins} د، كفاءة: ${m.efficiency}%)\n`;
         });
         if (data.clients && data.clients.length > 0) {
           msg += `─────────────────\n`;
@@ -1474,7 +1452,7 @@
           data.clients.forEach(c => {
             const washStr = c.washNo && c.washNo !== '-' ? ` (غسلة: ${c.washNo})` : '';
             const qtyStr = c.pieceCount > 0 ? ` | مطلوب: ${c.pieceCount}` : '';
-            msg += `• *${c.clientName}*${washStr} (${c.machineName}): ${c.pants.toLocaleString()} بنطلون${qtyStr}\n`;
+            msg += `• *${c.clientName}*${washStr} (ماكينة ${c.machineNum}): ${c.pants.toLocaleString()} بنطلون${qtyStr}\n`;
             msg += `   └ الفترة: ${c.timeRange} | زمن الجنب: ${c.legSec} | الصافي: ${formatMinsToDuration(c.netMins)} | معدل: ${c.perHour}/س\n`;
           });
         }
@@ -1497,13 +1475,13 @@
         csv += 'تفاصيل الماكينات\n';
         csv += 'الماكينة,زمن الجنب,التوقف,الصافي,الكفاءة,الإنتاج,معدل/س\n';
         data.machines.forEach(m => {
-          csv += `${m.machineName},${m.legSec},${m.downtimeMins} د,${formatMinsToDuration(m.netMins)},${m.efficiency}%,${m.pants},${m.perHour}\n`;
+          csv += `ماكينة ${m.machineNum},${m.legSec},${m.downtimeMins} د,${formatMinsToDuration(m.netMins)},${m.efficiency}%,${m.pants},${m.perHour}\n`;
         });
         if (data.clients && data.clients.length > 0) {
           csv += '\nتفاصيل العملاء\n';
           csv += 'العميل,رقم الغسلة,الكمية,الماكينة,الفترة,زمن الجنب,توقف مخصوم,الصافي,البناطيل,معدل/س\n';
           data.clients.forEach(c => {
-            csv += `${c.clientName},${c.washNo},${c.pieceCount},${c.machineName},${c.timeRange},${c.legSec},${c.downMins} د,${formatMinsToDuration(c.netMins)},${c.pants},${c.perHour}\n`;
+            csv += `${c.clientName},${c.washNo},${c.pieceCount},ماكينة ${c.machineNum},${c.timeRange},${c.legSec},${c.downMins} د,${formatMinsToDuration(c.netMins)},${c.pants},${c.perHour}\n`;
           });
         }
         const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
@@ -1573,7 +1551,6 @@
             const card = document.getElementById(`machineCard_${i}`);
             if (!card) continue;
             const mData = {
-              machineName: card.querySelector('.machineNameInput')?.value || '',
               secInput: card.querySelector('.secInput')?.value || '0',
               restFrom: card.querySelector('.restFrom')?.value || '',
               gasFrom: card.querySelector('.gasFrom')?.value || '',
@@ -1620,7 +1597,6 @@
             state.machines.forEach((mData, i) => {
               const card = document.getElementById(`machineCard_${i}`);
               if (!card || !mData) return;
-              card.querySelector('.machineNameInput').value = mData.machineName || '';
               card.querySelector('.secInput').value = (mData.secInput !== undefined && mData.secInput !== '') ? mData.secInput : '0';
               card.querySelector('.restFrom').value = mData.restFrom || '';
               card.querySelector('.gasFrom').value = mData.gasFrom || '';
@@ -1707,7 +1683,6 @@
         }
       }
 
-      // ====== نسخة احتياطية / استرجاع ======
       const exportBackupBtn = document.getElementById('exportBackupBtn');
       const importBackupInput = document.getElementById('importBackupInput');
 
@@ -1752,7 +1727,6 @@
         });
       }
 
-      // ====== ملخص الفترة ======
       const summaryBtn = document.getElementById('summaryBtn');
       const summaryModal = document.getElementById('summaryModal');
       const closeSummaryBtn = document.getElementById('closeSummaryBtn');
@@ -1762,7 +1736,6 @@
       const summaryTableWrap = document.getElementById('summaryTableWrap');
 
       function computeDaySummary(state) {
-        // بيعيد حساب الإجمالي من البيانات المحفوظة ليوم معين، بنفس منطق calculateProduction
         if (!state) return null;
         const totalActualMins = calcTimeDifference(state.startTime, state.actualEndTime || state.shiftEndTime);
         if (totalActualMins <= 0) return null;
