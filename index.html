@@ -2430,6 +2430,7 @@
         const e = parseTimeToMinutes(endStr);
 
         if (s === null || e === null) return 0;
+
         if (e >= s) return e - s;
 
         return (24 * 60 - s) + e;
@@ -2568,9 +2569,9 @@
                   <option value="0" selected>0 دقيقة (بدون تغيير مقاس)</option>
                   <option value="5">5 دقائق</option>
                   <option value="10">10 دقائق</option>
-                  <option value="15">15 دقيقة</option>
-                  <option value="20">20 دقيقة</option>
-                  <option value="30">30 دقيقة</option>
+                  <option value="15">15 دقائق</option>
+                  <option value="20">20 دقائق</option>
+                  <option value="30">30 دقائق</option>
                   <option value="45">45 دقيقة</option>
                   <option value="60">60 دقيقة (ساعة)</option>
                 </select>
