@@ -1139,6 +1139,32 @@
       color: #fff;
     }
 
+    .sync-btn {
+      height: 36px;
+      padding: 0 12px;
+      border: none;
+      border-radius: 8px;
+      color: #ffffff;
+      font-family: inherit;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      transition: all 0.2s ease;
+    }
+
+    .sync-btn:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+
+    .sync-btn:active {
+      transform: scale(0.97);
+    }
+
     /* نافذة المعاينة */
     .preview-modal-container {
       background: #0f172a;
@@ -2363,11 +2389,50 @@
       let currentTheme = localStorage.getItem(THEME_KEY) || 'dark';
       let toastTimer = null;
       let staticEventsAttached = false;
+      let activeMachineFilter = 'all';
 
       applyTheme(currentTheme);
 
+      const THEME_SUN_SVG = `
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+      `;
+
+      const THEME_MOON_SVG = `
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+      `;
+
       function applyTheme(theme) {
         document.documentElement.setAttribute('data-theme', theme);
+
+        const themeBtn = document.getElementById('themeToggleBtn');
+
+        if (themeBtn) {
+          themeBtn.innerHTML =
+            theme === 'dark' ? THEME_MOON_SVG : THEME_SUN_SVG;
+        }
+
+        const metaThemeColor = document.querySelector(
+          'meta[name="theme-color"]'
+        );
+
+        if (metaThemeColor) {
+          metaThemeColor.setAttribute(
+            'content',
+            theme === 'dark' ? '#0b0f17' : '#f1f5f9'
+          );
+        }
       }
 
       function showToast(text, icon = '✓', type = '') {
@@ -2425,6 +2490,35 @@
         return `${String(h12).padStart(2, '0')}:${String(m).padStart(2, '0')} ${period}`;
       }
 
+      function escapeHtml(value) {
+        return String(value ?? '')
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
+      function csvCell(value) {
+        return `"${String(value ?? '').replace(/"/g, '""')}"`;
+      }
+
+      function clientsLabel(count) {
+        if (count === 1) return 'عميل واحد';
+        if (count === 2) return 'عميلان';
+        if (count >= 3 && count <= 10) return `${count} عملاء`;
+
+        return `${count} عميل`;
+      }
+
+      function getLocalISODate(dateObj = new Date()) {
+        const year = dateObj.getFullYear();
+        const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+        const day = String(dateObj.getDate()).padStart(2, '0');
+
+        return `${year}-${month}-${day}`;
+      }
+
       function calcTimeDifference(startStr, endStr) {
         const s = parseTimeToMinutes(startStr);
         const e = parseTimeToMinutes(endStr);
@@ -2434,10 +2528,6 @@
         if (e >= s) return e - s;
 
         return (24 * 60 - s) + e;
-      }
-
-      function getMachineName(idx) {
-        return `ماكينة ${idx + 1}`;
       }
 
       function updateShiftStats() {
@@ -2623,6 +2713,14 @@
         }
 
         attachMachineEvents();
+
+        document.querySelectorAll('.machine-card').forEach((card, idx) => {
+          card.style.display =
+            activeMachineFilter === 'all' ||
+            activeMachineFilter === String(idx)
+              ? 'block'
+              : 'none';
+        });
       }
 
       function attachMachineEvents() {
@@ -2693,6 +2791,8 @@
             tab.classList.add('active');
 
             const filter = tab.dataset.filter;
+
+            activeMachineFilter = filter;
 
             document.querySelectorAll('.machine-card').forEach((card, idx) => {
               card.style.display =
@@ -2791,14 +2891,14 @@
               <label style="font-size:10px; margin-bottom:2px; color:var(--text-dim);">
                 العميل / الموديل
               </label>
-              <input type="text" class="clientName" placeholder="اسم العميل" value="${name}">
+              <input type="text" class="clientName" placeholder="اسم العميل" value="${escapeHtml(name)}">
             </div>
 
             <div class="form-group" style="margin-bottom:0;">
               <label style="font-size:10px; margin-bottom:2px; color:var(--text-dim);">
                 رقم الغسلة / اللوت
               </label>
-              <input type="text" class="clientWashNo" placeholder="رقم الغسلة" value="${washNo}">
+              <input type="text" class="clientWashNo" placeholder="رقم الغسلة" value="${escapeHtml(washNo)}">
             </div>
 
             <div class="form-group" style="margin-bottom:0;">
@@ -2876,7 +2976,7 @@
 
         if (summaryLabel) {
           summaryLabel.innerHTML =
-            `${count > 0 ? count + ' عميل' : 'مفيش عملاء'} <span class="chev">›</span>`;
+            `${count > 0 ? clientsLabel(count) : 'مفيش عملاء'} <span class="chev">›</span>`;
         }
 
         const tabBadge = document.getElementById(`badgeM${machineIdx}`);
@@ -2889,7 +2989,7 @@
 
         if (statusTag) {
           if (count > 0) {
-            statusTag.textContent = `${count} عملاء`;
+            statusTag.textContent = clientsLabel(count);
             statusTag.style.color = 'var(--denim)';
             statusTag.style.borderColor = 'var(--denim)';
           } else {
@@ -2949,28 +3049,46 @@
         }
       }
 
-      function getOverlapMins(s1, e1, s2, e2) {
+      function getOverlapMins(cStart, cEnd, dStart, dEnd) {
+        const DAY = 24 * 60;
+
         if (
-          s1 === null ||
-          e1 === null ||
-          s2 === null ||
-          e2 === null
+          cStart === null ||
+          cEnd === null ||
+          dStart === null ||
+          dEnd === null
         ) {
           return 0;
         }
 
-        let cStart = s1;
-        let cEnd = e1;
-        let dStart = s2;
-        let dEnd = e2;
+        let cLen = cEnd - cStart;
 
-        if (cEnd < cStart) cEnd += 24 * 60;
-        if (dEnd < dStart) dEnd += 24 * 60;
+        if (cLen < 0) cLen += DAY;
 
-        const maxStart = Math.max(cStart, dStart);
-        const minEnd = Math.min(cEnd, dEnd);
+        if (cLen <= 0) return 0;
 
-        return Math.max(0, minEnd - maxStart);
+        let dLen = dEnd - dStart;
+
+        if (dLen === 0) return 0;
+
+        if (dLen < 0) dLen += DAY;
+
+        const relStart =
+          (((dStart - cStart) % DAY) + DAY) % DAY;
+
+        const calcOverlap = (ds) => {
+          const de = ds + dLen;
+
+          const s = Math.max(cStart, ds);
+          const e = Math.min(cStart + cLen, de);
+
+          return Math.max(0, e - s);
+        };
+
+        return Math.max(
+          calcOverlap(cStart + relStart),
+          calcOverlap(cStart + relStart - DAY)
+        );
       }
 
       function calculateProduction() {
@@ -3406,7 +3524,7 @@
             </td>
 
             <td style="color:var(--laser); font-weight:800; font-size:14px;">
-              ${machine.pants.toLocaleString()}
+              ${machine.pants.toLocaleString('en-US')}
             </td>
 
             <td>${machine.perHour}</td>
@@ -3422,10 +3540,10 @@
             <td class="text-cell">الإجمالي الكلي</td>
             <td>-</td>
             <td>${totalDowntimeAllMachines} د</td>
-            <td>${formatMinsToDuration(totalNetOperatingMinsAllMachines / NUM_MACHINES)}</td>
+            <td>${formatMinsToDuration(totalNetOperatingMinsAllMachines)}</td>
             <td>${efficiencyPercent}%</td>
             <td style="font-weight:800; font-size:14px;">
-              ${totalPantsOverall.toLocaleString()}
+              ${totalPantsOverall.toLocaleString('en-US')}
             </td>
             <td>${totalPerHour}</td>
           </tr>
@@ -3499,16 +3617,16 @@
             tr.innerHTML = `
               <td class="text-cell">
                 <span class="tag-badge laser">
-                  ${client.clientName}
+                  ${escapeHtml(client.clientName)}
                 </span>
               </td>
 
-              <td>${client.washNo}</td>
+              <td>${escapeHtml(client.washNo)}</td>
 
               <td>
                 ${
                   client.pieceCount > 0
-                    ? client.pieceCount.toLocaleString()
+                    ? client.pieceCount.toLocaleString('en-US')
                     : '-'
                 }
               </td>
@@ -3520,7 +3638,7 @@
               <td>${formatMinsToDuration(client.netMins)}</td>
 
               <td style="color:var(--laser); font-weight:800; font-size:14px;">
-                ${client.pants.toLocaleString()}
+                ${client.pants.toLocaleString('en-US')}
               </td>
 
               <td>${client.perHour}</td>
@@ -3536,7 +3654,7 @@
               <td>
                 ${
                   totalClientPiecesSum > 0
-                    ? totalClientPiecesSum.toLocaleString()
+                    ? totalClientPiecesSum.toLocaleString('en-US')
                     : '-'
                 }
               </td>
@@ -3547,7 +3665,7 @@
               <td>${formatMinsToDuration(totalClientNetSum)}</td>
 
               <td style="font-weight:800; font-size:14px; color:var(--laser);">
-                ${totalClientPantsSum.toLocaleString()}
+                ${totalClientPantsSum.toLocaleString('en-US')}
               </td>
 
               <td>
@@ -3621,14 +3739,14 @@
           }
 
           msg += `─────────────────\n`;
-          msg += `👖 *إجمالي الإنتاج:* ${data.totalPants.toLocaleString()} بنطلون\n`;
+          msg += `👖 *إجمالي الإنتاج:* ${data.totalPants.toLocaleString('en-US')} بنطلون\n`;
           msg += `⚡ *معدل الإنتاج:* ${data.perHour} بنطلون/ساعة\n`;
           msg += `🛑 *إجمالي التوقفات:* ${data.totalDown}\n`;
           msg += `─────────────────\n`;
           msg += `🏭 *تفاصيل الماكينات:*\n`;
 
           data.machines.forEach(machine => {
-            msg += `• *ماكينة ${machine.machineNum}:* ${machine.pants.toLocaleString()} بنطلون (توقف: ${machine.downtimeMins} د، كفاءة: ${machine.efficiency}%)\n`;
+            msg += `• *ماكينة ${machine.machineNum}:* ${machine.pants.toLocaleString('en-US')} بنطلون (توقف: ${machine.downtimeMins} د، كفاءة: ${machine.efficiency}%)\n`;
           });
 
           if (data.clients && data.clients.length > 0) {
@@ -3646,7 +3764,7 @@
                   ? ` | مطلوب: ${client.pieceCount}`
                   : '';
 
-              msg += `• *${client.clientName}*${washStr} (ماكينة ${client.machineNum}): ${client.pants.toLocaleString()} بنطلون${qtyStr}\n`;
+              msg += `• *${client.clientName}*${washStr} (ماكينة ${client.machineNum}): ${client.pants.toLocaleString('en-US')} بنطلون${qtyStr}\n`;
               msg += `   └ الفترة: ${client.timeRange} | زمن الجنب: ${client.legSec} | الصافي: ${formatMinsToDuration(client.netMins)} | معدل: ${client.perHour}/س\n`;
             });
           }
@@ -3673,7 +3791,7 @@
           let csv = '\uFEFF';
 
           csv += 'تقرير إنتاج قسم الليزر\n';
-          csv += `التاريخ,${data.dateStr}\n`;
+          csv += `التاريخ,${csvCell(data.dateStr)}\n`;
           csv += `الوردية,${data.shiftName}\n`;
           csv += `إجمالي الإنتاج,${data.totalPants}\n`;
           csv += `معدل الإنتاج بالساعة,${data.perHour}\n`;
@@ -3683,7 +3801,15 @@
           csv += 'الماكينة,زمن الجنب,التوقف,الصافي,الكفاءة,الإنتاج,معدل/س\n';
 
           data.machines.forEach(machine => {
-            csv += `ماكينة ${machine.machineNum},${machine.legSec},${machine.downtimeMins} د,${formatMinsToDuration(machine.netMins)},${machine.efficiency}%,${machine.pants},${machine.perHour}\n`;
+            csv += [
+              `ماكينة ${machine.machineNum}`,
+              machine.legSec,
+              `${machine.downtimeMins} د`,
+              formatMinsToDuration(machine.netMins),
+              `${machine.efficiency}%`,
+              machine.pants,
+              machine.perHour
+            ].map(csvCell).join(',') + '\n';
           });
 
           if (data.clients && data.clients.length > 0) {
@@ -3691,7 +3817,18 @@
             csv += 'العميل,رقم الغسلة,الكمية,الماكينة,الفترة,زمن الجنب,توقف مخصوم,الصافي,البناطيل,معدل/س\n';
 
             data.clients.forEach(client => {
-              csv += `${client.clientName},${client.washNo},${client.pieceCount},ماكينة ${client.machineNum},${client.timeRange},${client.legSec},${client.downMins} د,${formatMinsToDuration(client.netMins)},${client.pants},${client.perHour}\n`;
+              csv += [
+                client.clientName,
+                client.washNo,
+                client.pieceCount,
+                `ماكينة ${client.machineNum}`,
+                client.timeRange,
+                client.legSec,
+                `${client.downMins} د`,
+                formatMinsToDuration(client.netMins),
+                client.pants,
+                client.perHour
+              ].map(csvCell).join(',') + '\n';
             });
           }
 
@@ -3702,7 +3839,7 @@
           const link = document.createElement('a');
 
           link.href = URL.createObjectURL(blob);
-          link.download = `تقرير_إنتاج_${data.dateStr.replace(/\s/g, '_')}.csv`;
+          link.download = `تقرير_إنتاج_${shiftDateInput.value || getLocalISODate()}.csv`;
 
           link.click();
 
@@ -3819,6 +3956,9 @@
 
       function triggerPrint() {
         calculateProduction();
+
+        if (!window._lastCalculation) return;
+
         closePrintPreview();
 
         setTimeout(() => {
@@ -3841,14 +3981,42 @@
         triggerPrint
       );
 
+      let autoSaveTimer = null;
+      let pendingSaveDate = null;
+
+      function flushAutoSave() {
+        if (autoSaveTimer !== null) {
+          clearTimeout(autoSaveTimer);
+          autoSaveTimer = null;
+
+          saveNow(pendingSaveDate);
+          pendingSaveDate = null;
+        }
+      }
+
       function autoSave() {
+        clearTimeout(autoSaveTimer);
+
+        pendingSaveDate =
+          shiftDateInput?.value || getLocalISODate();
+
+        autoSaveTimer = setTimeout(() => {
+          autoSaveTimer = null;
+
+          saveNow(pendingSaveDate);
+          pendingSaveDate = null;
+        }, 250);
+      }
+
+      function saveNow(dateKey) {
         try {
-          const dateKey =
+          const key =
+            dateKey ||
             shiftDateInput?.value ||
-            new Date().toISOString().split('T')[0];
+            getLocalISODate();
 
           const state = {
-            date: dateKey,
+            date: key,
             startTime: startTimeInput.value,
             shiftEndTime: shiftEndTimeInput.value,
             actualEndTime: actualEndTimeInput.value,
@@ -3905,7 +4073,7 @@
             localStorage.getItem(STORAGE_KEY) || '{}'
           );
 
-          allData[dateKey] = state;
+          allData[key] = state;
 
           localStorage.setItem(
             STORAGE_KEY,
@@ -3916,11 +4084,13 @@
         }
       }
 
+      window.addEventListener('pagehide', flushAutoSave);
+
       function loadSavedState() {
         try {
           const dateKey =
             shiftDateInput?.value ||
-            new Date().toISOString().split('T')[0];
+            getLocalISODate();
 
           const allData = JSON.parse(
             localStorage.getItem(STORAGE_KEY) || '{}'
@@ -4098,6 +4268,8 @@
             btn.addEventListener('click', () => {
               const dateKey = btn.dataset.load;
 
+              flushAutoSave();
+
               shiftDateInput.value = dateKey;
 
               renderMachines();
@@ -4153,6 +4325,8 @@
         document.getElementById('importBackupInput');
 
       exportBackupBtn.addEventListener('click', () => {
+        flushAutoSave();
+
         try {
           const allData =
             localStorage.getItem(STORAGE_KEY) || '{}';
@@ -4166,7 +4340,7 @@
           link.href = URL.createObjectURL(blob);
 
           const stamp =
-            new Date().toISOString().split('T')[0];
+            getLocalISODate();
 
           link.download =
             `نسخة_احتياطية_حاسبة_الليزر_${stamp}.json`;
@@ -4225,6 +4399,12 @@
             );
 
             renderHistoryList();
+            renderMachines();
+
+            if (!loadSavedState()) {
+              updateShiftStats();
+              updateAllSummaries();
+            }
 
             showToast(
               'تم استرجاع النسخة الاحتياطية بنجاح',
@@ -4572,7 +4752,7 @@
                 </div>
 
                 <div class="bar-val" style="width:56px;">
-                  ${row.summary.totalPants.toLocaleString()}
+                  ${row.summary.totalPants.toLocaleString('en-US')}
                 </div>
               </div>
             `;
@@ -4605,7 +4785,7 @@
                 <td class="text-cell">${row.date}</td>
                 <td style="font-size:11px;">${row.shiftName}</td>
                 <td style="font-weight:700; color:var(--laser);">
-                  ${row.summary.totalPants.toLocaleString()}
+                  ${row.summary.totalPants.toLocaleString('en-US')}
                 </td>
                 <td>${row.summary.perHour}</td>
               </tr>
@@ -4619,7 +4799,7 @@
                     <td class="text-cell">الإجمالي</td>
                     <td>-</td>
                     <td style="font-weight:800;">
-                      ${totalPantsSum.toLocaleString()}
+                      ${totalPantsSum.toLocaleString('en-US')}
                     </td>
                     <td>-</td>
                   </tr>
@@ -4645,12 +4825,12 @@
 
         if (!summaryToDate.value) {
           summaryToDate.value =
-            today.toISOString().split('T')[0];
+            getLocalISODate(today);
         }
 
         if (!summaryFromDate.value) {
           summaryFromDate.value =
-            weekAgo.toISOString().split('T')[0];
+            getLocalISODate(weekAgo);
         }
 
         renderSummary();
@@ -4691,7 +4871,7 @@
       confirmResetBtn.addEventListener('click', () => {
         const dateKey =
           shiftDateInput?.value ||
-          new Date().toISOString().split('T')[0];
+          getLocalISODate();
 
         const allData = JSON.parse(
           localStorage.getItem(STORAGE_KEY) || '{}'
@@ -4709,7 +4889,7 @@
         renderMachines();
 
         shiftDateInput.value =
-          new Date().toISOString().split('T')[0];
+          getLocalISODate();
 
         startTimeInput.value = '08:00';
         shiftEndTimeInput.value = '18:00';
@@ -4733,7 +4913,7 @@
 
       if (!shiftDateInput.value) {
         shiftDateInput.value =
-          new Date().toISOString().split('T')[0];
+          getLocalISODate();
       }
 
       shiftDateInput.addEventListener('change', () => {
